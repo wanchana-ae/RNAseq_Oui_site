@@ -1,0 +1,80 @@
+==========================================
+  Sample: PN3
+  Start : พฤ. 30 เม.ย. 2569 14:15:28 +07
+==========================================
+
+[Step 1] FastQC
+application/gzip
+application/gzip
+Started analysis of PN3_1.fastq.gz
+Started analysis of PN3_2.fastq.gz
+Approx 5% complete for PN3_1.fastq.gz
+Approx 5% complete for PN3_2.fastq.gz
+Approx 10% complete for PN3_1.fastq.gz
+Approx 10% complete for PN3_2.fastq.gz
+Approx 15% complete for PN3_1.fastq.gz
+Approx 15% complete for PN3_2.fastq.gz
+Approx 20% complete for PN3_2.fastq.gz
+Approx 20% complete for PN3_1.fastq.gz
+Approx 25% complete for PN3_2.fastq.gz
+Approx 25% complete for PN3_1.fastq.gz
+Approx 30% complete for PN3_2.fastq.gz
+Approx 30% complete for PN3_1.fastq.gz
+Approx 35% complete for PN3_2.fastq.gz
+Approx 35% complete for PN3_1.fastq.gz
+Approx 40% complete for PN3_2.fastq.gz
+Approx 40% complete for PN3_1.fastq.gz
+Approx 45% complete for PN3_2.fastq.gz
+Approx 45% complete for PN3_1.fastq.gz
+Approx 50% complete for PN3_2.fastq.gz
+Approx 50% complete for PN3_1.fastq.gz
+Approx 55% complete for PN3_2.fastq.gz
+Approx 55% complete for PN3_1.fastq.gz
+Approx 60% complete for PN3_2.fastq.gz
+Approx 60% complete for PN3_1.fastq.gz
+Approx 65% complete for PN3_2.fastq.gz
+Approx 65% complete for PN3_1.fastq.gz
+Approx 70% complete for PN3_2.fastq.gz
+Approx 75% complete for PN3_2.fastq.gz
+Approx 70% complete for PN3_1.fastq.gz
+Approx 75% complete for PN3_1.fastq.gz
+Approx 80% complete for PN3_2.fastq.gz
+Approx 85% complete for PN3_2.fastq.gz
+Approx 80% complete for PN3_1.fastq.gz
+Approx 90% complete for PN3_2.fastq.gz
+Approx 85% complete for PN3_1.fastq.gz
+Approx 90% complete for PN3_1.fastq.gz
+Approx 95% complete for PN3_2.fastq.gz
+Approx 95% complete for PN3_1.fastq.gz
+Analysis complete for PN3_2.fastq.gz
+Analysis complete for PN3_1.fastq.gz
+[OK] FastQC done
+
+[Step 2] HISAT2 alignment
+18445633 reads; of these:
+  18445633 (100.00%) were paired; of these:
+    4645769 (25.19%) aligned concordantly 0 times
+    12967008 (70.30%) aligned concordantly exactly 1 time
+    832856 (4.52%) aligned concordantly >1 times
+    ----
+    4645769 pairs aligned concordantly 0 times; of these:
+      699112 (15.05%) aligned discordantly 1 time
+    ----
+    3946657 pairs aligned 0 times concordantly or discordantly; of these:
+      7893314 mates make up the pairs; of these:
+        6928404 (87.78%) aligned 0 times
+        897339 (11.37%) aligned exactly 1 time
+        67571 (0.86%) aligned >1 times
+81.22% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PN3.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 2 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PN3.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PN3/PN3.gtf
+
+  Finish: พฤ. 30 เม.ย. 2569 14:27:26 +07
+==========================================

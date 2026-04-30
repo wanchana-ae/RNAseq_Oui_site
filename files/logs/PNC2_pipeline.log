@@ -1,0 +1,80 @@
+==========================================
+  Sample: PNC2
+  Start : พฤ. 30 เม.ย. 2569 14:46:23 +07
+==========================================
+
+[Step 1] FastQC
+application/gzip
+application/gzip
+Started analysis of PNC2_1.fastq.gz
+Started analysis of PNC2_2.fastq.gz
+Approx 5% complete for PNC2_1.fastq.gz
+Approx 5% complete for PNC2_2.fastq.gz
+Approx 10% complete for PNC2_2.fastq.gz
+Approx 10% complete for PNC2_1.fastq.gz
+Approx 15% complete for PNC2_1.fastq.gz
+Approx 15% complete for PNC2_2.fastq.gz
+Approx 20% complete for PNC2_1.fastq.gz
+Approx 20% complete for PNC2_2.fastq.gz
+Approx 25% complete for PNC2_2.fastq.gz
+Approx 25% complete for PNC2_1.fastq.gz
+Approx 30% complete for PNC2_2.fastq.gz
+Approx 30% complete for PNC2_1.fastq.gz
+Approx 35% complete for PNC2_2.fastq.gz
+Approx 35% complete for PNC2_1.fastq.gz
+Approx 40% complete for PNC2_2.fastq.gz
+Approx 40% complete for PNC2_1.fastq.gz
+Approx 45% complete for PNC2_2.fastq.gz
+Approx 45% complete for PNC2_1.fastq.gz
+Approx 50% complete for PNC2_2.fastq.gz
+Approx 50% complete for PNC2_1.fastq.gz
+Approx 55% complete for PNC2_2.fastq.gz
+Approx 55% complete for PNC2_1.fastq.gz
+Approx 60% complete for PNC2_2.fastq.gz
+Approx 65% complete for PNC2_2.fastq.gz
+Approx 60% complete for PNC2_1.fastq.gz
+Approx 70% complete for PNC2_2.fastq.gz
+Approx 65% complete for PNC2_1.fastq.gz
+Approx 70% complete for PNC2_1.fastq.gz
+Approx 75% complete for PNC2_2.fastq.gz
+Approx 75% complete for PNC2_1.fastq.gz
+Approx 80% complete for PNC2_2.fastq.gz
+Approx 80% complete for PNC2_1.fastq.gz
+Approx 85% complete for PNC2_2.fastq.gz
+Approx 85% complete for PNC2_1.fastq.gz
+Approx 90% complete for PNC2_2.fastq.gz
+Approx 90% complete for PNC2_1.fastq.gz
+Approx 95% complete for PNC2_2.fastq.gz
+Approx 95% complete for PNC2_1.fastq.gz
+Analysis complete for PNC2_2.fastq.gz
+Analysis complete for PNC2_1.fastq.gz
+[OK] FastQC done
+
+[Step 2] HISAT2 alignment
+23473266 reads; of these:
+  23473266 (100.00%) were paired; of these:
+    5993333 (25.53%) aligned concordantly 0 times
+    16607624 (70.75%) aligned concordantly exactly 1 time
+    872309 (3.72%) aligned concordantly >1 times
+    ----
+    5993333 pairs aligned concordantly 0 times; of these:
+      984027 (16.42%) aligned discordantly 1 time
+    ----
+    5009306 pairs aligned 0 times concordantly or discordantly; of these:
+      10018612 mates make up the pairs; of these:
+        8656457 (86.40%) aligned 0 times
+        1272278 (12.70%) aligned exactly 1 time
+        89877 (0.90%) aligned >1 times
+81.56% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PNC2.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 3 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PNC2.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PNC2/PNC2.gtf
+
+  Finish: พฤ. 30 เม.ย. 2569 15:06:12 +07
+==========================================

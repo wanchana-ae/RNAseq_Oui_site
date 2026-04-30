@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Setup (2026-04-30) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:980px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+#main table{border-collapse:collapse;width:100%;margin:16px 0;
+  font-size:.9em;border-radius:8px;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#main th{background:var(--sidebar-bg);color:#e2e8f0;padding:10px 14px;
+  text-align:left;font-weight:600;font-size:.85em}
+#main td{padding:9px 14px;border-bottom:1px solid var(--border)}
+#main tr:last-child td{border-bottom:none}
+#main tr:nth-child(even) td{background:#f8fafc}
+#main tr:hover td{background:#f0f9ff}
+
+#main code{background:var(--code-bg);padding:2px 6px;border-radius:4px;
+  font-size:.88em;font-family:'Cascadia Code','Fira Code',monospace;color:#be185d}
+#main pre{background:#1e293b;border-radius:8px;padding:18px;
+  overflow-x:auto;margin:16px 0}
+#main pre code{background:none;color:#e2e8f0;padding:0;
+  font-size:.85em;line-height:1.6}
+.highlight{background:#1e293b!important;border-radius:8px;
+  padding:18px!important;margin:16px 0;overflow-x:auto}
+.highlight pre{background:none;padding:0;margin:0;border-radius:0}
+.highlight code{background:none;color:#e2e8f0;padding:0;font-size:.85em}
+
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:3px 10px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+.badge-wip{background:#fef9c3;color:#713f12}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav><div class="section-label">Project</div><a href="index.html" class="">Project Overview</a><div class="section-label">Daily Logs</div><a href="2026-04-30-setup.html" class="active">2026-04-30  Setup</a><a href="2026-05-01-qc.html" class="">2026-05-01  FastQC QC</a><a href="2026-05-01-hisat2.html" class="">2026-05-01  HISAT2 Mapping</a><a href="2026-05-01-prepde.html" class="">2026-05-01  prepDE</a><a href="2026-05-01-deseq2.html" class="">2026-05-01  DESeq2</a></nav>
+</div>
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>·</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>·</span><span>13 samples</span>
+    
+  </div>
+  <h1 id="rnaseq-oui-project-setup">🧬 RNAseq Oui: Project Setup</h1>
+<p><strong>Project:</strong> <a href="index.html">RNAseq_Oui</a><br />
+<strong>Status:</strong> Done</p>
+<hr />
+<h2 id="directory-structure">📁 Directory Structure</h2>
+<p>สร้าง directory สำหรับเก็บไฟล์ทั้งหมดของโปรเจกต์บน HPC</p>
+<div class="highlight"><pre><span></span><code><span class="nv">work_dir</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/&quot;</span>
+
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>FastQC
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>Mapping
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>Transcript
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>logs
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>scripts
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>ใช้เก็บ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FastQC/</code></td>
+<td>FastQC reports แยกตาม sample</td>
+</tr>
+<tr>
+<td><code>Mapping/</code></td>
+<td>BAM files จาก HISAT2</td>
+</tr>
+<tr>
+<td><code>Transcript/</code></td>
+<td>GTF files จาก StringTie</td>
+</tr>
+<tr>
+<td><code>logs/</code></td>
+<td>Log file แยกทีละ sample</td>
+</tr>
+<tr>
+<td><code>scripts/</code></td>
+<td>Pipeline scripts ทั้งหมด</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="samples-13-samples-paired-end">🗂️ Samples (13 samples, Paired-end)</h2>
+<p>สร้างไฟล์ <code>sample_list.txt</code> สำหรับให้ pipeline loop อ่าน</p>
+<div class="highlight"><pre><span></span><code>DC1  DC2  DC3
+DN1  DN2  DN3
+PC1  PC2  PC3  PC4
+PN3
+PNC1  PNC2
+</code></pre></div>
+
+<p><strong>Raw data path:</strong><br />
+<code>/fs4/Mining_data/Method/RNAseq/Oui/20260428_HN00271762_TRR_Report/rawdata/</code></p>
+<p><strong>Naming convention:</strong> <code>&lt;SAMPLE&gt;_1.fastq.gz</code> / <code>&lt;SAMPLE&gt;_2.fastq.gz</code></p>
+<hr />
+<h2 id="pipeline-scripts">💻 Pipeline Scripts</h2>
+<h3 id="01_setup_projectsh-directories"><code>01_setup_project.sh</code> — สร้าง directories</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">work_dir</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/&quot;</span>
+
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>FastQC
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>Mapping
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>Transcript
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>logs
+mkdir -p <span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span>scripts
+</code></pre></div>
+
+<hr />
+<h3 id="02_run_pipeline_all_samplessh-full-pipeline-loop-sample"><code>02_run_pipeline_all_samples.sh</code> — Full pipeline (loop ทุก sample)</h3>
+<p>Pipeline หลักที่รัน FastQC → HISAT2 → SAMtools → StringTie ครบในสคริปต์เดียว</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+ml load FastQC
+ml load hisat2
+ml load samtools
+ml load stringtie
+
+<span class="nv">raw_dir</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/20260428_HN00271762_TRR_Report/rawdata/&quot;</span>
+<span class="nv">work_dir</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/&quot;</span>
+<span class="nv">ref_index</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/Reference/IRGSP-1.0_genome&quot;</span>
+<span class="nv">gtf</span><span class="o">=</span><span class="s2">&quot;/fs4/Mining_data/Method/RNAseq/Oui/Reference/IRGSP-1.0_representative_transcript_exon_2026-02-05.gtf&quot;</span>
+<span class="nv">sample_list</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">scripts/sample_list.txt&quot;</span>
+
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r SAMPLE <span class="o">||</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span>&gt; -n <span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">&quot;</span> &lt;/a&gt;<span class="p">;</span> <span class="k">do</span>
+    &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span>&gt;<span class="p">|</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">=</span>~ ^# &lt;/a&gt; <span class="o">&amp;&amp;</span> <span class="k">continue</span>
+
+    <span class="nv">LOG</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">logs/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">_pipeline.log&quot;</span>
+    <span class="nv">R1</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">raw_dir</span><span class="si">}${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">_1.fastq.gz&quot;</span>
+    <span class="nv">R2</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">raw_dir</span><span class="si">}${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">_2.fastq.gz&quot;</span>
+
+    <span class="c1"># Step 1: FastQC</span>
+    mkdir -p <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">FastQC/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">&quot;</span>
+    fastqc -o <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">FastQC/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">&quot;</span> --threads <span class="m">8</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">R1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">R2</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Step 2: HISAT2</span>
+    hisat2 -p <span class="m">32</span> --dta -x <span class="s2">&quot;</span><span class="si">${</span><span class="nv">ref_index</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+        -1 <span class="s2">&quot;</span><span class="si">${</span><span class="nv">R1</span><span class="si">}</span><span class="s2">&quot;</span> -2 <span class="s2">&quot;</span><span class="si">${</span><span class="nv">R2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+        -S <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Mapping/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.sam&quot;</span>
+
+    <span class="c1"># Step 3: SAMtools sort</span>
+    samtools sort -@ <span class="m">8</span> -o <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Mapping/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.bam&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Mapping/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.sam&quot;</span>
+    rm -f <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Mapping/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.sam&quot;</span>
+
+    <span class="c1"># Step 4: StringTie</span>
+    mkdir -p <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Transcript/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">&quot;</span>
+    stringtie -e -B -p <span class="m">32</span> -G <span class="s2">&quot;</span><span class="si">${</span><span class="nv">gtf</span><span class="si">}</span><span class="s2">&quot;</span> <span class="se">\</span>
+        -o <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Transcript/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.gtf&quot;</span> <span class="se">\</span>
+        <span class="s2">&quot;</span><span class="si">${</span><span class="nv">work_dir</span><span class="si">}</span><span class="s2">Mapping/</span><span class="si">${</span><span class="nv">SAMPLE</span><span class="si">}</span><span class="s2">.bam&quot;</span>
+
+<span class="k">done</span> &lt; <span class="s2">&quot;</span><span class="si">${</span><span class="nv">sample_list</span><span class="si">}</span><span class="s2">&quot;</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee -a <span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOG</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p><strong>Features:</strong><br />
+- รัน samples ทั้งหมดอัตโนมัติจาก <code>sample_list.txt</code><br />
+- บันทึก log แยกทีละ sample ที่ <code>logs/&lt;SAMPLE&gt;_pipeline.log</code><br />
+- ใช้ <code>--resume</code> flag เพื่อข้าม sample ที่มี BAM อยู่แล้ว<br />
+- แสดง pass/fail summary เมื่อรันครบทุก sample</p>
+<hr />
+<h2 id="reference">🔬 Reference</h2>
+<table>
+<thead>
+<tr>
+<th>ไฟล์</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Genome FASTA</td>
+<td><code>/fs4/Mining_data/Method/RNAseq/Oui/Reference/IRGSP-1.0_genome.fasta</code></td>
+</tr>
+<tr>
+<td>HISAT2 Index</td>
+<td><code>/fs4/Mining_data/Method/RNAseq/Oui/Reference/IRGSP-1.0_genome</code></td>
+</tr>
+<tr>
+<td>GTF</td>
+<td><code>/fs4/Mining_data/Method/RNAseq/Oui/Reference/IRGSP-1.0_representative_transcript_exon_2026-02-05.gtf</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="next-steps">🔜 Next Steps</h2>
+<ul>
+<li>รัน FastQC ตรวจสอบคุณภาพ raw reads ทุก sample <a href="2026-05-01-qc.html">2026-05-01-RNAseq-Oui-QC-Results</a></li>
+</ul>
+  <footer>RNAseq Oui Lab Notebook · Wanchana 2026</footer>
+</div>
+</body>
+</html>

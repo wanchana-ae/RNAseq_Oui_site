@@ -1,0 +1,80 @@
+==========================================
+  Sample: DC3
+  Start : พฤ. 30 เม.ย. 2569 11:35:30 +07
+==========================================
+
+[Step 1] FastQC
+application/gzip
+application/gzip
+Started analysis of DC3_1.fastq.gz
+Started analysis of DC3_2.fastq.gz
+Approx 5% complete for DC3_1.fastq.gz
+Approx 5% complete for DC3_2.fastq.gz
+Approx 10% complete for DC3_2.fastq.gz
+Approx 10% complete for DC3_1.fastq.gz
+Approx 15% complete for DC3_2.fastq.gz
+Approx 15% complete for DC3_1.fastq.gz
+Approx 20% complete for DC3_2.fastq.gz
+Approx 20% complete for DC3_1.fastq.gz
+Approx 25% complete for DC3_2.fastq.gz
+Approx 25% complete for DC3_1.fastq.gz
+Approx 30% complete for DC3_2.fastq.gz
+Approx 30% complete for DC3_1.fastq.gz
+Approx 35% complete for DC3_2.fastq.gz
+Approx 35% complete for DC3_1.fastq.gz
+Approx 40% complete for DC3_2.fastq.gz
+Approx 40% complete for DC3_1.fastq.gz
+Approx 45% complete for DC3_2.fastq.gz
+Approx 45% complete for DC3_1.fastq.gz
+Approx 50% complete for DC3_2.fastq.gz
+Approx 50% complete for DC3_1.fastq.gz
+Approx 55% complete for DC3_2.fastq.gz
+Approx 55% complete for DC3_1.fastq.gz
+Approx 60% complete for DC3_2.fastq.gz
+Approx 60% complete for DC3_1.fastq.gz
+Approx 65% complete for DC3_2.fastq.gz
+Approx 65% complete for DC3_1.fastq.gz
+Approx 70% complete for DC3_2.fastq.gz
+Approx 70% complete for DC3_1.fastq.gz
+Approx 75% complete for DC3_2.fastq.gz
+Approx 75% complete for DC3_1.fastq.gz
+Approx 80% complete for DC3_2.fastq.gz
+Approx 80% complete for DC3_1.fastq.gz
+Approx 85% complete for DC3_2.fastq.gz
+Approx 85% complete for DC3_1.fastq.gz
+Approx 90% complete for DC3_2.fastq.gz
+Approx 90% complete for DC3_1.fastq.gz
+Approx 95% complete for DC3_2.fastq.gz
+Approx 95% complete for DC3_1.fastq.gz
+Analysis complete for DC3_2.fastq.gz
+Analysis complete for DC3_1.fastq.gz
+[OK] FastQC done
+
+[Step 2] HISAT2 alignment
+17814144 reads; of these:
+  17814144 (100.00%) were paired; of these:
+    4551274 (25.55%) aligned concordantly 0 times
+    12381192 (69.50%) aligned concordantly exactly 1 time
+    881678 (4.95%) aligned concordantly >1 times
+    ----
+    4551274 pairs aligned concordantly 0 times; of these:
+      625288 (13.74%) aligned discordantly 1 time
+    ----
+    3925986 pairs aligned 0 times concordantly or discordantly; of these:
+      7851972 mates make up the pairs; of these:
+        6888088 (87.72%) aligned 0 times
+        889152 (11.32%) aligned exactly 1 time
+        74732 (0.95%) aligned >1 times
+80.67% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DC3.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 2 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DC3.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/DC3/DC3.gtf
+
+  Finish: พฤ. 30 เม.ย. 2569 11:46:18 +07
+==========================================

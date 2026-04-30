@@ -1,0 +1,53 @@
+--- Summary for:  PTT1_Comp_vs_Ctrl  ---
+
+Full Results:
+
+out of 29894 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 5129, 17%
+LFC < 0 (down)     : 4810, 16%
+outliers [1]       : 192, 0.64%
+low counts [2]     : 2311, 7.7%
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Significant (padj < 0.01):
+
+out of 9939 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 5129, 52%
+LFC < 0 (down)     : 4810, 48%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Up-regulated:
+
+out of 5129 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 5129, 100%
+LFC < 0 (down)     : 0, 0%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Down-regulated:
+
+out of 4810 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 0, 0%
+LFC < 0 (down)     : 4810, 100%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+

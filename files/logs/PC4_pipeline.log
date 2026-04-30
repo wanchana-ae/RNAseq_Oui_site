@@ -1,0 +1,80 @@
+==========================================
+  Sample: PC4
+  Start : พฤ. 30 เม.ย. 2569 13:59:13 +07
+==========================================
+
+[Step 1] FastQC
+application/gzip
+application/gzip
+Started analysis of PC4_1.fastq.gz
+Started analysis of PC4_2.fastq.gz
+Approx 5% complete for PC4_2.fastq.gz
+Approx 5% complete for PC4_1.fastq.gz
+Approx 10% complete for PC4_2.fastq.gz
+Approx 10% complete for PC4_1.fastq.gz
+Approx 15% complete for PC4_2.fastq.gz
+Approx 15% complete for PC4_1.fastq.gz
+Approx 20% complete for PC4_1.fastq.gz
+Approx 20% complete for PC4_2.fastq.gz
+Approx 25% complete for PC4_2.fastq.gz
+Approx 25% complete for PC4_1.fastq.gz
+Approx 30% complete for PC4_2.fastq.gz
+Approx 30% complete for PC4_1.fastq.gz
+Approx 35% complete for PC4_1.fastq.gz
+Approx 35% complete for PC4_2.fastq.gz
+Approx 40% complete for PC4_1.fastq.gz
+Approx 40% complete for PC4_2.fastq.gz
+Approx 45% complete for PC4_1.fastq.gz
+Approx 45% complete for PC4_2.fastq.gz
+Approx 50% complete for PC4_1.fastq.gz
+Approx 50% complete for PC4_2.fastq.gz
+Approx 55% complete for PC4_1.fastq.gz
+Approx 55% complete for PC4_2.fastq.gz
+Approx 60% complete for PC4_1.fastq.gz
+Approx 60% complete for PC4_2.fastq.gz
+Approx 65% complete for PC4_1.fastq.gz
+Approx 65% complete for PC4_2.fastq.gz
+Approx 70% complete for PC4_1.fastq.gz
+Approx 75% complete for PC4_1.fastq.gz
+Approx 70% complete for PC4_2.fastq.gz
+Approx 80% complete for PC4_1.fastq.gz
+Approx 75% complete for PC4_2.fastq.gz
+Approx 85% complete for PC4_1.fastq.gz
+Approx 80% complete for PC4_2.fastq.gz
+Approx 90% complete for PC4_1.fastq.gz
+Approx 85% complete for PC4_2.fastq.gz
+Approx 95% complete for PC4_1.fastq.gz
+Approx 90% complete for PC4_2.fastq.gz
+Analysis complete for PC4_1.fastq.gz
+Approx 95% complete for PC4_2.fastq.gz
+Analysis complete for PC4_2.fastq.gz
+[OK] FastQC done
+
+[Step 2] HISAT2 alignment
+26784883 reads; of these:
+  26784883 (100.00%) were paired; of these:
+    6271737 (23.42%) aligned concordantly 0 times
+    19832044 (74.04%) aligned concordantly exactly 1 time
+    681102 (2.54%) aligned concordantly >1 times
+    ----
+    6271737 pairs aligned concordantly 0 times; of these:
+      984897 (15.70%) aligned discordantly 1 time
+    ----
+    5286840 pairs aligned 0 times concordantly or discordantly; of these:
+      10573680 mates make up the pairs; of these:
+        8987100 (85.00%) aligned 0 times
+        1513471 (14.31%) aligned exactly 1 time
+        73109 (0.69%) aligned >1 times
+83.22% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PC4.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 3 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PC4.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PC4/PC4.gtf
+
+  Finish: พฤ. 30 เม.ย. 2569 14:15:28 +07
+==========================================

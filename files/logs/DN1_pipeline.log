@@ -1,0 +1,80 @@
+==========================================
+  Sample: DN1
+  Start : พฤ. 30 เม.ย. 2569 11:46:18 +07
+==========================================
+
+[Step 1] FastQC
+application/gzip
+application/gzip
+Started analysis of DN1_1.fastq.gz
+Started analysis of DN1_2.fastq.gz
+Approx 5% complete for DN1_1.fastq.gz
+Approx 5% complete for DN1_2.fastq.gz
+Approx 10% complete for DN1_1.fastq.gz
+Approx 10% complete for DN1_2.fastq.gz
+Approx 15% complete for DN1_1.fastq.gz
+Approx 15% complete for DN1_2.fastq.gz
+Approx 20% complete for DN1_1.fastq.gz
+Approx 20% complete for DN1_2.fastq.gz
+Approx 25% complete for DN1_1.fastq.gz
+Approx 25% complete for DN1_2.fastq.gz
+Approx 30% complete for DN1_1.fastq.gz
+Approx 30% complete for DN1_2.fastq.gz
+Approx 35% complete for DN1_1.fastq.gz
+Approx 35% complete for DN1_2.fastq.gz
+Approx 40% complete for DN1_1.fastq.gz
+Approx 40% complete for DN1_2.fastq.gz
+Approx 45% complete for DN1_1.fastq.gz
+Approx 45% complete for DN1_2.fastq.gz
+Approx 50% complete for DN1_1.fastq.gz
+Approx 50% complete for DN1_2.fastq.gz
+Approx 55% complete for DN1_1.fastq.gz
+Approx 55% complete for DN1_2.fastq.gz
+Approx 60% complete for DN1_1.fastq.gz
+Approx 60% complete for DN1_2.fastq.gz
+Approx 65% complete for DN1_1.fastq.gz
+Approx 65% complete for DN1_2.fastq.gz
+Approx 70% complete for DN1_1.fastq.gz
+Approx 70% complete for DN1_2.fastq.gz
+Approx 75% complete for DN1_1.fastq.gz
+Approx 75% complete for DN1_2.fastq.gz
+Approx 80% complete for DN1_1.fastq.gz
+Approx 80% complete for DN1_2.fastq.gz
+Approx 85% complete for DN1_1.fastq.gz
+Approx 85% complete for DN1_2.fastq.gz
+Approx 90% complete for DN1_1.fastq.gz
+Approx 90% complete for DN1_2.fastq.gz
+Approx 95% complete for DN1_1.fastq.gz
+Approx 95% complete for DN1_2.fastq.gz
+Analysis complete for DN1_1.fastq.gz
+Analysis complete for DN1_2.fastq.gz
+[OK] FastQC done
+
+[Step 2] HISAT2 alignment
+27488354 reads; of these:
+  27488354 (100.00%) were paired; of these:
+    5416683 (19.71%) aligned concordantly 0 times
+    16128551 (58.67%) aligned concordantly exactly 1 time
+    5943120 (21.62%) aligned concordantly >1 times
+    ----
+    5416683 pairs aligned concordantly 0 times; of these:
+      678123 (12.52%) aligned discordantly 1 time
+    ----
+    4738560 pairs aligned 0 times concordantly or discordantly; of these:
+      9477120 mates make up the pairs; of these:
+        8068843 (85.14%) aligned 0 times
+        1128979 (11.91%) aligned exactly 1 time
+        279298 (2.95%) aligned >1 times
+85.32% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DN1.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 6 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DN1.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/DN1/DN1.gtf
+
+  Finish: พฤ. 30 เม.ย. 2569 12:36:09 +07
+==========================================
