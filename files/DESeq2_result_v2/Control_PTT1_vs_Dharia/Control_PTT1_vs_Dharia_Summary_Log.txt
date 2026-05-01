@@ -1,0 +1,53 @@
+--- Summary for:  Control_PTT1_vs_Dharia  ---
+
+Full Results:
+
+out of 29753 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 2533, 8.5%
+LFC < 0 (down)     : 2324, 7.8%
+outliers [1]       : 55, 0.18%
+low counts [2]     : 1731, 5.8%
+(mean count < 3)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Significant (padj < 0.01):
+
+out of 4857 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 2533, 52%
+LFC < 0 (down)     : 2324, 48%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 3)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Up-regulated:
+
+out of 2533 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 2533, 100%
+LFC < 0 (down)     : 0, 0%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 3)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Down-regulated:
+
+out of 2324 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 0, 0%
+LFC < 0 (down)     : 2324, 100%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 3)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
