@@ -1,0 +1,33 @@
+==========================================
+  Sample: DC3
+  Start : ศ.  8 พ.ค. 2569 12:23:06 +07
+==========================================
+
+[Step 2] HISAT2 alignment
+17605573 reads; of these:
+  17605573 (100.00%) were paired; of these:
+    1427366 (8.11%) aligned concordantly 0 times
+    15100643 (85.77%) aligned concordantly exactly 1 time
+    1077564 (6.12%) aligned concordantly >1 times
+    ----
+    1427366 pairs aligned concordantly 0 times; of these:
+      47626 (3.34%) aligned discordantly 1 time
+    ----
+    1379740 pairs aligned 0 times concordantly or discordantly; of these:
+      2759480 mates make up the pairs; of these:
+        2096518 (75.98%) aligned 0 times
+        595713 (21.59%) aligned exactly 1 time
+        67249 (2.44%) aligned >1 times
+94.05% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DC3.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 2 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DC3.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/DC3/DC3.gtf
+
+  Finish: ศ.  8 พ.ค. 2569 12:31:59 +07
+==========================================

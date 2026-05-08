@@ -1,0 +1,33 @@
+==========================================
+  Sample: PNC2
+  Start : ศ.  8 พ.ค. 2569 15:29:06 +07
+==========================================
+
+[Step 2] HISAT2 alignment
+23242591 reads; of these:
+  23242591 (100.00%) were paired; of these:
+    1895846 (8.16%) aligned concordantly 0 times
+    20301966 (87.35%) aligned concordantly exactly 1 time
+    1044779 (4.50%) aligned concordantly >1 times
+    ----
+    1895846 pairs aligned concordantly 0 times; of these:
+      215043 (11.34%) aligned discordantly 1 time
+    ----
+    1680803 pairs aligned 0 times concordantly or discordantly; of these:
+      3361606 mates make up the pairs; of these:
+        2417825 (71.92%) aligned 0 times
+        873086 (25.97%) aligned exactly 1 time
+        70695 (2.10%) aligned >1 times
+94.80% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PNC2.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 3 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PNC2.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PNC2/PNC2.gtf
+
+  Finish: ศ.  8 พ.ค. 2569 15:42:09 +07
+==========================================

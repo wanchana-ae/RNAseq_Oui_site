@@ -1,0 +1,51 @@
+Detecting adapter sequence for read1...
+>Illumina TruSeq Adapter Read 1
+AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+
+Detecting adapter sequence for read2...
+>Illumina TruSeq Adapter Read 2
+AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+Read1 before filtering:
+total reads: 23389844
+total bases: 3531866444
+Q20 bases: 3504999352(99.2393%)
+Q30 bases: 3413626908(96.6522%)
+
+Read2 before filtering:
+total reads: 23389844
+total bases: 3531866444
+Q20 bases: 3488886311(98.7831%)
+Q30 bases: 3375492070(95.5725%)
+
+Read1 after filtering:
+total reads: 23189779
+total bases: 3422636627
+Q20 bases: 3404818828(99.4794%)
+Q30 bases: 3324290658(97.1266%)
+
+Read2 after filtering:
+total reads: 23189779
+total bases: 3423942773
+Q20 bases: 3398136662(99.2463%)
+Q30 bases: 3301922753(96.4363%)
+
+Filtering result:
+reads passed filter: 46379558
+reads failed due to low quality: 353006
+reads failed due to too many N: 2766
+reads failed due to too short: 44358
+reads with adapter trimmed: 7231313
+bases trimmed due to adapters: 158527598
+reads corrected by overlap analysis: 1162321
+bases corrected by overlap analysis: 2014357
+
+Duplication rate: 33.5962%
+
+Insert size peak (evaluated by paired-end reads): 179
+
+JSON report: /fs4/Mining_data/Method/RNAseq/Oui/logs/fastp/PC3_fastp.json
+HTML report: /fs4/Mining_data/Method/RNAseq/Oui/logs/fastp/PC3_fastp.html
+
+fastp --in1 /fs4/Mining_data/Method/RNAseq/Oui/20260428_HN00271762_TRR_Report/rawdata/PC3_1.fastq.gz --in2 /fs4/Mining_data/Method/RNAseq/Oui/20260428_HN00271762_TRR_Report/rawdata/PC3_2.fastq.gz --out1 /fs4/Mining_data/Method/RNAseq/Oui/Trimmed/PC3_1.trimmed.fastq.gz --out2 /fs4/Mining_data/Method/RNAseq/Oui/Trimmed/PC3_2.trimmed.fastq.gz --json /fs4/Mining_data/Method/RNAseq/Oui/logs/fastp/PC3_fastp.json --html /fs4/Mining_data/Method/RNAseq/Oui/logs/fastp/PC3_fastp.html --thread 8 --qualified_quality_phred 20 --length_required 36 --detect_adapter_for_pe --correction --overrepresentation_analysis 
+fastp v0.23.2, time used: 155 seconds

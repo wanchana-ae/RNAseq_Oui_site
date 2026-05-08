@@ -1,0 +1,33 @@
+==========================================
+  Sample: PN3
+  Start : ศ.  8 พ.ค. 2569 15:00:27 +07
+==========================================
+
+[Step 2] HISAT2 alignment
+18269906 reads; of these:
+  18269906 (100.00%) were paired; of these:
+    1327568 (7.27%) aligned concordantly 0 times
+    15931025 (87.20%) aligned concordantly exactly 1 time
+    1011313 (5.54%) aligned concordantly >1 times
+    ----
+    1327568 pairs aligned concordantly 0 times; of these:
+      77079 (5.81%) aligned discordantly 1 time
+    ----
+    1250489 pairs aligned 0 times concordantly or discordantly; of these:
+      2500978 mates make up the pairs; of these:
+        1873851 (74.92%) aligned 0 times
+        575395 (23.01%) aligned exactly 1 time
+        51732 (2.07%) aligned >1 times
+94.87% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PN3.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 2 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PN3.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PN3/PN3.gtf
+
+  Finish: ศ.  8 พ.ค. 2569 15:09:34 +07
+==========================================

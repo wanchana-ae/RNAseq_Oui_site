@@ -1,0 +1,53 @@
+--- Summary for:  Dharia_Comp_vs_Ctrl  ---
+
+Full Results:
+
+out of 29909 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 713, 2.4%
+LFC < 0 (down)     : 178, 0.6%
+outliers [1]       : 54, 0.18%
+low counts [2]     : 4623, 15%
+(mean count < 19)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Significant (padj < 0.01):
+
+out of 891 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 713, 80%
+LFC < 0 (down)     : 178, 20%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 19)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Up-regulated:
+
+out of 713 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 713, 100%
+LFC < 0 (down)     : 0, 0%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 19)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Down-regulated:
+
+out of 178 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 0, 0%
+LFC < 0 (down)     : 178, 100%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 19)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+

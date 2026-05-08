@@ -12,62 +12,83 @@ import markdown
 from pathlib import Path
 
 # -- Paths ---------------------------------------------------------------------
-# Script lives at: <workspace>/03 Daily Logs/RNAseq_Oui/File/generate_site.py
-# BASE = 4 levels up = workspace root
-BASE      = Path(__file__).resolve().parent.parent.parent.parent
-OUT_DIR   = Path("/sessions/epic-magical-fermat/mnt/outputs/RNAseq_Oui_site")
-FILES_SRC = BASE / "03 Daily Logs/RNAseq_Oui/File"
+# Script lives at: <workspace>/01 Projects/RNAseq_Oui/Daily_Logs/File/generate_site.py
+# BASE = 5 levels up = workspace root
+BASE      = Path(__file__).resolve().parent.parent.parent.parent.parent
+OUT_DIR   = BASE / "RNAseq_Oui_site"
+FILES_SRC = BASE / "01 Projects/RNAseq_Oui/Daily_Logs/File"
 FILES_DST = OUT_DIR / "files"
 
 PAGES = [
     {
         "id":    "index",
         "title": "RNAseq Oui - Project Overview",
-        "src":   BASE / "01 Projects/RNAseq_Oui.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/RNAseq_Oui.md",
         "out":   "index.html",
         "nav":   "Project Overview",
     },
     {
         "id":    "setup",
         "title": "Setup (2026-04-30)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-04-30-RNAseq-Oui-Setup.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-04-30-RNAseq-Oui-Setup.md",
         "out":   "2026-04-30-setup.html",
         "nav":   "2026-04-30  Setup",
     },
     {
         "id":    "qc",
         "title": "FastQC Results (2026-05-01)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-05-01-RNAseq-Oui-QC-Results.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-01-RNAseq-Oui-QC-Results.md",
         "out":   "2026-05-01-qc.html",
         "nav":   "2026-05-01  FastQC QC",
     },
     {
         "id":    "hisat2",
         "title": "HISAT2 Mapping (2026-05-01)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-05-01-RNAseq-Oui-HISAT2-Mapping.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-01-RNAseq-Oui-HISAT2-Mapping.md",
         "out":   "2026-05-01-hisat2.html",
         "nav":   "2026-05-01  HISAT2 Mapping",
     },
     {
         "id":    "prepde",
         "title": "prepDE Count Matrix (2026-05-01)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-05-01-RNAseq-Oui-prepDE.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-01-RNAseq-Oui-prepDE.md",
         "out":   "2026-05-01-prepde.html",
         "nav":   "2026-05-01  prepDE",
     },
     {
         "id":    "deseq2",
         "title": "DESeq2 Analysis (2026-05-01)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-05-01-RNAseq-Oui-DESeq2.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-01-RNAseq-Oui-DESeq2.md",
         "out":   "2026-05-01-deseq2.html",
         "nav":   "2026-05-01  DESeq2 v1",
     },
     {
         "id":    "deseq2v2",
         "title": "DESeq2 Analysis v2 — ตัด DC3/DN3 (2026-05-01)",
-        "src":   BASE / "03 Daily Logs/RNAseq_Oui/2026-05-01-RNAseq-Oui-DESeq2-v2.md",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-01-RNAseq-Oui-DESeq2-v2.md",
         "out":   "2026-05-01-deseq2-v2.html",
         "nav":   "2026-05-01  DESeq2 v2 (11 samples)",
+    },
+    {
+        "id":    "fastp",
+        "title": "fastp Trimming (2026-05-08)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-08-RNAseq-Oui-Fastp.md",
+        "out":   "2026-05-08-fastp.html",
+        "nav":   "2026-05-08  fastp Trimming",
+    },
+    {
+        "id":    "hisat2v2",
+        "title": "HISAT2 Mapping v2 (2026-05-08)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-08-RNAseq-Oui-HISAT2-v2.md",
+        "out":   "2026-05-08-hisat2-v2.html",
+        "nav":   "2026-05-08  HISAT2 v2 (trimmed)",
+    },
+    {
+        "id":    "deseq2v3",
+        "title": "DESeq2 Analysis v3 — Final (2026-05-08)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-08-RNAseq-Oui-DESeq2-v3.md",
+        "out":   "2026-05-08-deseq2-v3.html",
+        "nav":   "2026-05-08  DESeq2 v3 Final ✓",
     },
 ]
 

@@ -1,0 +1,33 @@
+==========================================
+  Sample: PC3
+  Start : ศ.  8 พ.ค. 2569 14:32:26 +07
+==========================================
+
+[Step 2] HISAT2 alignment
+23189779 reads; of these:
+  23189779 (100.00%) were paired; of these:
+    2312630 (9.97%) aligned concordantly 0 times
+    20189426 (87.06%) aligned concordantly exactly 1 time
+    687723 (2.97%) aligned concordantly >1 times
+    ----
+    2312630 pairs aligned concordantly 0 times; of these:
+      283053 (12.24%) aligned discordantly 1 time
+    ----
+    2029577 pairs aligned 0 times concordantly or discordantly; of these:
+      4059154 mates make up the pairs; of these:
+        2904523 (71.55%) aligned 0 times
+        1097449 (27.04%) aligned exactly 1 time
+        57182 (1.41%) aligned >1 times
+93.74% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PC3.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 3 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/PC3.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/PC3/PC3.gtf
+
+  Finish: ศ.  8 พ.ค. 2569 14:45:24 +07
+==========================================

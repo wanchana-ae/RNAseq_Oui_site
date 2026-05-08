@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>fastp Trimming (2026-05-08) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:980px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+#main table{border-collapse:collapse;width:100%;margin:16px 0;
+  font-size:.9em;border-radius:8px;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#main th{background:var(--sidebar-bg);color:#e2e8f0;padding:10px 14px;
+  text-align:left;font-weight:600;font-size:.85em}
+#main td{padding:9px 14px;border-bottom:1px solid var(--border)}
+#main tr:last-child td{border-bottom:none}
+#main tr:nth-child(even) td{background:#f8fafc}
+#main tr:hover td{background:#f0f9ff}
+
+#main code{background:var(--code-bg);padding:2px 6px;border-radius:4px;
+  font-size:.88em;font-family:'Cascadia Code','Fira Code',monospace;color:#be185d}
+#main pre{background:#1e293b;border-radius:8px;padding:18px;
+  overflow-x:auto;margin:16px 0}
+#main pre code{background:none;color:#e2e8f0;padding:0;
+  font-size:.85em;line-height:1.6}
+.highlight{background:#1e293b!important;border-radius:8px;
+  padding:18px!important;margin:16px 0;overflow-x:auto}
+.highlight pre{background:none;padding:0;margin:0;border-radius:0}
+.highlight code{background:none;color:#e2e8f0;padding:0;font-size:.85em}
+
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:3px 10px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+.badge-wip{background:#fef9c3;color:#713f12}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav><div class="section-label">Project</div><a href="index.html" class="">Project Overview</a><div class="section-label">Daily Logs</div><a href="2026-04-30-setup.html" class="">2026-04-30  Setup</a><a href="2026-05-01-qc.html" class="">2026-05-01  FastQC QC</a><a href="2026-05-01-hisat2.html" class="">2026-05-01  HISAT2 Mapping</a><a href="2026-05-01-prepde.html" class="">2026-05-01  prepDE</a><a href="2026-05-01-deseq2.html" class="">2026-05-01  DESeq2 v1</a><a href="2026-05-01-deseq2-v2.html" class="">2026-05-01  DESeq2 v2 (11 samples)</a><a href="2026-05-08-fastp.html" class="active">2026-05-08  fastp Trimming</a><a href="2026-05-08-hisat2-v2.html" class="">2026-05-08  HISAT2 v2 (trimmed)</a><a href="2026-05-08-deseq2-v3.html" class="">2026-05-08  DESeq2 v3 Final ✓</a></nav>
+</div>
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>·</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>·</span><span>13 samples</span>
+    
+  </div>
+  <h1 id="rnaseq-oui-fastp-quality-trimming">✂️ RNAseq Oui: fastp — Quality Trimming</h1>
+<p><strong>Project:</strong> <a href="index.html">RNAseq_Oui</a><br />
+<strong>Status:</strong> Done</p>
+<hr />
+<h2 id="trim">🔍 เหตุผลที่ Trim</h2>
+<p>จาก FastQC (<a href="2026-05-01-qc.html">2026-05-01-RNAseq-Oui-QC-Results</a>) พบว่า:<br />
+- <strong>Adapter Content: FAIL</strong> เกือบทุก sample (R1)<br />
+- <strong>Per Sequence GC Content: FAIL</strong> ทุก sample (expected สำหรับ RNA-seq)<br />
+- ทำ trimming ก่อน re-align เพื่อให้ alignment rate ดีขึ้น</p>
+<hr />
+<h2 id="compute-resources">🛠️ Compute Resources</h2>
+<ul>
+<li><strong>Tool:</strong> <code>fastp</code></li>
+<li><strong>Input:</strong> Raw FASTQ (Paired-end) — 13 samples</li>
+<li><strong>Threads:</strong> 8 per sample</li>
+<li><strong>Environment:</strong> HPC</li>
+</ul>
+<h2 id="command">💻 Command</h2>
+<div class="highlight"><pre><span></span><code>bash 03_run_fastp_all_samples.sh
+</code></pre></div>
+
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>เหตุผล</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--qualified_quality_phred</code></td>
+<td>20</td>
+<td>ตัด base ที่ Q &lt; 20</td>
+</tr>
+<tr>
+<td><code>--length_required</code></td>
+<td>36</td>
+<td>ทิ้ง read ที่สั้นกว่า 36 bp</td>
+</tr>
+<tr>
+<td><code>--detect_adapter_for_pe</code></td>
+<td>auto</td>
+<td>auto-detect adapter สำหรับ paired-end</td>
+</tr>
+<tr>
+<td><code>--correction</code></td>
+<td>on</td>
+<td>แก้ overlap mismatch</td>
+</tr>
+<tr>
+<td><code>--overrepresentation_analysis</code></td>
+<td>on</td>
+<td>ตรวจ overrepresented sequences</td>
+</tr>
+<tr>
+<td><code>--thread</code></td>
+<td>8</td>
+<td>parallel processing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scripts-logs">📂 Scripts &amp; Logs</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/2026-05-08/03_run_fastp_all_samples.sh">03_run_fastp_all_samples.sh</a></td>
+<td>fastp script — loop ทุก 13 samples</td>
+</tr>
+<tr>
+<td><a href="files/2026-05-08/fastp_logs/">fastp_logs/</a></td>
+<td>fastp log ทุก sample</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="output-summary">📈 Output Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th style="text-align: right;">Read Pairs (Before)</th>
+<th style="text-align: right;">Read Pairs (After)</th>
+<th style="text-align: right;">% Passed</th>
+<th style="text-align: right;">Adapter Reads</th>
+<th style="text-align: center;">Insert Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1</td>
+<td style="text-align: right;">25,567,781</td>
+<td style="text-align: right;">25,368,751</td>
+<td style="text-align: right;">99.22%</td>
+<td style="text-align: right;">8,593,353</td>
+<td style="text-align: center;">184 bp</td>
+</tr>
+<tr>
+<td>DC2</td>
+<td style="text-align: right;">25,834,302</td>
+<td style="text-align: right;">25,640,239</td>
+<td style="text-align: right;">99.25%</td>
+<td style="text-align: right;">7,440,038</td>
+<td style="text-align: center;">187 bp</td>
+</tr>
+<tr>
+<td>DC3</td>
+<td style="text-align: right;">17,814,144</td>
+<td style="text-align: right;">17,605,573</td>
+<td style="text-align: right;">98.83%</td>
+<td style="text-align: right;">7,896,941</td>
+<td style="text-align: center;">166 bp</td>
+</tr>
+<tr>
+<td>DN1</td>
+<td style="text-align: right;">27,488,354</td>
+<td style="text-align: right;">27,304,866</td>
+<td style="text-align: right;">99.33%</td>
+<td style="text-align: right;">10,101,273</td>
+<td style="text-align: center;">175 bp</td>
+</tr>
+<tr>
+<td>DN2</td>
+<td style="text-align: right;">22,536,832</td>
+<td style="text-align: right;">22,319,271</td>
+<td style="text-align: right;">99.03%</td>
+<td style="text-align: right;">8,686,037</td>
+<td style="text-align: center;">171 bp</td>
+</tr>
+<tr>
+<td>DN3</td>
+<td style="text-align: right;">18,999,148</td>
+<td style="text-align: right;">18,811,467</td>
+<td style="text-align: right;">99.01%</td>
+<td style="text-align: right;">9,181,863</td>
+<td style="text-align: center;">169 bp</td>
+</tr>
+<tr>
+<td>PC1</td>
+<td style="text-align: right;">27,594,805</td>
+<td style="text-align: right;">27,405,470</td>
+<td style="text-align: right;">99.31%</td>
+<td style="text-align: right;">10,078,335</td>
+<td style="text-align: center;">163 bp</td>
+</tr>
+<tr>
+<td>PC2</td>
+<td style="text-align: right;">27,292,608</td>
+<td style="text-align: right;">27,104,355</td>
+<td style="text-align: right;">99.31%</td>
+<td style="text-align: right;">8,495,406</td>
+<td style="text-align: center;">175 bp</td>
+</tr>
+<tr>
+<td>PC3</td>
+<td style="text-align: right;">23,389,844</td>
+<td style="text-align: right;">23,189,779</td>
+<td style="text-align: right;">99.14%</td>
+<td style="text-align: right;">7,231,313</td>
+<td style="text-align: center;">179 bp</td>
+</tr>
+<tr>
+<td>PC4</td>
+<td style="text-align: right;">26,784,883</td>
+<td style="text-align: right;">26,546,325</td>
+<td style="text-align: right;">99.11%</td>
+<td style="text-align: right;">9,957,547</td>
+<td style="text-align: center;">172 bp</td>
+</tr>
+<tr>
+<td>PN3</td>
+<td style="text-align: right;">18,445,633</td>
+<td style="text-align: right;">18,269,906</td>
+<td style="text-align: right;">99.05%</td>
+<td style="text-align: right;">8,388,631</td>
+<td style="text-align: center;">166 bp</td>
+</tr>
+<tr>
+<td>PNC1</td>
+<td style="text-align: right;">27,601,960</td>
+<td style="text-align: right;">27,306,221</td>
+<td style="text-align: right;">98.93%</td>
+<td style="text-align: right;">15,914,692</td>
+<td style="text-align: center;">156 bp</td>
+</tr>
+<tr>
+<td>PNC2</td>
+<td style="text-align: right;">23,473,266</td>
+<td style="text-align: right;">23,242,591</td>
+<td style="text-align: right;">99.02%</td>
+<td style="text-align: right;">10,315,983</td>
+<td style="text-align: center;">166 bp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="per-sample-fastp-logs">Per-sample fastp logs</h3>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC1</td>
+<td><a href="files/2026-05-08/fastp_logs/DC1_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DC1_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>DC2</td>
+<td><a href="files/2026-05-08/fastp_logs/DC2_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DC2_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>DC3</td>
+<td><a href="files/2026-05-08/fastp_logs/DC3_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DC3_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>DN1</td>
+<td><a href="files/2026-05-08/fastp_logs/DN1_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DN1_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>DN2</td>
+<td><a href="files/2026-05-08/fastp_logs/DN2_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DN2_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>DN3</td>
+<td><a href="files/2026-05-08/fastp_logs/DN3_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 DN3_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PC1</td>
+<td><a href="files/2026-05-08/fastp_logs/PC1_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PC1_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PC2</td>
+<td><a href="files/2026-05-08/fastp_logs/PC2_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PC2_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PC3</td>
+<td><a href="files/2026-05-08/fastp_logs/PC3_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PC3_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PC4</td>
+<td><a href="files/2026-05-08/fastp_logs/PC4_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PC4_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PN3</td>
+<td><a href="files/2026-05-08/fastp_logs/PN3_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PN3_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PNC1</td>
+<td><a href="files/2026-05-08/fastp_logs/PNC1_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PNC1_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+<tr>
+<td>PNC2</td>
+<td><a href="files/2026-05-08/fastp_logs/PNC2_fastp.log" target="_blank" class="file-link" style="--badge-color:#64748b">📋 PNC2_fastp.log <span class="file-badge">LOG</span></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">💡 Notes</h2>
+<ul>
+<li><strong>% Passed สูงมากทุก sample (98.83–99.33%)</strong> — raw data คุณภาพดีมาก</li>
+<li><strong>PNC1 มี Adapter Reads สูงที่สุด (15.9M reads)</strong> และ insert size เล็กที่สุด (156 bp) — อาจมี short fragment มากกว่า sample อื่น</li>
+<li><strong>DC1, DC2 มี Adapter น้อยที่สุด</strong> และ insert size ใหญ่สุด (184–187 bp)</li>
+<li>Adapter ถูก auto-detect และ trim ออกสำเร็จทุก sample — ไม่ต้องระบุ sequence เอง</li>
+<li>Trimmed FASTQ อยู่ที่: <code>/fs4/Mining_data/Method/RNAseq/Oui/Trimmed/</code></li>
+</ul>
+<h2 id="next-steps">🔜 Next Steps</h2>
+<ul>
+<li>Re-run HISAT2 alignment โดยใช้ trimmed reads → เปรียบเทียบ alignment rate กับ v1</li>
+<li>สร้าง log: <code>2026-05-08-RNAseq-Oui-HISAT2-v2.md</code></li>
+</ul>
+  <footer>RNAseq Oui Lab Notebook · Wanchana 2026</footer>
+</div>
+</body>
+</html>

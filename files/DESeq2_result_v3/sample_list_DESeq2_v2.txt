@@ -1,0 +1,12 @@
+Code	Variety	Treatement	Rep	Conditon
+PNC1	PTT1	Control	1	PTT1_Control
+PNC2	PTT1	Control	2	PTT1_Control
+PN3	PTT1	Control	3	PTT1_Control
+PC1	PTT1	Compact	1	PTT1_Compact
+PC2	PTT1	Compact	2	PTT1_Compact
+PC3	PTT1	Compact	3	PTT1_Compact
+PC4	PTT1	Compact	4	PTT1_Compact
+DN1	Dharia	Control	1	Dharia_Control
+DN2	Dharia	Control	2	Dharia_Control
+DC1	Dharia	Compact	1	Dharia_Compact
+DC2	Dharia	Compact	2	Dharia_Compact

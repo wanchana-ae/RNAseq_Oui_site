@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DESeq2 Analysis v3 — Final (2026-05-08) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:980px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+#main table{border-collapse:collapse;width:100%;margin:16px 0;
+  font-size:.9em;border-radius:8px;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#main th{background:var(--sidebar-bg);color:#e2e8f0;padding:10px 14px;
+  text-align:left;font-weight:600;font-size:.85em}
+#main td{padding:9px 14px;border-bottom:1px solid var(--border)}
+#main tr:last-child td{border-bottom:none}
+#main tr:nth-child(even) td{background:#f8fafc}
+#main tr:hover td{background:#f0f9ff}
+
+#main code{background:var(--code-bg);padding:2px 6px;border-radius:4px;
+  font-size:.88em;font-family:'Cascadia Code','Fira Code',monospace;color:#be185d}
+#main pre{background:#1e293b;border-radius:8px;padding:18px;
+  overflow-x:auto;margin:16px 0}
+#main pre code{background:none;color:#e2e8f0;padding:0;
+  font-size:.85em;line-height:1.6}
+.highlight{background:#1e293b!important;border-radius:8px;
+  padding:18px!important;margin:16px 0;overflow-x:auto}
+.highlight pre{background:none;padding:0;margin:0;border-radius:0}
+.highlight code{background:none;color:#e2e8f0;padding:0;font-size:.85em}
+
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:3px 10px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+.badge-wip{background:#fef9c3;color:#713f12}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav><div class="section-label">Project</div><a href="index.html" class="">Project Overview</a><div class="section-label">Daily Logs</div><a href="2026-04-30-setup.html" class="">2026-04-30  Setup</a><a href="2026-05-01-qc.html" class="">2026-05-01  FastQC QC</a><a href="2026-05-01-hisat2.html" class="">2026-05-01  HISAT2 Mapping</a><a href="2026-05-01-prepde.html" class="">2026-05-01  prepDE</a><a href="2026-05-01-deseq2.html" class="">2026-05-01  DESeq2 v1</a><a href="2026-05-01-deseq2-v2.html" class="">2026-05-01  DESeq2 v2 (11 samples)</a><a href="2026-05-08-fastp.html" class="">2026-05-08  fastp Trimming</a><a href="2026-05-08-hisat2-v2.html" class="">2026-05-08  HISAT2 v2 (trimmed)</a><a href="2026-05-08-deseq2-v3.html" class="active">2026-05-08  DESeq2 v3 Final ✓</a></nav>
+</div>
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>·</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>·</span><span>13 samples</span>
+    
+  </div>
+  <h1 id="rnaseq-oui-deseq2-analysis-v3-trimmed-reads-11-samples">📈 RNAseq Oui: DESeq2 Analysis v3 — Trimmed Reads (11 samples)</h1>
+<p><strong>Project:</strong> <a href="index.html">RNAseq_Oui</a><br />
+<strong>Status:</strong> Done</p>
+<hr />
+<h2 id="_1">🔍 ความแตกต่างจากเวอร์ชันก่อน</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Samples</th>
+<th>Input Reads</th>
+<th>ผลลัพธ์</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1</td>
+<td>13 samples</td>
+<td>Raw reads</td>
+<td>baseline</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>11 samples (ตัด DC3/DN3)</td>
+<td>Raw reads</td>
+<td>ลด noise จาก outlier</td>
+</tr>
+<tr>
+<td><strong>v3</strong></td>
+<td><strong>11 samples (ตัด DC3/DN3)</strong></td>
+<td><strong>Trimmed reads (fastp)</strong></td>
+<td><strong>ผลลัพธ์หลัก</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>v3 = v2 + fastp trimming → count matrix จาก alignment ที่ดีขึ้น (93–96%)</p>
+</blockquote>
+<hr />
+<h2 id="experimental-design">🧪 Experimental Design</h2>
+<p>11 samples: PNC1, PNC2, PN3, PC1, PC2, PC3, PC4, DN1, DN2, DC1, DC2<br />
+❌ ตัดออก: DC3, DN3 (PCA outlier จาก v1)</p>
+<hr />
+<h2 id="compute-resources">🛠️ Compute Resources</h2>
+<ul>
+<li><strong>Tool:</strong> DESeq2 (R)</li>
+<li><strong>Input:</strong> <code>gene_count_matrix_2.csv</code> (11 samples, trimmed), <code>sample_list_DESeq2_v2.txt</code></li>
+<li><strong>Design:</strong> <code>~ Conditon</code></li>
+<li><strong>Script:</strong> <a href="files/DESeq2_result_v3/DESeq2.R" target="_blank" class="file-link" style="--badge-color:#3b82f6">📊 DESeq2.R <span class="file-badge">R</span></a></li>
+</ul>
+<hr />
+<h2 id="overall-deseq2-summary-padj-01">📊 Overall DESeq2 Summary (padj &lt; 0.1)</h2>
+<div class="highlight"><pre><span></span><code>out of 29,909 genes with nonzero total read count
+LFC &gt; 0 (up)   : 4,833 (16%)
+LFC &lt; 0 (down) : 5,190 (17%)
+outliers       : 54 (0.18%)
+low counts     : 580 (1.9%)
+</code></pre></div>
+
+<p>📄 <a href="files/DESeq2_result_v3/deseq2_summary.txt" download class="file-link" style="--badge-color:#64748b">📝 deseq2_summary.txt <span class="file-badge">TXT</span></a></p>
+<hr />
+<h2 id="per-contrast-results-padj-001">📈 Per-Contrast Results (padj &lt; 0.01)</h2>
+<h3 id="1-ptt1-compact-vs-control">1. PTT1: Compact vs Control</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Significant total</td>
+<td style="text-align: right;">12,902</td>
+</tr>
+<tr>
+<td>↑ Up-regulated</td>
+<td style="text-align: right;">6,830</td>
+</tr>
+<tr>
+<td>↓ Down-regulated</td>
+<td style="text-align: right;">6,072</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Result.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 PTT1_Comp_vs_Ctrl_Result.csv <span class="file-badge">CSV</span></a></td>
+<td>ผลลัพธ์ทั้งหมด เรียงตาม padj</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Significant.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 PTT1_Comp_vs_Ctrl_Significant.csv <span class="file-badge">CSV</span></a></td>
+<td>Significant genes (padj &lt; 0.01)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Upregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 PTT1_Comp_vs_Ctrl_Upregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Up-regulated genes (6,830)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Downregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 PTT1_Comp_vs_Ctrl_Downregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Down-regulated genes (6,072)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Summary_Log.txt" download class="file-link" style="--badge-color:#64748b">📝 PTT1_Comp_vs_Ctrl_Summary_Log.txt <span class="file-badge">TXT</span></a></td>
+<td>Summary log</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 PTT1_Comp_vs_Ctrl_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-dharia-compact-vs-control">2. Dharia: Compact vs Control</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Significant total</td>
+<td style="text-align: right;">891</td>
+</tr>
+<tr>
+<td>↑ Up-regulated</td>
+<td style="text-align: right;">713</td>
+</tr>
+<tr>
+<td>↓ Down-regulated</td>
+<td style="text-align: right;">178</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Result.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Dharia_Comp_vs_Ctrl_Result.csv <span class="file-badge">CSV</span></a></td>
+<td>ผลลัพธ์ทั้งหมด เรียงตาม padj</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Significant.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Dharia_Comp_vs_Ctrl_Significant.csv <span class="file-badge">CSV</span></a></td>
+<td>Significant genes (padj &lt; 0.01)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Upregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Dharia_Comp_vs_Ctrl_Upregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Up-regulated genes (713)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Downregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Dharia_Comp_vs_Ctrl_Downregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Down-regulated genes (178)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Summary_Log.txt" download class="file-link" style="--badge-color:#64748b">📝 Dharia_Comp_vs_Ctrl_Summary_Log.txt <span class="file-badge">TXT</span></a></td>
+<td>Summary log</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Dharia_Comp_vs_Ctrl_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-control-ptt1-vs-dharia">3. Control: PTT1 vs Dharia</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Significant total</td>
+<td style="text-align: right;">5,070</td>
+</tr>
+<tr>
+<td>↑ Up-regulated</td>
+<td style="text-align: right;">2,670</td>
+</tr>
+<tr>
+<td>↓ Down-regulated</td>
+<td style="text-align: right;">2,400</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Result.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Control_PTT1_vs_Dharia_Result.csv <span class="file-badge">CSV</span></a></td>
+<td>ผลลัพธ์ทั้งหมด เรียงตาม padj</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Significant.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Control_PTT1_vs_Dharia_Significant.csv <span class="file-badge">CSV</span></a></td>
+<td>Significant genes (padj &lt; 0.01)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Upregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Control_PTT1_vs_Dharia_Upregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Up-regulated genes (2,670)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Downregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Control_PTT1_vs_Dharia_Downregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Down-regulated genes (2,400)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Summary_Log.txt" download class="file-link" style="--badge-color:#64748b">📝 Control_PTT1_vs_Dharia_Summary_Log.txt <span class="file-badge">TXT</span></a></td>
+<td>Summary log</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Control_PTT1_vs_Dharia_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="4-compact-ptt1-vs-dharia">4. Compact: PTT1 vs Dharia</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Significant total</td>
+<td style="text-align: right;">8,822</td>
+</tr>
+<tr>
+<td>↑ Up-regulated</td>
+<td style="text-align: right;">4,763</td>
+</tr>
+<tr>
+<td>↓ Down-regulated</td>
+<td style="text-align: right;">4,059</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Result.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Compact_PTT1_vs_Dharia_Result.csv <span class="file-badge">CSV</span></a></td>
+<td>ผลลัพธ์ทั้งหมด เรียงตาม padj</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Significant.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Compact_PTT1_vs_Dharia_Significant.csv <span class="file-badge">CSV</span></a></td>
+<td>Significant genes (padj &lt; 0.01)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Upregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Compact_PTT1_vs_Dharia_Upregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Up-regulated genes (4,763)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Downregulate.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 Compact_PTT1_vs_Dharia_Downregulate.csv <span class="file-badge">CSV</span></a></td>
+<td>Down-regulated genes (4,059)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Summary_Log.txt" download class="file-link" style="--badge-color:#64748b">📝 Compact_PTT1_vs_Dharia_Summary_Log.txt <span class="file-badge">TXT</span></a></td>
+<td>Summary log</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Compact_PTT1_vs_Dharia_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="v1-v2-v3">📊 สรุปเปรียบเทียบ v1 → v2 → v3</h2>
+<table>
+<thead>
+<tr>
+<th>Contrast</th>
+<th style="text-align: center;">v1 (13s, raw)</th>
+<th style="text-align: center;">v2 (11s, raw)</th>
+<th style="text-align: center;">v3 (11s, trimmed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PTT1 Compact vs Control</td>
+<td style="text-align: center;">9,939</td>
+<td style="text-align: center;">12,559</td>
+<td style="text-align: center;"><strong>12,902</strong></td>
+</tr>
+<tr>
+<td>Dharia Compact vs Control</td>
+<td style="text-align: center;">177</td>
+<td style="text-align: center;">822</td>
+<td style="text-align: center;"><strong>891</strong></td>
+</tr>
+<tr>
+<td>Control PTT1 vs Dharia</td>
+<td style="text-align: center;">4,471</td>
+<td style="text-align: center;">4,857</td>
+<td style="text-align: center;"><strong>5,070</strong></td>
+</tr>
+<tr>
+<td>Compact PTT1 vs Dharia</td>
+<td style="text-align: center;">9,080</td>
+<td style="text-align: center;">8,704</td>
+<td style="text-align: center;"><strong>8,822</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>v3 (trimmed) ตรวจพบยีนได้มากกว่า v2 ทุก contrast — เพราะ alignment rate สูงขึ้น (93–96%)<br />
+และตรวจ genes ได้ 29,909 genes (v2: 29,753) เพิ่มขึ้น 156 genes</p>
+</blockquote>
+<hr />
+<h2 id="qc-plots">📊 QC Plots</h2>
+<table>
+<thead>
+<tr>
+<th>Plot</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCA (by Condition)</td>
+<td><a href="files/DESeq2_result_v3/PCA_plot_vsd.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 PCA_plot_vsd.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>PCA (by Condition + Rep)</td>
+<td><a href="files/DESeq2_result_v3/PCA_plot_vsd_with_Rep.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 PCA_plot_vsd_with_Rep.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Mean-SD NTD</td>
+<td><a href="files/DESeq2_result_v3/Plot_meanSd_NTD.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Plot_meanSd_NTD.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Mean-SD VSD</td>
+<td><a href="files/DESeq2_result_v3/Plot_meanSd_VSD.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Plot_meanSd_VSD.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Sample Distance Heatmap</td>
+<td><a href="files/DESeq2_result_v3/Sample_Distance_Heatmap.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Sample_Distance_Heatmap.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="venn-diagram-4-way">🔵 Venn Diagram (4-way)</h2>
+<p><a href="files/DESeq2_result_v3/venn_diagram_results/Venn_Plot.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Venn_Plot.png <span class="file-badge">PNG</span></a> | <a href="files/DESeq2_result_v3/venn_diagram_results/Venn_Plot.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Venn_Plot.pdf <span class="file-badge">PDF</span></a></p>
+<table>
+<thead>
+<tr>
+<th>Intersection</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PTT1 Comp vs Ctrl only</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>Dharia Comp vs Ctrl only</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/two_Dharia_Comp_vs_Ctrl.xls" download class="file-link" style="--badge-color:#22c55e">📊 two_Dharia_Comp_vs_Ctrl.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>Control PTT1 vs Dharia only</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/three_Control_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 three_Control_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>Compact PTT1 vs Dharia only</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ two</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ three</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>two ∩ three</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>two ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/two_Dharia_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 two_Dharia_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>three ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ two ∩ three</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ two ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_two_Dharia_Comp_vs_Ctrl_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>one ∩ three ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/one_PTT1_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 one_PTT1_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>two ∩ three ∩ four</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls" download class="file-link" style="--badge-color:#22c55e">📊 two_Dharia_Comp_vs_Ctrl_three_Control_PTT1_vs_Dharia_four_Compact_PTT1_vs_Dharia.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+<tr>
+<td>Shared (all 4)</td>
+<td><a href="files/DESeq2_result_v3/venn_diagram_results/Shared.xls" download class="file-link" style="--badge-color:#22c55e">📊 Shared.xls <span class="file-badge">XLS</span></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="input-files">📂 Input Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v3/gene_count_matrix_2.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 gene_count_matrix_2.csv <span class="file-badge">CSV</span></a></td>
+<td>Count matrix 11 samples จาก trimmed reads</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/transcript_count_matrix.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 transcript_count_matrix.csv <span class="file-badge">CSV</span></a></td>
+<td>Transcript-level count matrix</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v3/sample_list_DESeq2_v2.txt" download class="file-link" style="--badge-color:#64748b">📝 sample_list_DESeq2_v2.txt <span class="file-badge">TXT</span></a></td>
+<td>Sample metadata (11 samples)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">💡 Notes</h2>
+<ul>
+<li><strong>v3 เป็นผลลัพธ์ final</strong> — 11 samples + trimmed reads คุณภาพสูงสุด</li>
+<li>ตรวจพบยีนมากขึ้น (29,909 vs 29,753 ใน v2) เพราะ alignment rate สูงขึ้น</li>
+<li>Count matrix ใช้ <code>gene_count_matrix_2.csv</code> เหมือน v2 แต่มาจาก StringTie output ของ trimmed alignment</li>
+</ul>
+  <footer>RNAseq Oui Lab Notebook · Wanchana 2026</footer>
+</div>
+</body>
+</html>

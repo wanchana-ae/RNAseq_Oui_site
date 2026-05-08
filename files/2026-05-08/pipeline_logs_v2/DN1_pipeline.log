@@ -1,0 +1,33 @@
+==========================================
+  Sample: DN1
+  Start : ศ.  8 พ.ค. 2569 12:31:59 +07
+==========================================
+
+[Step 2] HISAT2 alignment
+27304866 reads; of these:
+  27304866 (100.00%) were paired; of these:
+    1770089 (6.48%) aligned concordantly 0 times
+    18814216 (68.90%) aligned concordantly exactly 1 time
+    6720561 (24.61%) aligned concordantly >1 times
+    ----
+    1770089 pairs aligned concordantly 0 times; of these:
+      104234 (5.89%) aligned discordantly 1 time
+    ----
+    1665855 pairs aligned 0 times concordantly or discordantly; of these:
+      3331710 mates make up the pairs; of these:
+        2332553 (70.01%) aligned 0 times
+        790341 (23.72%) aligned exactly 1 time
+        208816 (6.27%) aligned >1 times
+95.73% overall alignment rate
+[OK] HISAT2 done -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DN1.sam
+
+[Step 3] SAMtools sort
+[bam_sort_core] merging from 6 files and 8 in-memory blocks...
+[OK] BAM created -> /fs4/Mining_data/Method/RNAseq/Oui/Mapping/DN1.bam
+[OK] SAM removed
+
+[Step 5] StringTie
+[OK] StringTie done -> /fs4/Mining_data/Method/RNAseq/Oui/Transcript/DN1/DN1.gtf
+
+  Finish: ศ.  8 พ.ค. 2569 13:33:59 +07
+==========================================
