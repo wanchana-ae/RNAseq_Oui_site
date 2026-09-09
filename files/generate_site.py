@@ -15,7 +15,7 @@ from pathlib import Path
 # Script lives at: <workspace>/01 Projects/RNAseq_Oui/Daily_Logs/File/generate_site.py
 # BASE = 5 levels up = workspace root
 BASE      = Path(__file__).resolve().parent.parent.parent.parent.parent
-OUT_DIR   = BASE / "RNAseq_Oui_site"
+OUT_DIR   = Path.home() / "mnt/wanch/OneDrive/RNAseq/RNAseq_Oui_site/RNAseq_Oui_site"
 FILES_SRC = BASE / "01 Projects/RNAseq_Oui/Daily_Logs/File"
 FILES_DST = OUT_DIR / "files"
 
@@ -88,7 +88,28 @@ PAGES = [
         "title": "DESeq2 Analysis v3 — Final (2026-05-08)",
         "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-08-RNAseq-Oui-DESeq2-v3.md",
         "out":   "2026-05-08-deseq2-v3.html",
-        "nav":   "2026-05-08  DESeq2 v3 Final ✓",
+        "nav":   "2026-05-08  DESeq2 v3 (11 samples)",
+    },
+    {
+        "id":    "heatmap-os03g0297600",
+        "title": "Heatmap: Os03g0297600 (2026-05-08)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-08-RNAseq-Oui-Os03g0297600-Heatmap.md",
+        "out":   "2026-05-08-os03g0297600-heatmap.html",
+        "nav":   "2026-05-08  Os03g0297600 Heatmap",
+    },
+    {
+        "id":    "heatmap-multigene",
+        "title": "Multi-Gene Heatmap (2026-05-11)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-05-11-RNAseq-Oui-Multigene-Heatmap.md",
+        "out":   "2026-05-11-multigene-heatmap.html",
+        "nav":   "2026-05-11  Multi-Gene Heatmap",
+    },
+    {
+        "id":    "deseq2v4",
+        "title": "DESeq2 Analysis v4 — คืน DC3/DN3 (2026-09-09)",
+        "src":   BASE / "01 Projects/RNAseq_Oui/Daily_Logs/2026-09-09-RNAseq-Oui-DESeq2-v4.md",
+        "out":   "2026-09-09-deseq2-v4.html",
+        "nav":   "2026-09-09  DESeq2 v4 (13 samples)",
     },
 ]
 
@@ -320,7 +341,8 @@ SKIP_EXTS  = {'.rdata', '.rhistory', '.zip'}
 SKIP_NAMES = {'.RData', '.Rhistory'}
 
 def copy_files():
-    copied = skipped = 0
+    copied = skipped = failed = 0
+    failed_files = []
     for item in FILES_SRC.rglob('*'):
         if not item.is_file():
             continue
@@ -330,9 +352,19 @@ def copy_files():
         rel  = item.relative_to(FILES_SRC)
         dest = FILES_DST / rel
         dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(item, dest)
-        copied += 1
-    return copied, skipped
+        try:
+            shutil.copy2(item, dest)
+            copied += 1
+        except OSError as e:
+            # OneDrive "Files On-Demand" cloud-only placeholder not hydrated locally
+            # -> skip instead of crashing the whole site build
+            failed += 1
+            failed_files.append(str(rel))
+            print("  [WARN] Could not read (cloud-only file?): " + str(rel) + "  (" + str(e) + ")")
+    if failed_files:
+        print("\n  " + str(failed) + " file(s) skipped because they could not be read.")
+        print("  Fix: right-click the file(s) in File Explorer -> 'Always keep on this device', then re-run this script.")
+    return copied, skipped + failed
 
 # -- Main ----------------------------------------------------------------------
 OUT_DIR.mkdir(exist_ok=True)
@@ -345,18 +377,30 @@ print("  Copied: " + str(copied) + " files  |  Skipped: " + str(skipped) + " fil
 
 # 2. Generate HTML pages
 print("\nGenerating HTML pages...")
+pages_ok = 0
+pages_failed = 0
 for page in PAGES:
     src = Path(page["src"])
     if not src.exists():
         print("  [SKIP] Not found: " + src.name)
+        pages_failed += 1
         continue
-    text = src.read_text(encoding="utf-8")
+    try:
+        text = src.read_text(encoding="utf-8")
+    except OSError as e:
+        print("  [SKIP] Could not read (cloud-only file?): " + src.name + " (" + str(e) + ")")
+        pages_failed += 1
+        continue
     body = convert_md(text)
     html = wrap_html(page, body)
     out  = OUT_DIR / page["out"]
     out.write_text(html, encoding="utf-8")
     size = out.stat().st_size // 1024
     print("  [OK] " + page["out"] + "  (" + str(size) + " KB)")
+    pages_ok += 1
+
+if pages_failed:
+    print("\n  " + str(pages_failed) + " page(s) skipped — mark the source .md as \"Always keep on this device\" in File Explorer and re-run.")
 
 # 3. .nojekyll for GitHub Pages
 (OUT_DIR / ".nojekyll").touch()

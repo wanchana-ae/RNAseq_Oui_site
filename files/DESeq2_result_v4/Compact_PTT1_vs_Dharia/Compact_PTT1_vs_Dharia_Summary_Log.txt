@@ -1,0 +1,53 @@
+--- Summary for:  Compact_PTT1_vs_Dharia  ---
+
+Full Results:
+
+out of 30664 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 4586, 15%
+LFC < 0 (down)     : 4784, 16%
+outliers [1]       : 228, 0.74%
+low counts [2]     : 1784, 5.8%
+(mean count < 2)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Significant (padj < 0.01):
+
+out of 9370 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 4586, 49%
+LFC < 0 (down)     : 4784, 51%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 2)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Up-regulated:
+
+out of 4586 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 4586, 100%
+LFC < 0 (down)     : 0, 0%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 2)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+
+
+Down-regulated:
+
+out of 4784 with nonzero total read count
+adjusted p-value < 0.01
+LFC > 0 (up)       : 0, 0%
+LFC < 0 (down)     : 4784, 100%
+outliers [1]       : 0, 0%
+low counts [2]     : 0, 0%
+(mean count < 2)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+

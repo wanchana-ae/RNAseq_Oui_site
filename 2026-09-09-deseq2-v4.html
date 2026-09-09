@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DESeq2 Analysis v4 — คืน DC3/DN3 (2026-09-09) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:980px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+#main table{border-collapse:collapse;width:100%;margin:16px 0;
+  font-size:.9em;border-radius:8px;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#main th{background:var(--sidebar-bg);color:#e2e8f0;padding:10px 14px;
+  text-align:left;font-weight:600;font-size:.85em}
+#main td{padding:9px 14px;border-bottom:1px solid var(--border)}
+#main tr:last-child td{border-bottom:none}
+#main tr:nth-child(even) td{background:#f8fafc}
+#main tr:hover td{background:#f0f9ff}
+
+#main code{background:var(--code-bg);padding:2px 6px;border-radius:4px;
+  font-size:.88em;font-family:'Cascadia Code','Fira Code',monospace;color:#be185d}
+#main pre{background:#1e293b;border-radius:8px;padding:18px;
+  overflow-x:auto;margin:16px 0}
+#main pre code{background:none;color:#e2e8f0;padding:0;
+  font-size:.85em;line-height:1.6}
+.highlight{background:#1e293b!important;border-radius:8px;
+  padding:18px!important;margin:16px 0;overflow-x:auto}
+.highlight pre{background:none;padding:0;margin:0;border-radius:0}
+.highlight code{background:none;color:#e2e8f0;padding:0;font-size:.85em}
+
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:3px 10px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+.badge-wip{background:#fef9c3;color:#713f12}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav><div class="section-label">Project</div><a href="index.html" class="">Project Overview</a><div class="section-label">Daily Logs</div><a href="2026-04-30-setup.html" class="">2026-04-30  Setup</a><a href="2026-05-01-qc.html" class="">2026-05-01  FastQC QC</a><a href="2026-05-01-hisat2.html" class="">2026-05-01  HISAT2 Mapping</a><a href="2026-05-01-prepde.html" class="">2026-05-01  prepDE</a><a href="2026-05-01-deseq2.html" class="">2026-05-01  DESeq2 v1</a><a href="2026-05-01-deseq2-v2.html" class="">2026-05-01  DESeq2 v2 (11 samples)</a><a href="2026-05-08-fastp.html" class="">2026-05-08  fastp Trimming</a><a href="2026-05-08-hisat2-v2.html" class="">2026-05-08  HISAT2 v2 (trimmed)</a><a href="2026-05-08-deseq2-v3.html" class="">2026-05-08  DESeq2 v3 (11 samples)</a><a href="2026-05-08-os03g0297600-heatmap.html" class="">2026-05-08  Os03g0297600 Heatmap</a><a href="2026-05-11-multigene-heatmap.html" class="">2026-05-11  Multi-Gene Heatmap</a><a href="2026-09-09-deseq2-v4.html" class="active">2026-09-09  DESeq2 v4 (13 samples)</a></nav>
+</div>
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>·</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>·</span><span>13 samples</span>
+    
+  </div>
+  <h1 id="rnaseq-oui-deseq2-analysis-v4-dc3dn3-13-samples-trimmed">📈 RNAseq Oui: DESeq2 Analysis v4 — คืน DC3/DN3 กลับมา (13 samples, trimmed)</h1>
+<p><strong>Project:</strong> <a href="index.html">RNAseq_Oui</a><br />
+<strong>Status:</strong> Done</p>
+<hr />
+<h2 id="_1">🔍 เหตุผลที่วิเคราะห์ใหม่</h2>
+<p>อาจารย์สั่งให้กลับไปใช้ตัวอย่างครบ <strong>3 ซ้ำ</strong> ในทุกกลุ่ม (คืน DC3 และ DN3 ที่เคยตัดออกใน v2/v3 เพราะเป็น PCA outlier) โดยยังคงใช้ trimmed reads (fastp + HISAT2 v2) เหมือน v3</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Samples</th>
+<th>Input Reads</th>
+<th>หมายเหตุ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1</td>
+<td>13 samples</td>
+<td>Raw reads</td>
+<td>baseline</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>11 samples (ตัด DC3/DN3)</td>
+<td>Raw reads</td>
+<td>ลด noise จาก outlier</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>11 samples (ตัด DC3/DN3)</td>
+<td>Trimmed reads</td>
+<td>ผลหลักเดิม</td>
+</tr>
+<tr>
+<td><strong>v4</strong></td>
+<td><strong>13 samples (คืน DC3/DN3)</strong></td>
+<td><strong>Trimmed reads</strong></td>
+<td><strong>ตามคำสั่งอาจารย์</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>สำคัญ:</strong> ไม่ต้องรัน fastp/HISAT2/StringTie/prepDE ใหม่ — ตรวจสอบไฟล์ต้นฉบับแล้วพบว่า <code>gene_count_matrix_2.csv</code> (จาก v3) มีคอลัมน์ trimmed data ของ DC3/DN3 อยู่แล้ว (DC3 alignment 94.05%, DN3 93.20% หลัง trim) เพียงแค่สร้าง <code>sample_list_DESeq2_v4.txt</code> ใหม่ให้มีครบ 13 samples แล้วรัน DESeq2.R ใหม่</p>
+<h2 id="experimental-design">🧪 Experimental Design</h2>
+<p>13 samples: PNC1, PNC2, PN3 (PTT1_Control) / PC1–PC4 (PTT1_Compact) / DN1, DN2, DN3 (Dharia_Control) / DC1, DC2, DC3 (Dharia_Compact)</p>
+<hr />
+<h2 id="compute-resources">🛠️ Compute Resources</h2>
+<ul>
+<li><strong>Tool:</strong> DESeq2 (R)</li>
+<li><strong>Input:</strong> <code>gene_count_matrix_2.csv</code> (13 samples, trimmed — คัดลอกจาก v3), <code>sample_list_DESeq2_v4.txt</code></li>
+<li><strong>Design:</strong> <code>~ Conditon</code></li>
+<li><strong>Script:</strong> <a href="files/DESeq2_result_v4/DESeq2.R" target="_blank" class="file-link" style="--badge-color:#3b82f6">📊 DESeq2.R <span class="file-badge">R</span></a></li>
+</ul>
+<hr />
+<h2 id="qc-deg">⚠️ QC — พบสัญญาณสำคัญก่อนดูผล DEG</h2>
+<p><strong>PCA plot (<code>PCA_plot_vsd_with_Rep.pdf</code>):</strong> PC1 (65% variance) ยังคงแยกกลุ่ม PTT1 vs Dharia ได้ชัดเจน แต่ <strong>DC3 และ DN3 (rep3) ยังคงแยกตัวออกจาก replicate คู่ของตัวเองไปทาง PC2</strong> แม้ trim แล้ว alignment rate จะดีขึ้นมาอยู่ในเกณฑ์ปกติ (93–94%) แล้วก็ตาม</p>
+<p><strong>Sample Distance Heatmap:</strong> พบว่า <strong>Dharia_Control-3 (DN3) กับ Dharia_Compact-3 (DC3) จับกลุ่มกันเองก่อน</strong> แล้วถึงไปรวมกับ replicate 1,2 ของ treatment ตัวเอง (ซึ่ง DC1/DC2 จับคู่กันแน่น และ DN1/DN2 จับคู่กันแน่น) — สัญญาณนี้ชี้ไปทาง <strong>batch effect ที่เป็นไปได้</strong> (เช่น rep3 ของ Dharia ทั้งคู่เตรียม/สกัดคนละรอบกับ rep1,2) มากกว่าจะเป็นแค่ noise สุ่ม</p>
+<p><strong>สรุป:</strong> สาเหตุที่ DC3/DN3 หลุดจากกลุ่มไม่ใช่ปัญหาคุณภาพ read (fastp แก้ตรงนั้นแล้ว) แต่น่าจะเป็น biological/batch variation จริงของตัวอย่างนั้น</p>
+<hr />
+<h2 id="overall-deseq2-summary-padj-01">📊 Overall DESeq2 Summary (padj &lt; 0.1)</h2>
+<div class="highlight"><pre><span></span><code>out of 30,664 genes with nonzero total read count
+LFC &gt; 0 (up)   : 2,988 (9.7%)
+LFC &lt; 0 (down) : 3,677 (12%)
+outliers       : 228 (0.74%)
+low counts     : 595 (1.9%)
+</code></pre></div>
+
+<p>📄 <a href="files/DESeq2_result_v4/deseq2_summary.txt" download class="file-link" style="--badge-color:#64748b">📝 deseq2_summary.txt <span class="file-badge">TXT</span></a></p>
+<hr />
+<h2 id="v3-11-samples-vs-v4-13-samples-padj-001">📈 เปรียบเทียบ v3 (11 samples) vs v4 (13 samples) — padj &lt; 0.01</h2>
+<p>นับจากไฟล์ <code>_Significant.csv</code> / <code>_Upregulate.csv</code> / <code>_Downregulate.csv</code> ของแต่ละ contrast โดยตรง</p>
+<table>
+<thead>
+<tr>
+<th>Contrast</th>
+<th>v3 Sig / Up / Down</th>
+<th>v4 Sig / Up / Down</th>
+<th>เปลี่ยนแปลง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PTT1 Comp vs Ctrl</td>
+<td>12,902 / 6,830 / 6,072</td>
+<td>10,274 / 5,310 / 4,964</td>
+<td>↓ −20%</td>
+</tr>
+<tr>
+<td><strong>Dharia Comp vs Ctrl</strong></td>
+<td><strong>891 / 713 / 178</strong></td>
+<td><strong>205 / 125 / 80</strong></td>
+<td><strong>↓ −77%</strong></td>
+</tr>
+<tr>
+<td>Control PTT1 vs Dharia</td>
+<td>5,070 / 2,670 / 2,400</td>
+<td>4,568 / 2,085 / 2,483</td>
+<td>↓ −10%</td>
+</tr>
+<tr>
+<td>Compact PTT1 vs Dharia</td>
+<td>8,822 / 4,763 / 4,059</td>
+<td>9,370 / 4,586 / 4,784</td>
+<td>↑ +6%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>จุดที่ต้องระวังที่สุด:</strong> Dharia_Comp_vs_Ctrl หายไปเกือบ 80% (891 → 205 genes) เพราะเป็น contrast ที่กระทบโดยตรงจาก within-group variance ที่ DC3/DN3 เพิ่มเข้ามา แม้แต่ PTT1_Comp_vs_Ctrl (ที่ตัวอย่างไม่เปลี่ยนเลย) ก็ลดลง 20% เพราะ DESeq2 ประมาณ dispersion ร่วมกันทั้งชุดข้อมูล การเพิ่มตัวอย่างที่มี variance สูงเข้าไปกระทบ dispersion trend ของทุก contrast</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v4/PTT1_Comp_vs_Ctrl/PTT1_Comp_vs_Ctrl_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 PTT1_Comp_vs_Ctrl_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v4/Dharia_Comp_vs_Ctrl/Dharia_Comp_vs_Ctrl_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Dharia_Comp_vs_Ctrl_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v4/Control_PTT1_vs_Dharia/Control_PTT1_vs_Dharia_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Control_PTT1_vs_Dharia_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v4/Compact_PTT1_vs_Dharia/Compact_PTT1_vs_Dharia_Volcano.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Compact_PTT1_vs_Dharia_Volcano.png <span class="file-badge">PNG</span></a></td>
+<td>Volcano plot</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="qc-plots">📊 QC Plots</h2>
+<table>
+<thead>
+<tr>
+<th>Plot</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCA (by Condition)</td>
+<td><a href="files/DESeq2_result_v4/PCA_plot_vsd.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 PCA_plot_vsd.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>PCA (by Condition + Rep)</td>
+<td><a href="files/DESeq2_result_v4/PCA_plot_vsd_with_Rep.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 PCA_plot_vsd_with_Rep.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Mean-SD NTD</td>
+<td><a href="files/DESeq2_result_v4/Plot_meanSd_NTD.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Plot_meanSd_NTD.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Mean-SD VSD</td>
+<td><a href="files/DESeq2_result_v4/Plot_meanSd_VSD.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Plot_meanSd_VSD.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>Sample Distance Heatmap</td>
+<td><a href="files/DESeq2_result_v4/Sample_Distance_Heatmap.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Sample_Distance_Heatmap.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+<tr>
+<td>MA Plot</td>
+<td><a href="files/DESeq2_result_v4/plotMA.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 plotMA.pdf <span class="file-badge">PDF</span></a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="venn-diagram-4-way">🔵 Venn Diagram (4-way)</h2>
+<p><a href="files/DESeq2_result_v4/venn_diagram_results/Venn_Plot.png" target="_blank" class="file-link" style="--badge-color:#10b981">🖼 Venn_Plot.png <span class="file-badge">PNG</span></a> | <a href="files/DESeq2_result_v4/venn_diagram_results/Venn_Plot.pdf" target="_blank" class="file-link" style="--badge-color:#ef4444">📕 Venn_Plot.pdf <span class="file-badge">PDF</span></a></p>
+<hr />
+<h2 id="input-files">📂 Input Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="files/DESeq2_result_v4/gene_count_matrix_2.csv" download class="file-link" style="--badge-color:#0ea5e9">📄 gene_count_matrix_2.csv <span class="file-badge">CSV</span></a></td>
+<td>Count matrix 13 samples (trimmed, คัดลอกจาก v3)</td>
+</tr>
+<tr>
+<td><a href="files/DESeq2_result_v4/sample_list_DESeq2_v4.txt" download class="file-link" style="--badge-color:#64748b">📝 sample_list_DESeq2_v4.txt <span class="file-badge">TXT</span></a></td>
+<td>Sample metadata (13 samples ครบ 3 ซ้ำ)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes">💡 Notes</h2>
+<ul>
+<li>v4 = v3 + คืน DC3/DN3 กลับมาตามคำสั่งอาจารย์ — <strong>ไม่ใช่การรันใหม่ตั้งแต่ fastp</strong> เพราะ trimmed data ของ DC3/DN3 มีอยู่แล้ว</li>
+<li><strong>ควรแจ้งอาจารย์เรื่อง PCA/heatmap pattern ของ DC3/DN3 และตัวเลข Dharia_Comp_vs_Ctrl ที่ลดลง 77%</strong> ก่อนใช้ v4 เป็นผลหลักในการรายงาน โดยเฉพาะถ้าข้อสรุปเกี่ยวกับ Dharia เป็นส่วนสำคัญของงาน — อาจต้องรายงานทั้ง v3 และ v4 เพื่อเทียบ sensitivity</li>
+<li>v3 (11 samples, ตัด DC3/DN3) ยังเก็บผลไว้เปรียบเทียบใน <code>File/DESeq2_result_v3/</code></li>
+</ul>
+  <footer>RNAseq Oui Lab Notebook · Wanchana 2026</footer>
+</div>
+</body>
+</html>
