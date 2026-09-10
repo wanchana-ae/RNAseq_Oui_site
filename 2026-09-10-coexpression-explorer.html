@@ -82,16 +82,30 @@ button.reset{
 }
 button.reset:hover{background:#e0f2fe;color:var(--accent);border-color:var(--accent)}
 
+.dl-link{
+  display:flex;align-items:center;gap:8px;font-size:.82rem;text-decoration:none;
+  color:var(--text);background:#f1f5f9;border:1px solid var(--border);border-radius:7px;
+  padding:8px 10px;
+}
+.dl-link:hover{background:#e0f2fe;color:var(--accent);border-color:var(--accent)}
+.dl-link .fname{font-family:'Cascadia Code','Fira Code',monospace;font-size:.78rem;color:var(--muted);margin-left:auto}
+
 .main-col{display:flex;flex-direction:column;gap:14px;min-width:0}
 .graph-wrap{position:relative;height:min(72vh,720px);min-height:420px;padding:0;overflow:hidden}
 #cy{width:100%;height:100%}
 
 #tooltip{
   position:absolute;pointer-events:none;background:var(--sidebar-bg);color:#fff;
-  font-family:'Cascadia Code',monospace;font-size:.76rem;padding:8px 10px;border-radius:7px;
-  line-height:1.5;max-width:240px;box-shadow:0 2px 10px rgba(0,0,0,.2);opacity:0;
+  font-family:'Cascadia Code',monospace;font-size:.74rem;padding:9px 11px;border-radius:7px;
+  line-height:1.55;max-width:300px;box-shadow:0 2px 10px rgba(0,0,0,.25);opacity:0;
   transition:opacity .1s;z-index:5;
 }
+#tooltip hr{border:none;border-top:1px solid #475569;margin:5px 0}
+#tooltip .nbr-gene{color:#e2e8f0}
+#tooltip .nbr-cat{color:#94a3b8;font-size:.92em}
+#tooltip .nbr-r-pos{color:#f87171}
+#tooltip .nbr-r-neg{color:#60a5fa}
+#tooltip .nbr-more{color:#94a3b8;font-style:italic}
 
 table.hubs{width:100%;border-collapse:collapse;font-size:.82rem}
 table.hubs th{
@@ -149,6 +163,19 @@ footer{margin:24px auto 8px;max-width:1500px;padding:16px 24px 0;border-top:1px 
         useful for spotting candidate gene pairs to follow up, not as a confirmed
         regulatory network.
       </p>
+    </div>
+
+    <div class="panel">
+      <p class="section-label">Download data</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a class="dl-link" href="RNAseq_Oui_coexpression_network_edges.csv" download>
+          &#8681; Edge list<span class="fname">edges.csv</span>
+        </a>
+        <a class="dl-link" href="RNAseq_Oui_coexpression_network_degree.csv" download>
+          &#8681; Hub gene ranking<span class="fname">degree.csv</span>
+        </a>
+      </div>
+      <p class="hint">Full pairwise list and per-gene degree ranking at |r| &ge; 0.9, matching the network figure in the results folder.</p>
     </div>
   </div>
 
@@ -242,6 +269,7 @@ function render() {
     elements.push({
       data: {
         id: 'n' + i,
+        idx: i,
         color: catColorMap[DATA.categories[i]],
         size: 14 + 26 * (nodeDegree[i] / maxDeg),
         gene: DATA.genes[i],
@@ -289,9 +317,32 @@ function render() {
     minZoom: 0.2, maxZoom: 3
   });
 
+  // idx -> list of {idx of partner, r} at the currently rendered threshold/category filter,
+  // so the tooltip can show the same edges as RNAseq_Oui_coexpression_network_edges.csv
+  const neighborMap = new Map();
+  edges.forEach(e => {
+    if (!neighborMap.has(e.i)) neighborMap.set(e.i, []);
+    if (!neighborMap.has(e.j)) neighborMap.set(e.j, []);
+    neighborMap.get(e.i).push({ idx: e.j, r: e.r });
+    neighborMap.get(e.j).push({ idx: e.i, r: e.r });
+  });
+
+  const MAX_TOOLTIP_ROWS = 10;
   cy.on('mouseover', 'node', (evt) => {
     const d = evt.target.data();
-    tooltip.innerHTML = `<b>${d.gene}</b><br>${d.category}<br>degree: ${d.degree}`;
+    const neighbors = (neighborMap.get(d.idx) || []).slice().sort((a, b) => Math.abs(b.r) - Math.abs(a.r));
+    const rows = neighbors.slice(0, MAX_TOOLTIP_ROWS).map(n => {
+      const sign = n.r > 0 ? '+' : '';
+      const rClass = n.r > 0 ? 'nbr-r-pos' : 'nbr-r-neg';
+      return `<span class="nbr-gene">${DATA.genes[n.idx]}</span> `
+           + `<span class="${rClass}">${sign}${n.r.toFixed(2)}</span> `
+           + `<span class="nbr-cat">${DATA.categories[n.idx]}</span>`;
+    }).join('<br>');
+    const more = neighbors.length > MAX_TOOLTIP_ROWS
+      ? `<br><span class="nbr-more">+${neighbors.length - MAX_TOOLTIP_ROWS} more</span>` : '';
+    const body = rows || '<span class="nbr-more">no connections at this threshold</span>';
+    tooltip.innerHTML = `<b>${d.gene}</b><br>${d.category} &middot; degree ${d.degree}`
+      + `<hr>${body}${more}`;
     tooltip.style.opacity = 1;
   });
   cy.on('mouseout', 'node', () => { tooltip.style.opacity = 0; });

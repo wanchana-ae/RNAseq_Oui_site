@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Correlation Heatmap (2026-09-10) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:980px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+
+figure{margin:20px 0 28px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+figure img{width:100%;height:auto;border-radius:6px;display:block}
+figcaption{font-size:.82em;color:var(--muted);margin-top:10px;line-height:1.6}
+figcaption b{color:var(--text)}
+
+.dl-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 8px}
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:6px 12px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.caveat{font-size:.85em;color:var(--muted);line-height:1.7;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;margin:20px 0}
+.caveat b{color:#92400e}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav>
+    <div class="section-label">Project</div>
+    <a href="index.html">Project Overview</a>
+    <div class="section-label">Daily Logs</div>
+    <a href="2026-04-30-setup.html">2026-04-30&nbsp;&nbsp;Setup</a>
+    <a href="2026-05-01-qc.html">2026-05-01&nbsp;&nbsp;FastQC QC</a>
+    <a href="2026-05-01-hisat2.html">2026-05-01&nbsp;&nbsp;HISAT2 Mapping</a>
+    <a href="2026-05-01-prepde.html">2026-05-01&nbsp;&nbsp;prepDE</a>
+    <a href="2026-05-01-deseq2.html">2026-05-01&nbsp;&nbsp;DESeq2 v1</a>
+    <a href="2026-05-01-deseq2-v2.html">2026-05-01&nbsp;&nbsp;DESeq2 v2 (11 samples)</a>
+    <a href="2026-05-08-fastp.html">2026-05-08&nbsp;&nbsp;fastp Trimming</a>
+    <a href="2026-05-08-hisat2-v2.html">2026-05-08&nbsp;&nbsp;HISAT2 v2 (trimmed)</a>
+    <a href="2026-05-08-deseq2-v3.html">2026-05-08&nbsp;&nbsp;DESeq2 v3 (11 samples)</a>
+    <a href="2026-05-08-os03g0297600-heatmap.html">2026-05-08&nbsp;&nbsp;Os03g0297600 Heatmap</a>
+    <a href="2026-05-11-multigene-heatmap.html">2026-05-11&nbsp;&nbsp;Multi-Gene Heatmap</a>
+    <a href="2026-09-09-deseq2-v4.html">2026-09-09&nbsp;&nbsp;DESeq2 v4 (13 samples)</a>
+    <a href="2026-09-10-coexpression-explorer.html">2026-09-10&nbsp;&nbsp;Co-expression Explorer</a>
+    <a href="2026-09-10-coexpression-heatmap.html" class="active">2026-09-10&nbsp;&nbsp;Correlation Heatmap</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>&middot;</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>&middot;</span><span>13 samples</span>
+    <span>&middot;</span><span class="badge badge-done">Done</span>
+  </div>
+
+  <h1>Gene Co-expression Correlation Heatmap</h1>
+  <p>Pairwise Pearson correlation among the 158 hormone / mechano-signaling candidate genes
+  from <i>Gene list_Oat.xlsx</i>, computed on DESeq2-style log2 normalized counts across all
+  13 samples. Two orderings of the
+  same 158&times;158 correlation matrix are shown below &mdash; grouped by gene category, and
+  ordered by hierarchical clustering (average linkage, 1&minus;r distance).</p>
+
+  <h2>Ordered by gene category</h2>
+  <figure>
+    <img src="heatmap-assets/heatmap_by_category.png" alt="Correlation heatmap grouped by gene category, with black separator lines between categories and between individual gene cells">
+    <figcaption>
+      <b>158 genes &times; 158 genes</b>, rows/columns grouped by the 6 categories in
+      <i>Gene list_Oat.xlsx</i> (Ethylene signalling, Auxin responsive, Cell wall responsive,
+      Mechano sensing, and others). Black lines mark category boundaries and individual gene
+      cells. Red = positive correlation, blue = negative correlation. Built in R with
+      ComplexHeatmap.
+    </figcaption>
+  </figure>
+
+  <h2>Ordered by hierarchical clustering</h2>
+  <figure>
+    <img src="heatmap-assets/heatmap_hclust.png" alt="Correlation heatmap ordered by hierarchical clustering, showing genes grouped into correlation-driven clusters rather than by category">
+    <figcaption>
+      <b>Same matrix</b>, rows/columns reordered by average-linkage hierarchical clustering on
+      1&minus;r distance instead of by category &mdash; genes that co-vary together across the
+      13 samples land next to each other regardless of which signalling pathway they belong to.
+      Useful for spotting clusters that cut across the predefined gene categories.
+    </figcaption>
+  </figure>
+
+  <h2>Download</h2>
+  <div class="dl-row">
+    <a class="file-link" href="heatmap-assets/Heatmap_sort_by_group.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Category-grouped heatmap <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="heatmap-assets/RNAseq_Oui_coexpression_heatmap_hclust_ComplexHeatmap.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Hierarchical-clustering heatmap <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="heatmap-assets/RNAseq_Oui_coexpression_correlation_matrix_byCategory.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Correlation matrix, category order <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="heatmap-assets/RNAseq_Oui_coexpression_correlation_matrix.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Correlation matrix, hclust order <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <p class="caveat">
+    <b>Read with caution:</b> n=13 samples is below the &ge;15-sample floor recommended for a
+    validated co-expression network (WGCNA guidance). Treat these heatmaps as exploratory &mdash;
+    useful for spotting candidate co-regulated gene pairs to follow up on, not as a confirmed
+    regulatory network. See also the
+    <a href="2026-09-10-coexpression-explorer.html">interactive network explorer</a> for the
+    same data as a thresholded gene-gene graph.
+  </p>
+
+  <footer>RNAseq Oui Lab Notebook &middot; Wanchana 2026</footer>
+</div>
+</body>
+</html>
