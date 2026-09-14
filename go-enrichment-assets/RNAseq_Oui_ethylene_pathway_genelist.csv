@@ -1,0 +1,40 @@
+gene_id,symbol,description,Dharia_log2FC,Dharia_padj,Dharia_sig,PTT1_log2FC,PTT1_padj,PTT1_sig
+Os07g0674800,ERF67,"Group VII ethylene response factor, Submergence tolerance",6.39,,False,-3.36,0.137924003362258,False
+Os03g0341000,ERF66,"Group VII ethylene response factor, Submergence tolerance",2.35,2.06543352644822e-05,True,2.42,3.10282198942684e-11,True
+Os03g0182800,EBP-89,"APETALA2/ethylene responsive factor, ERF transcription factor, Tolerance to drou",2.24,0.000109545988958,True,2.86,1.49748710222334e-14,True
+Os04g0547600,ERF94,Pathogenesis-related transcriptional factor and ERF domain containing protein.,2.16,0.202119541377004,False,0.53,0.559008921092718,False
+Os01g0313300,ERF68,Similar to EREBP-3 protein (Fragment).,1.91,0.0003400708137377,True,0.85,0.0167600986079702,False
+Os01g0868000,ERF99,"AP2/ERF transcription factor, Abiotic stress response, Salt stress response",1.1,0.1163426030248,False,1.76,1.6793091725696e-06,True
+Os05g0564700,ERF84,"Drought-responsive ethylene response factor 10, ERF family protein",0.82,0.706252153558683,False,0.25,0.759357711829654,False
+Os10g0562900,ERF96,"AP2/ERF (APETALA2/ethylene-responsive factor) transcription factor, Target of mi",0.81,0.721741059397081,False,0.25,0.770320560259867,False
+Os04g0429050,ERF100,Similar to OSIGBa0093L02.1 protein.,0.79,,False,-1.51,0.0420145311671785,False
+Os05g0361700,ERF61,Similar to EREBP-2 protein (Fragment).,0.61,0.57008924529053,False,-2.21,1.06329873380504e-08,True
+Os01g0752500,ERF92,"APETELA2/ethylene response factor (AP2/ERF) type transcription factor, Negative ",0.56,0.406979466590204,False,0.26,0.408285552443677,False
+Os09g0287000,SUB1B,Similar to Ethylene-responsive transcription factor 5 (Ethylene-responsive eleme,0.5,0.541264295964334,False,1.8,1.22021321902313e-09,True
+Os02g0654700,ERF91,"AP2/ERF family protein, Abiotic stress response",0.48,0.510152498681579,False,0.46,0.108201417514761,False
+Os04g0398000,ERF101,"ERF transcription factor, A member of APETALA2/Ethylene-Responsive Element Bindi",0.4,0.559657555631206,False,2.23,1.5909128008856402e-20,True
+Os09g0572000,ERF87,Pathogenesis-related transcriptional factor and ERF domain containing protein.,0.3,0.954135101593272,False,0.16,0.887021613355576,False
+Os03g0183300,ERF64,Pathogenesis-related transcriptional factor and ERF domain containing protein.,0.2,0.533521552405257,False,0.91,1.18022424238082e-14,True
+Os04g0546800,ERF93,"Ethylene response factor (ERF) protein, Transcription factor, Ethylene response",0.15,0.886337592766362,False,0.2,0.424850237818914,False
+Os09g0286600,SUB1C,Pathogenesis-related transcriptional factor and ERF domain containing protein.,0.15,0.890546430157805,False,0.47,0.0508592692231766,False
+Os08g0474000,ERF104,Similar to AP2 domain containing protein RAP2.6 (Fragment).,0.12,,False,-0.83,0.781915207999799,False
+Os09g0457900,ERF102,"AP2/ERF transcription factor, Regulation of the internode elongation",0.12,,False,3.82,0.27948061727523,False
+Os03g0150200,ERF88,"AP2/ERF transcription factor, Negative regulation of salt stress response, Salt ",0.06,,False,-2.55,0.321644943771915,False
+Os03g0183000,ERF62,"APETALA2/ethylene-responsive element binding protein 125, Transcription regulato",0.01,1.0,False,0.6,0.0022791973496586,True
+Os05g0437100,ERF105,Pathogenesis-related transcriptional factor and ERF domain containing protein.,0.0,,False,2.36,,False
+Os11g0168500,ERF118,Hypothetical conserved gene.,0.0,,False,-1.23,0.399400316752763,False
+Os08g0537900,ERF106,Similar to predicted protein.,-0.01,1.0,False,1.12,2.8843883360114904e-14,True
+Os03g0700800,,Similar to EIN2.,-0.06,0.973351309432953,False,0.77,0.0001334416179799,True
+Os09g0434500,ERF72,"AP2/EREBP-type transcription factor, ERF family protein, Defense response to bla",-0.07,0.975776236659917,False,-0.17,0.562496276180161,False
+Os06g0194000,ERF71,"AP2/ERF transcription factor, Drought resistance, Control of lignin biosynthesis",-0.09,0.938006119069584,False,-0.52,0.0073801343574551,True
+Os07g0617000,ERF65,"Transcription factor, Negative regulation of rice sheath blight resistance",-0.1,0.799744283490815,False,-0.12,0.304704448703653,False
+Os07g0155600,EIN2,"Nramp ion-transporter family protein, Ethylene signaling pathway",-0.12,0.830183913062283,False,0.27,0.0677897973576879,False
+Os02g0782700,EREBP1,"AP2/ERF transcription factor, Defense response, Abiotic stress response",-0.16,0.676014399267241,False,-0.0,1.0,False
+Os02g0764700,ERF103,"APETALA2/Ethylene Responsive Factor 103, Positive response to drought tolerance",-0.74,,False,-2.22,0.370190710146954,False
+Os03g0860100,ERF83,"Ethylene response factor, Transcriptional activator, Positive regulation of dise",-0.92,0.660115330152502,False,-0.35,0.644282144284075,False
+Os02g0655200,ERF95,Similar to Ap25.,-1.06,0.795725986417319,False,4.18,0.0012372000711843,True
+Os07g0410700,ERF86,"Drought-responsive ethylene response factor 2, ERF family protein",-1.73,0.333001612456176,False,1.3,0.123338245748989,False
+Os02g0546600,ERF98,Similar to AP2 domain containing protein RAP2.2 (Fragment).,,,,,,
+Os04g0257500,ERF128,Similar to Transcription factor TSRF1.,,,,,,
+Os09g0571700,ERF123,Similar to Ethylene-responsive transcription factor ERF096.,,,,,,
+Os12g0168100,ERF124,Similar to AP2 domain containing protein RAP2.6 (Fragment).,,,,,,

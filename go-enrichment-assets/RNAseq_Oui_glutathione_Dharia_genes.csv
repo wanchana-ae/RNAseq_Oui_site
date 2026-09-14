@@ -1,0 +1,46 @@
+gene_id,symbol,desc,log2FC,padj,sig,direction
+Os10g0529800,GSTU2,Similar to Tau class GST protein 4.,6.87,0.0003859004150617,True,up
+Os03g0595600,GSTU43,"Similar to Glutathione S-transferase, N-terminal domain containing pro",6.75,4.01237207810551e-09,True,up
+Os01g0949800,GSTU36,Similar to Glutathione S-transferase GST 28 (EC 2.5.1.18) (Fragment).,4.74,2.15366774573678e-16,True,up
+Os10g0528900,GSTU14,Similar to Tau class GST protein 3.,3.96,,False,up
+Os10g0530500,GSTU13,Similar to Glutathione-S-transferase Cla47.,3.08,0.302895883348963,False,up
+Os10g0527800,GSTU12,"Glutathione S-transferase, Regulation of leaf senescence",2.68,1.74971035388849e-08,True,up
+Os01g0949900,GSTU37,"Glutathione reductase, Glutathione S-transferase, ROS-scavenging enzym",2.67,3.6029998607968e-06,True,up
+Os01g0949750,GSTU35,Similar to Glutathione S-transferase GST 28 (Fragment).,2.63,3.95980237567844e-12,True,up
+Os10g0529700,GSTU8,Similar to glutathione transferase35.,2.59,0.350466770428255,False,up
+Os10g0525600,GSTU22,"Tau class glutathione S-transferase, Positive regulation of cadmium to",2.32,5.55028453479971e-08,True,up
+Os10g0527601,GSTU20,"Glutathione S-transferase, C-terminal-like domain containing protein.",2.09,0.0009968414850345,True,up
+Os10g0481300,GSTU47,"Similar to Glutathione S-transferase, N-terminal domain containing pro",1.97,3.91699411204527e-05,True,up
+Os10g0527400,GSTU19,Similar to Tau class GST protein 3.,1.87,5.33309970304689e-05,True,up
+Os09g0367700,GSTU5,"Tau class glutathione S-transferase, Tolerance against sheath blight d",1.63,5.05217787041515e-07,True,up
+Os10g0529500,GSTU30,"Tau class glutathione S-transferase, Heavy metal and drought stress to",1.5,0.0109076609606575,False,up
+Os10g0528400,GSTU3,Tau class glutathione S-transferase 3,1.39,0.0018294712914297,True,up
+Os01g0949700,GSTU7,"Glutathione S-transferase, C-terminal domain containing protein.",1.36,0.0319034737946545,False,up
+Os10g0528300,GSTU4,Tau class glutathione S-transferase 4,1.13,0.0049761842636992,True,up
+Os10g0528100,GSTU24,Similar to Glutathione S-transferase GST 42 (EC 2.5.1.18) (Fragment).,1.08,0.0069744994646703,True,up
+Os01g0692100,GSTU39,"Glutathione S-transferase, C-terminal-like domain containing protein.",1.05,0.0444998126529019,False,up
+Os09g0467200,GSTU17,"Tau class glutathione transferase, Response to abiotic stresses",0.97,0.0020016247778386,True,up
+Os10g0531400,GSTU10,Glutathione S-transferase GST 30 (EC 2.5.1.18).,0.84,0.0003412604575389,True,up
+Os10g0528200,,Similar to Glutathione S-transferase TSI-1 (EC 2.5.1.18) (Glutathione ,0.78,0.0148556258544632,False,up
+Os10g0525400,GSTU15,Similar to Glutathione S-transferase GSTU31 (Fragment).,0.78,0.690298596878723,False,up
+Os03g0643700,GSTU44,Similar to GST6 protein (EC 2.5.1.18).,0.72,0.317698154376626,False,up
+Os10g0365200,GSTU33,Thioredoxin fold domain containing protein.,0.69,0.151829996082683,False,up
+Os01g0692000,GSTU40,Similar to Glutathione S-transferase GSTU6.,0.68,0.456169085460915,False,up
+Os01g0558100,GSTU6,Similar to Glutathione S-transferase TSI-1 (EC 2.5.1.18) (Glutathione ,0.6,0.747910453455683,False,up
+Os10g0525800,GSTU31,Similar to Glutathione S-transferase GSTU31 (Fragment).,0.54,0.0562833713078482,False,up
+Os10g0529400,GSTU9,Similar to Glutathione S-transferase GSTU6.,0.32,0.444151403522451,False,up
+Os12g0123200,GSTU52,Glutathione S-transferase GST 7 (EC 2.5.1.18).,0.02,1.0,False,up
+Os02g0813500,GR2,"Glutathione reductase, Abiotic stress tolerance",0.02,0.97786484408824,False,up
+Os03g0785900,GSTU1,"Tau glutathione S-transferase 1, Metolachlor metabolism",-0.09,0.932670175543528,False,down
+Os03g0163300,GR1,Similar to Glutathione reductase (Fragment).,-0.1,0.924571973328694,False,down
+Os01g0667200,GLYII-1,"Mitochondrial sulfur dioxygenase, Abiotic stress response",-0.12,0.843778734404103,False,down
+Os10g0530400,GSTU23,Similar to Glutathione-S-transferase Cla47.,-0.14,0.93385973011815,False,down
+Os10g0530600,GSTU48,Similar to Glutathione S-transferase GST 20 (EC 2.5.1.18).,-0.19,0.971971094762088,False,down
+Os05g0412800,GSTU16,Similar to Glutathione S-transferase GST 41 (EC 2.5.1.18).,-0.21,0.941140922871224,False,down
+Os07g0168300,GSTU11,Similar to Glutathione S-transferase GSTU6.,-0.24,0.82231814940467,False,down
+Os10g0530900,GSTU50,"Tau-class glutathione S-transferase, Dimethylarsenate reduction, Contr",-0.27,0.561643707882391,False,down
+Os10g0529300,GSTU18,Similar to Tau class GST protein 3.,-0.41,0.737133321709774,False,down
+Os10g0395400,GSTU34,"Glutathione-s-transferase, Anthocyanin transportation",-0.64,,False,down
+Os07g0468100,GSTU46,Similar to Glutathione S-transferase GST 19 (EC 2.5.1.18).,-0.94,0.480650678175467,False,down
+Os01g0950000,GSTU41,Similar to Glutathione S-transferase GST 28 (EC 2.5.1.18) (Fragment).,-1.19,0.725532409612252,False,down
+Os10g0530200,GSTU26,"Glutathione S-transferase, Mediation of heterosis for salinity toleran",-1.92,0.0178129951989554,False,down

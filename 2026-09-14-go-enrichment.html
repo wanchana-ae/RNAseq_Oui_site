@@ -206,6 +206,28 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </figure>
   </div>
 
+  <h2>Gene-level view: glutathione metabolic process, Dharia</h2>
+  <p>The top Dharia-up term above is driven almost entirely by the <b>GSTU (Tau-class glutathione
+  S-transferase) gene family</b> &mdash; a large tandem cluster on chromosomes 1 and 10. Pathway
+  schematic below shows every one of the 45 family genes tested, colored by log2FoldChange
+  (Compact vs Control); black-bordered boxes are significant at padj&nbsp;&lt;&nbsp;0.01.</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_Dharia.png"
+         alt="Glutathione metabolic pathway schematic with GSTU gene family log2FoldChange, Dharia Compact vs Control">
+    <figcaption>16 of 45 GSTU/glutathione-cycle genes are significantly upregulated (up to
+    +6.9 log2FC) under compaction in Dharia; not one is significantly downregulated. Glutathione
+    reductase (GR1, GR2, which regenerate reduced GSH from GSSG) barely move &mdash; the response
+    is concentrated in the conjugation/detox step, not the redox-cycling step.</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_Dharia.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Glutathione pathway diagram <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_Dharia_genes.csv" download style="--badge-color:#0ea5e9">
+      &#128196; All 45 gene-level values (log2FC, padj) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
   <h2>PTT1 &mdash; Compact vs Control</h2>
   <div class="two-col">
     <figure>
@@ -223,6 +245,38 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
       with microtubule-based movement, DNA replication and oxidative-stress terms also strongly
       down.</figcaption>
     </figure>
+  </div>
+
+  <h2>Targeted follow-up: ethylene-activated signaling pathway (GO:0009873)</h2>
+  <p>Neither variety's Up/Down list reaches significance for this term above &mdash; but it <i>is</i>
+  tested in three of the four lists (0 hits in Dharia Down, so it wasn't testable there). Pulling
+  just this one GO term out for a direct side-by-side comparison:</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
+         alt="Fold enrichment comparison for GO:0009873 ethylene-activated signaling pathway across Dharia Up/Down and PTT1 Up/Down">
+    <figcaption>Fold Enrichment for <b>ethylene-activated signaling pathway</b> in each of the four
+    gene sets. Dharia Up shows the strongest fold-enrichment (3.6&times;, 3/35 pathway genes) but
+    with only 713 background genes the test lacks power &mdash; FDR&nbsp;=&nbsp;0.29, not
+    significant. PTT1 Up hits more pathway genes in absolute terms (10/35) but its list is so large
+    (6,830 genes) that 1.25&times; enrichment is unremarkable (FDR&nbsp;=&nbsp;0.83). Both
+    Down-lists are depleted or empty for the term.</figcaption>
+  </figure>
+  <p>At the gene level, the ethylene response factor (ERF) family driving this term splits sharply:
+  most of the 39 annotated genes move in only one variety, or not at all, but two &mdash;
+  <b>ERF66</b> (Os03g0341000) and <b>EBP-89</b> (Os03g0182800) &mdash; are significantly upregulated
+  in <i>both</i> Dharia and PTT1 (log2FC +2.2&ndash;2.9, padj&nbsp;&lt;&nbsp;0.001 in both), making
+  them the most consistent ethylene-signaling response across varieties despite the pathway-level
+  test not reaching significance in either.</p>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Ethylene term comparison (4 groups) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_pathway_genelist.csv" download style="--badge-color:#0ea5e9">
+      &#128196; All 39 ethylene-pathway genes (both varieties) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Comparison chart <span class="file-badge">PDF</span>
+    </a>
   </div>
 
   <h2>What stands out</h2>
@@ -243,6 +297,11 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     also a statistical-power story, not purely biological difference (see the
     <a href="2026-09-11-v3-vs-v4-comparison.html">v3 vs v4 comparison</a> page for how much
     Dharia's replicate count affects its significance calls).</li>
+    <li><b>Ethylene signaling never reaches pathway-level significance in either variety</b>
+    (GO:0009873, FDR&nbsp;&ge;&nbsp;0.29 everywhere it's testable), but two ERF transcription
+    factors &mdash; <b>ERF66</b> and <b>EBP-89</b> &mdash; are significantly up in both Dharia and
+    PTT1, making them the most reproducible individual ethylene-response genes even though the
+    pathway as a whole doesn't clear the bar.</li>
   </ul>
 
   <h2>Download</h2>
