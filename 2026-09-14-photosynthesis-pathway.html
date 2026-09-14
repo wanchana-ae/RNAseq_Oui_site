@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Photosynthesis Pathway (2026-09-14) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:1080px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+
+figure{margin:20px 0 28px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+figure img{width:100%;height:auto;border-radius:6px;display:block}
+figcaption{font-size:.82em;color:var(--muted);margin-top:10px;line-height:1.6}
+figcaption b{color:var(--text)}
+
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 24px}
+.stat-card{flex:1;min-width:190px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.stat-card .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin-bottom:6px}
+.stat-card .value{font-size:1.5rem;font-weight:800;font-family:'Cascadia Code','Fira Code',monospace}
+.stat-card .value.up{color:#059669}
+.stat-card .value.down{color:#dc2626}
+.stat-card .sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+#main table{border-collapse:collapse;width:100%;margin:16px 0;
+  font-size:.88em;border-radius:8px;overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.08)}
+#main th{background:var(--sidebar-bg);color:#e2e8f0;padding:9px 12px;
+  text-align:left;font-weight:600;font-size:.85em}
+#main td{padding:8px 12px;border-bottom:1px solid var(--border);
+  font-family:'Cascadia Code','Fira Code',monospace;font-variant-numeric:tabular-nums}
+#main td:first-child{font-family:'Segoe UI',sans-serif}
+#main tr:last-child td{border-bottom:none}
+#main tr:nth-child(even) td{background:#f8fafc}
+
+.dl-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 8px}
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:6px 12px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.caveat{font-size:.85em;color:var(--muted);line-height:1.7;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;margin:20px 0}
+.caveat b{color:#92400e}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.two-col{grid-template-columns:1fr}}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav>
+    <div class="section-label">Project</div>
+    <a href="index.html">Project Overview</a>
+    <div class="section-label">Daily Logs</div>
+    <a href="2026-04-30-setup.html">2026-04-30&nbsp;&nbsp;Setup</a>
+    <a href="2026-05-01-qc.html">2026-05-01&nbsp;&nbsp;FastQC QC</a>
+    <a href="2026-05-01-hisat2.html">2026-05-01&nbsp;&nbsp;HISAT2 Mapping</a>
+    <a href="2026-05-01-prepde.html">2026-05-01&nbsp;&nbsp;prepDE</a>
+    <a href="2026-05-01-deseq2.html">2026-05-01&nbsp;&nbsp;DESeq2 v1</a>
+    <a href="2026-05-01-deseq2-v2.html">2026-05-01&nbsp;&nbsp;DESeq2 v2 (11 samples)</a>
+    <a href="2026-05-08-fastp.html">2026-05-08&nbsp;&nbsp;fastp Trimming</a>
+    <a href="2026-05-08-hisat2-v2.html">2026-05-08&nbsp;&nbsp;HISAT2 v2 (trimmed)</a>
+    <a href="2026-05-08-deseq2-v3.html">2026-05-08&nbsp;&nbsp;DESeq2 v3 (11 samples)</a>
+    <a href="2026-05-08-os03g0297600-heatmap.html">2026-05-08&nbsp;&nbsp;Os03g0297600 Heatmap</a>
+    <a href="2026-05-11-multigene-heatmap.html">2026-05-11&nbsp;&nbsp;Multi-Gene Heatmap</a>
+    <a href="2026-09-09-deseq2-v4.html">2026-09-09&nbsp;&nbsp;DESeq2 v4 (13 samples)</a>
+    <a href="2026-09-10-coexpression-explorer.html">2026-09-10&nbsp;&nbsp;Co-expression Explorer</a>
+    <a href="2026-09-10-coexpression-heatmap.html">2026-09-10&nbsp;&nbsp;Correlation Heatmap</a>
+    <a href="2026-09-11-v3-vs-v4-comparison.html">2026-09-11&nbsp;&nbsp;v3 vs v4 Comparison</a>
+    <a href="2026-09-14-go-enrichment.html">2026-09-14&nbsp;&nbsp;GO Enrichment</a>
+    <a href="2026-09-14-glutathione-pathway.html">2026-09-14&nbsp;&nbsp;Glutathione Pathway</a>
+    <a href="2026-09-14-photosynthesis-pathway.html" class="active">2026-09-14&nbsp;&nbsp;Photosynthesis Pathway</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>&middot;</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>&middot;</span><span>DESeq2 v3, padj&lt;0.01</span>
+    <span>&middot;</span><span class="badge badge-done">Done</span>
+  </div>
+
+  <h1>Photosynthesis / Light-Harvesting Pathway &mdash; Dharia vs PTT1, Compact vs Control</h1>
+  <p>Gene-level detail behind the top hit in <a href="2026-09-14-go-enrichment.html">PTT1 Up</a>:
+  <b>photosynthesis</b> (GO:0015979, FE&nbsp;=&nbsp;3.35&times;, FDR&nbsp;&asymp;&nbsp;1.5&times;10⁻¹²,
+  36/47 genes) and its most concentrated sub-term, <b>photosynthesis, light harvesting</b>
+  (GO:0009765, only 15 genes total in this GO term &mdash; PTT1 Up hits <b>all 15</b>). Unlike the
+  glutathione story, this one is <i>not</i> a case of opposite directions between varieties: every
+  one of the 15 light-harvesting genes moves the same way (up) in <b>both</b> Dharia and PTT1. The
+  difference is statistical power, not biology.</p>
+
+  <h2>Fold Enrichment comparison</h2>
+  <p>Both the broad <b>photosynthesis</b> term and the specific <b>light harvesting</b> sub-term are
+  significant in PTT1 Up; light harvesting is also significant in Dharia Up (FDR&nbsp;=&nbsp;0.012),
+  it just doesn't have enough genes/power for the broader photosynthesis term to clear FDR&nbsp;&lt;&nbsp;0.05
+  (FDR&nbsp;=&nbsp;0.195, though the fold-enrichment itself, 3.57&times;, is actually slightly higher
+  than PTT1's 3.35&times;).</p>
+  <div class="two-col">
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_photosynthesis_GOterm_comparison.png"
+           alt="Fold enrichment comparison for GO:0015979 photosynthesis across Dharia Up/Down and PTT1 Up/Down">
+      <figcaption><b>GO:0015979 photosynthesis</b> (47 genes) &mdash; PTT1 Up highly significant
+      (36/47 genes); Dharia Up has similar fold-enrichment but doesn't reach significance with only
+      4/47 genes hit.</figcaption>
+    </figure>
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_lightharvesting_GOterm_comparison.png"
+           alt="Fold enrichment comparison for GO:0009765 photosynthesis light harvesting across Dharia Up/Down and PTT1 Up/Down">
+      <figcaption><b>GO:0009765 light harvesting</b> (only 15 genes) &mdash; significant in
+      <i>both</i> varieties' Up lists. PTT1 hits all 15/15 genes; Dharia hits 4/15 but with higher
+      fold-enrichment (smaller background list).</figcaption>
+    </figure>
+  </div>
+
+  <h2>Gene-level view: light-harvesting complex (LHCI/LHCII), both varieties</h2>
+  <p>The 15-gene light-harvesting term splits into the PSII antenna complex (LHCB/CP24/CP26/CP29/CAB
+  family, 9 genes light-harvesting complex II) and the PSI antenna complex (LHCA family + DYE1,
+  5&ndash;6 genes, light-harvesting complex I). Every single gene in both groups moves in the
+  <b>same direction (up)</b> in both varieties &mdash; PTT1 just has enough statistical power
+  (6,830-gene Up list vs Dharia's 713) to call all 15 significant, where Dharia only clears
+  padj&nbsp;&lt;&nbsp;0.01 for 4 of them.</p>
+  <div class="two-col">
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_lightharvesting_schematic_Dharia.png"
+           alt="Light-harvesting complex schematic with log2FoldChange, Dharia Compact vs Control">
+      <figcaption><b>Dharia</b> &mdash; all 15 genes positive (log2FC +1.3 to +2.4), only 4 reach
+      padj&nbsp;&lt;&nbsp;0.01 (bold black border).</figcaption>
+    </figure>
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_lightharvesting_schematic_PTT1.png"
+           alt="Light-harvesting complex schematic with log2FoldChange, PTT1 Compact vs Control">
+      <figcaption><b>PTT1</b> &mdash; all 15 genes positive and significant (log2FC +1.8 to +4.9)
+      &mdash; a much larger and statistically cleaner induction of the same gene family.</figcaption>
+    </figure>
+  </div>
+  <p><b>กลไกโดยสรุป (ภาษาไทย):</b> ยีนกลุ่มนี้เป็นโปรตีนจับคลอโรฟิลล์ a/b (chlorophyll a/b-binding
+  proteins) ที่ประกอบเป็น antenna complex รอบระบบแสง (photosystem) สองชุด &mdash; LHCII ล้อมรอบ
+  PSII และ LHCI ล้อมรอบ PSI ทำหน้าที่ดักจับพลังงานแสงแล้วส่งต่อไปยัง reaction center เพื่อขับเคลื่อน
+  electron transport chain (PSII &rarr; plastoquinone &rarr; cytochrome b6f &rarr; plastocyanin
+  &rarr; PSI &rarr; ferredoxin &rarr; NADP<sup>+</sup> รีดิวซ์เป็น NADPH) การที่ยีนกลุ่มนี้ถูกกระตุ้น
+  ขึ้นพร้อมกันแทบทั้งตระกูลในทั้งสองพันธุ์ บ่งชี้ว่าทั้ง Dharia และ PTT1 เพิ่มขีดความสามารถในการดักจับ
+  แสง/สังเคราะห์แสงภายใต้ภาวะดินอัดแน่น เพียงแต่ PTT1 แสดงผลนี้ชัดเจนและมีนัยสำคัญทางสถิติมากกว่า
+  เพราะมีจำนวนยีนที่เปลี่ยนแปลงในภาพรวมมากกว่ามาก (power สูงกว่า) ไม่ใช่เพราะกลไกทางชีววิทยาต่างกัน</p>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_photosynthesis_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Photosynthesis FE comparison <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_lightharvesting_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Light harvesting FE comparison <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_lightharvesting_schematic_Dharia.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Dharia schematic <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_lightharvesting_schematic_PTT1.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; PTT1 schematic <span class="file-badge">PDF</span>
+    </a>
+  </div>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_photosynthesis_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Photosynthesis comparison table (4 groups) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_lightharvesting_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Light harvesting comparison table (4 groups) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_lightharvesting_genelist_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; All 15 genes, both varieties (log2FC, padj) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <p class="caveat">
+  &larr; Back to <a href="2026-09-14-go-enrichment.html">GO Enrichment overview</a> for the full
+  Dharia/PTT1 Up/Down comparison this term came from.</p>
+
+  <footer>RNAseq Oui Lab Notebook &middot; Wanchana 2026</footer>
+</div>
+</body>
+</html>

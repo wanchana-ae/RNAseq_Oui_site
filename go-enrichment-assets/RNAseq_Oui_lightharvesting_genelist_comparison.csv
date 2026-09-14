@@ -1,0 +1,16 @@
+gene_id,desc,symbol,Dharia_log2FC,Dharia_padj,PTT1_log2FC,PTT1_padj,Dharia_sig,PTT1_sig
+Os01g0720500,Similar to Type I chlorophyll a/b-binding protein b (Fragment).,LHCB1.1,2.06778021580035,0.0043926019953925,4.90286443900783,2.0227553990990397e-30,True,True
+Os02g0197600,Chlorophyll a/b-binding protein type III (Fragment).,LHCA3,1.55742426269193,0.0206931161745067,4.87998632543902,8.82709426703288e-39,False,True
+Os02g0764500,"Light-harvesting chlorophyll a/b-binding (LHC) protein, Ortholog of AtLhca5, Blast resistance",LHCA5,2.36670932870664,0.0145121098699494,4.64328870185071,6.557701754469951e-15,False,True
+Os03g0592500,Similar to Photosystem II type II chlorophyll a/b binding protein (Fragment).,LHCB2.1,1.43905333434951,0.0471113170116756,4.24666278643824,5.30448174353706e-28,False,True
+Os07g0577600,Similar to Type II chlorophyll a/b binding protein from photosystem I precursor.,LHCA2,1.77593414262523,0.0087839015361968,3.90209171634331,2.58183213810539e-23,True,True
+Os11g0242800,"Light-harvesting complex II protein, Light-dependent rice blast resistance",CP26,1.34150181420946,0.064491772085993,3.86612663626687,2.7664296095008702e-24,False,True
+Os08g0435900,Subunit of the light-harvesting complex I (LHCI),DYE1,1.6090504960635,0.0314449267753805,3.82120926482324,1.73011057134723e-20,False,True
+Os09g0439500,Similar to Type II chlorophyll a/b binding protein from photosystem I precursor.,,2.26345810320604,0.0308240904294281,3.71347186765786,5.99717309598209e-10,False,True
+Os06g0320500,Similar to Light-harvesting complex I (Fragment).,LHCA1,1.58989047214291,0.0358538247451715,3.64082737784097,1.8124436045508e-18,False,True
+Os07g0558400,Similar to Chlorophyll a/b-binding protein CP29 precursor.,CP29,1.48776080118748,0.0483603816634697,3.49673232840381,6.14695599034186e-18,False,True
+Os07g0562700,"Light-harvesting chlorophyll a/b-binding (LHCB) protein, Regulation of photosynthesis and antenna proteins",LHCB3,1.5303513214145,0.0297318649684294,3.38002222783651,4.7375033540831005e-18,False,True
+Os04g0457000,"Similar to Chlorophyll a/b-binding protein CP24, photosystem II (Fragment).",CP24,1.62583037018052,0.0092002369822554,3.24963125253049,2.9665157195350102e-19,True,True
+Os01g0600900,"Chlorophyll a-b binding protein 2, chloroplast precursor (LHCII type I CAB-2) (LHCP).",CAB2R,1.84883424595944,0.0151350264547014,3.20184528643133,2.31894533387286e-13,False,True
+Os09g0346500,"Chlorophyll a/b binding protein, Circadian clock-controlled gene",CAB1R,1.31491616008653,0.0371923339467054,2.8279913163355,3.06200289398656e-16,False,True
+Os09g0296800,"Light-harvesting chlorophyll a/b-binding (LHC) protein, Ortholog of AtLhcb7, Blast resistance",CABE,1.64743951760212,0.0066425845204132,1.80527721613351,6.11088302127537e-07,True,True
