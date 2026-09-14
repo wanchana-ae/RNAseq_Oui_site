@@ -188,32 +188,32 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </a>
   </div>
 
-  <h2>Dharia vs PTT1 comparison</h2>
-  <p><b>Correction to the "only Dharia responds" reading:</b> PTT1 Up is <i>also</i> significantly
-  enriched for this term (FE&nbsp;=&nbsp;2.14&times;, FDR&nbsp;=&nbsp;0.004, 22/45 genes) &mdash;
-  it's real, just much weaker than Dharia's 14.9&times;. That's expected: PTT1's Up list has 6,830
-  genes vs Dharia's 713, so the same (or more) pathway hits produce far less fold-enrichment against
-  a much bigger background. In fact, at the gene level <b>PTT1 has more GSTU genes pass
-  padj&nbsp;&lt;&nbsp;0.01 than Dharia does</b> (28 vs 16) &mdash; but PTT1's response is split
-  (22 up, 6 down), while Dharia's is one-directional (16 up, 0 down). The real difference isn't
-  "Dharia responds, PTT1 doesn't" &mdash; it's that <b>Dharia's response is smaller in gene count
-  but far more concentrated and one-directional</b>, while PTT1's is larger but mixed and diluted by
-  its much bigger overall gene-expression shift.</p>
+  <h2>เปรียบเทียบ Dharia กับ PTT1</h2>
+  <p><b>แก้ไขความเข้าใจ "มีแค่ Dharia ที่ตอบสนอง":</b> จริงๆ แล้ว PTT1 Up <i>ก็</i> significant สำหรับ
+  เทอมนี้เหมือนกัน (FE&nbsp;=&nbsp;2.14&times;, FDR&nbsp;=&nbsp;0.004, 22/45 ยีน) &mdash; เป็นผลจริง
+  แค่อ่อนกว่า Dharia มาก (14.9&times;) ซึ่งก็สมเหตุสมผล เพราะ gene list ของ PTT1 Up มีถึง 6,830 ยีน
+  ในขณะที่ Dharia มีแค่ 713 ยีน ดังนั้นแม้จะเจอยีนในกลุ่มเป้าหมายเท่ากันหรือมากกว่า แต่ fold enrichment
+  ก็จะต่ำกว่ามากเมื่อเทียบกับ background ที่ใหญ่กว่า และถ้าดูที่ระดับยีนจริง ๆ <b>PTT1 มียีน GSTU ที่ผ่าน
+  padj&nbsp;&lt;&nbsp;0.01 มากกว่า Dharia ด้วยซ้ำ</b> (28 เทียบกับ 16 ยีน) &mdash; แต่การตอบสนองของ PTT1
+  แบ่งเป็นสองทิศทาง (up 22, down 6) ในขณะที่ Dharia ไปทิศทางเดียว (up 16, down 0) สรุปคือความต่างที่แท้จริง
+  ไม่ใช่ "Dharia ตอบสนอง ส่วน PTT1 ไม่ตอบสนอง" แต่เป็นว่า <b>การตอบสนองของ Dharia มีจำนวนยีนน้อยกว่าแต่
+  เข้มข้นและไปทิศทางเดียวกันชัดเจนกว่ามาก</b> ในขณะที่ของ PTT1 มีจำนวนยีนมากกว่าแต่ผสมทั้งสองทิศทาง และถูก
+  เจือจางด้วยการเปลี่ยนแปลงของยีนโดยรวมที่ใหญ่กว่ามาก</p>
   <figure>
     <img src="go-enrichment-assets/RNAseq_Oui_glutathione_GOterm_comparison.png"
          alt="Fold enrichment comparison for GO:0006749 glutathione metabolic process across Dharia Up/Down and PTT1 Up/Down">
-    <figcaption>Fold Enrichment for glutathione metabolic process in each of the four gene sets.
-    Dharia Up is the strongest signal by far; PTT1 Up is real but modest; both Down-lists show no
-    enrichment (PTT1 Down is even mildly depleted). Dharia Down has zero pathway-gene hits, so the
-    term doesn't get reported for that list.</figcaption>
+    <figcaption>Fold Enrichment ของ glutathione metabolic process ในทั้ง 4 กลุ่มยีน Dharia Up มีสัญญาณ
+    แรงที่สุดอย่างชัดเจน PTT1 Up เป็นผลจริงแต่อ่อนกว่ามาก ส่วน Down-list ทั้งสองพันธุ์ไม่พบการ enrichment
+    เลย (PTT1 Down ยังแสดงแนวโน้ม depleted เล็กน้อยด้วยซ้ำ) ส่วน Dharia Down ไม่มียีนในกลุ่มนี้ติดเลยสักตัว
+    เทอมนี้จึงไม่ถูกรายงานในลิสต์นั้น</figcaption>
   </figure>
   <figure>
     <img src="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_PTT1.png"
          alt="Glutathione metabolic pathway schematic with GSTU gene family log2FoldChange, PTT1 Compact vs Control">
-    <figcaption>Same 45-gene GSTU/glutathione-cycle family, PTT1 Compact vs Control. 22 genes
-    significantly up (max +7.6 log2FC) and 6 significantly down (down to &minus;2.2 log2FC) &mdash;
-    unlike Dharia's clean one-directional signature, PTT1 shows both induction and repression within
-    the same gene family.</figcaption>
+    <figcaption>ยีนกลุ่ม GSTU/glutathione-cycle ชุดเดียวกัน 45 ยีน แต่เป็นข้อมูล PTT1 Compact vs Control
+    มี 22 ยีนที่ significant ฝั่ง up (สูงสุด +7.6 log2FC) และ 6 ยีนที่ significant ฝั่ง down (ต่ำสุด
+    &minus;2.2 log2FC) &mdash; ต่างจาก Dharia ที่ไปทิศทางเดียวชัดเจน PTT1 แสดงทั้งการกระตุ้นและการกด
+    การทำงานพร้อมกันภายในยีนตระกูลเดียวกัน</figcaption>
   </figure>
   <div class="dl-row">
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_PTT1.pdf" target="_blank" style="--badge-color:#ef4444">
