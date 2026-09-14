@@ -150,10 +150,11 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     <span>&middot;</span><span class="badge badge-done">Done</span>
   </div>
 
-  <h1>Glutathione Metabolic Pathway &mdash; Dharia, Compact vs Control</h1>
+  <h1>Glutathione Metabolic Pathway &mdash; Dharia vs PTT1, Compact vs Control</h1>
   <p>Gene-level detail behind the top hit in the <a href="2026-09-14-go-enrichment.html">GO
-  Enrichment</a> page: <b>glutathione metabolic process</b> in Dharia Up (14.9&times; enrichment,
-  FDR&nbsp;&asymp;&nbsp;2&times;10⁻¹³, 16/45 pathway genes hit).</p>
+  Enrichment</a> page: <b>glutathione metabolic process</b> (GO:0006749) in Dharia Up (14.9&times;
+  enrichment, FDR&nbsp;&asymp;&nbsp;2&times;10⁻¹³, 16/45 pathway genes hit). PTT1 is <i>not</i>
+  silent on this term either &mdash; see the comparison section below.</p>
 
   <h2>Gene-level view: glutathione metabolic process, Dharia</h2>
   <p>The top Dharia-up term above is driven almost entirely by the <b>GSTU (Tau-class glutathione
@@ -184,6 +185,48 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_Dharia_genes.csv" download style="--badge-color:#0ea5e9">
       &#128196; All 45 gene-level values (log2FC, padj) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <h2>Dharia vs PTT1 comparison</h2>
+  <p><b>Correction to the "only Dharia responds" reading:</b> PTT1 Up is <i>also</i> significantly
+  enriched for this term (FE&nbsp;=&nbsp;2.14&times;, FDR&nbsp;=&nbsp;0.004, 22/45 genes) &mdash;
+  it's real, just much weaker than Dharia's 14.9&times;. That's expected: PTT1's Up list has 6,830
+  genes vs Dharia's 713, so the same (or more) pathway hits produce far less fold-enrichment against
+  a much bigger background. In fact, at the gene level <b>PTT1 has more GSTU genes pass
+  padj&nbsp;&lt;&nbsp;0.01 than Dharia does</b> (28 vs 16) &mdash; but PTT1's response is split
+  (22 up, 6 down), while Dharia's is one-directional (16 up, 0 down). The real difference isn't
+  "Dharia responds, PTT1 doesn't" &mdash; it's that <b>Dharia's response is smaller in gene count
+  but far more concentrated and one-directional</b>, while PTT1's is larger but mixed and diluted by
+  its much bigger overall gene-expression shift.</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_glutathione_GOterm_comparison.png"
+         alt="Fold enrichment comparison for GO:0006749 glutathione metabolic process across Dharia Up/Down and PTT1 Up/Down">
+    <figcaption>Fold Enrichment for glutathione metabolic process in each of the four gene sets.
+    Dharia Up is the strongest signal by far; PTT1 Up is real but modest; both Down-lists show no
+    enrichment (PTT1 Down is even mildly depleted). Dharia Down has zero pathway-gene hits, so the
+    term doesn't get reported for that list.</figcaption>
+  </figure>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_PTT1.png"
+         alt="Glutathione metabolic pathway schematic with GSTU gene family log2FoldChange, PTT1 Compact vs Control">
+    <figcaption>Same 45-gene GSTU/glutathione-cycle family, PTT1 Compact vs Control. 22 genes
+    significantly up (max +7.6 log2FC) and 6 significantly down (down to &minus;2.2 log2FC) &mdash;
+    unlike Dharia's clean one-directional signature, PTT1 shows both induction and repression within
+    the same gene family.</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_PTT1.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; PTT1 pathway diagram <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Fold enrichment comparison chart <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Comparison table (4 groups) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_glutathione_pathway_genelist_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; All 45 genes, both varieties (log2FC, padj) <span class="file-badge">CSV</span>
     </a>
   </div>
 
