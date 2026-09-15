@@ -157,8 +157,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
   <a href="2026-09-14-go-enrichment.html">GO Enrichment</a> &mdash; pathway นี้ (GO:0009873)
   ไม่เคยมีนัยสำคัญระดับ term ในสายพันธุ์ใดเลย (FDR&nbsp;&ge;&nbsp;0.29 ทุกจุดที่ทดสอบได้) แต่ยีนตระกูล
   transcription factor ปลายทาง ERF/EREBP สองตัว &mdash; <b>ERF66</b> และ <b>EBP-89</b> &mdash; แสดงออกเพิ่มขึ้น
-  อย่างมีนัยสำคัญในทั้ง Dharia และ PTT1 หน้านี้เจาะลึกด้วย 3 มุมมอง: คาสเคดการส่งสัญญาณทั้งสาย (2 รูปแบบ),
-  Fold Enrichment ที่ normalize แล้ว, และระดับยีนเดี่ยว (scatter)</p>
+  อย่างมีนัยสำคัญในทั้ง Dharia และ PTT1 หน้านี้เจาะลึกด้วย 3 มุมมอง: ระดับยีนเดี่ยว (scatter),
+  Fold Enrichment ที่ normalize แล้ว, และลำดับขั้นตอนการส่งสัญญาณทั้งสาย (2 รูปแบบ)</p>
 
   <div class="stat-row">
     <div class="stat-card">
@@ -178,7 +178,45 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </div>
   </div>
 
-  <h2>1. คาสเคดการส่งสัญญาณ: จากตัวรับ ethylene ถึงยีนปลายทาง</h2>
+  <h2>1. ระดับยีนเดี่ยว: ERF66 และ EBP-89 คือยีนตอบสนองที่สอดคล้องกันที่สุด</h2>
+  <p>Scatter plot ด้านล่างแสดง log2FC ของยีนตระกูล ERF/EREBP ทั้ง 39 ยีน โดยแกน x = Dharia, แกน y = PTT1
+  จุดสีแดงคือ ERF66 และ EBP-89 &mdash; สองยีนเดียวที่มีนัยสำคัญในทั้งสองสายพันธุ์ ทั้งคู่อยู่ใน quadrant
+  &ldquo;เพิ่มขึ้นทั้งคู่&rdquo; (บนขวา) และอยู่ใกล้เส้นทแยงมุม (ทิศทาง/ขนาดใกล้เคียงกันระหว่างสองสายพันธุ์)
+  ต่างจากยีนอื่นๆ ในตระกูลที่ส่วนใหญ่ไม่มีนัยสำคัญเลยทั้งคู่ หรือมีนัยสำคัญเฉพาะ PTT1</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.png"
+         alt="Scatter plot log2FC Dharia vs PTT1 สำหรับยีนตระกูล ERF/EREBP 39 ยีน">
+    <figcaption>ยีนตระกูล ERF/EREBP ทั้ง 39 ยีน &mdash; ไฮไลต์ ERF66 และ EBP-89 ซึ่งเป็นยีนตอบสนอง ethylene
+    ระดับยีนที่สอดคล้องกันที่สุด แม้ pathway โดยรวมจะไม่ผ่านเกณฑ์นัยสำคัญ</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Scatter plot <span class="file-badge">PDF</span>
+    </a>
+  </div>
+
+  <h2>2. Fold Enrichment: pathway ไม่ผ่านเกณฑ์นัยสำคัญในสายพันธุ์ใดเลย</h2>
+  <p>แม้ Dharia Up จะมี Fold Enrichment สูงถึง 3.6&times; (3/35 ยีน) แต่ FDR ยังสูงถึง 0.29 &mdash;
+  ไม่ผ่านเกณฑ์นัยสำคัญ (FDR&lt;0.05) ส่วน PTT1 Up มี FE เพียง 1.25&times; (FDR=0.83) และอีกสองกลุ่ม
+  (Dharia Down, PTT1 Down) ไม่มี enrichment เลย ยืนยันว่า ethylene-activated signaling pathway
+  ไม่เคยมีนัยสำคัญระดับ pathway ในสายพันธุ์ใดเลย ทั้งที่มียีนปลายทางบางตัว (ERF66, EBP-89)
+  ที่แสดงออกเปลี่ยนแปลงชัดเจนมาก</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
+         alt="Fold Enrichment bar chart สำหรับ GO term ethylene-activated signaling pathway ทั้ง 4 กลุ่มยีน">
+    <figcaption>Fold Enrichment ของ GO:0009873 (ethylene-activated signaling pathway) ในแต่ละรายชื่อยีน
+    &mdash; ไม่มีกลุ่มใด FDR&lt;0.05 เลย</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Fold Enrichment chart <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ตาราง Fold Enrichment (4 กลุ่ม) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <h2>3. ลำดับขั้นตอนการส่งสัญญาณ: จากตัวรับ ethylene ถึงยีนปลายทาง</h2>
   <p>&ldquo;คาสเคด&rdquo; (cascade) คือลำดับขั้นตอนการส่งสัญญาณต่อกันเป็นทอดๆ ตั้งแต่ฮอร์โมนจับตัวรับ
   จนถึงยีนที่ถูกกระตุ้นจริง มีลำดับดังนี้:</p>
   <div class="step-list">
@@ -225,44 +263,6 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_upstream_genelist.csv" download style="--badge-color:#0ea5e9">
       &#128196; ยีนต้นน้ำ (receptor &rarr; EIN3/EIL1 &rarr; feedback) <span class="file-badge">CSV</span>
-    </a>
-  </div>
-
-  <h2>2. Fold Enrichment: pathway ไม่ผ่านเกณฑ์นัยสำคัญในสายพันธุ์ใดเลย</h2>
-  <p>แม้ Dharia Up จะมี Fold Enrichment สูงถึง 3.6&times; (3/35 ยีน) แต่ FDR ยังสูงถึง 0.29 &mdash;
-  ไม่ผ่านเกณฑ์นัยสำคัญ (FDR&lt;0.05) ส่วน PTT1 Up มี FE เพียง 1.25&times; (FDR=0.83) และอีกสองกลุ่ม
-  (Dharia Down, PTT1 Down) ไม่มี enrichment เลย ยืนยันว่า ethylene-activated signaling pathway
-  ไม่เคยมีนัยสำคัญระดับ pathway ในสายพันธุ์ใดเลย ทั้งที่มียีนปลายทางบางตัว (ERF66, EBP-89)
-  ที่แสดงออกเปลี่ยนแปลงชัดเจนมาก</p>
-  <figure>
-    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
-         alt="Fold Enrichment bar chart สำหรับ GO term ethylene-activated signaling pathway ทั้ง 4 กลุ่มยีน">
-    <figcaption>Fold Enrichment ของ GO:0009873 (ethylene-activated signaling pathway) ในแต่ละรายชื่อยีน
-    &mdash; ไม่มีกลุ่มใด FDR&lt;0.05 เลย</figcaption>
-  </figure>
-  <div class="dl-row">
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Fold Enrichment chart <span class="file-badge">PDF</span>
-    </a>
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
-      &#128196; ตาราง Fold Enrichment (4 กลุ่ม) <span class="file-badge">CSV</span>
-    </a>
-  </div>
-
-  <h2>3. ระดับยีนเดี่ยว: ERF66 และ EBP-89 คือยีนตอบสนองที่สอดคล้องกันที่สุด</h2>
-  <p>Scatter plot ด้านล่างแสดง log2FC ของยีนตระกูล ERF/EREBP ทั้ง 39 ยีน โดยแกน x = Dharia, แกน y = PTT1
-  จุดสีแดงคือ ERF66 และ EBP-89 &mdash; สองยีนเดียวที่มีนัยสำคัญในทั้งสองสายพันธุ์ ทั้งคู่อยู่ใน quadrant
-  &ldquo;เพิ่มขึ้นทั้งคู่&rdquo; (บนขวา) และอยู่ใกล้เส้นทแยงมุม (ทิศทาง/ขนาดใกล้เคียงกันระหว่างสองสายพันธุ์)
-  ต่างจากยีนอื่นๆ ในตระกูลที่ส่วนใหญ่ไม่มีนัยสำคัญเลยทั้งคู่ หรือมีนัยสำคัญเฉพาะ PTT1</p>
-  <figure>
-    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.png"
-         alt="Scatter plot log2FC Dharia vs PTT1 สำหรับยีนตระกูล ERF/EREBP 39 ยีน">
-    <figcaption>ยีนตระกูล ERF/EREBP ทั้ง 39 ยีน &mdash; ไฮไลต์ ERF66 และ EBP-89 ซึ่งเป็นยีนตอบสนอง ethylene
-    ระดับยีนที่สอดคล้องกันที่สุด แม้ pathway โดยรวมจะไม่ผ่านเกณฑ์นัยสำคัญ</figcaption>
-  </figure>
-  <div class="dl-row">
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Scatter plot <span class="file-badge">PDF</span>
     </a>
   </div>
 
