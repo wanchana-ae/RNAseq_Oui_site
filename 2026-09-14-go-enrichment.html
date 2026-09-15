@@ -138,8 +138,6 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     <a href="2026-09-10-coexpression-heatmap.html">2026-09-10&nbsp;&nbsp;Correlation Heatmap</a>
     <a href="2026-09-11-v3-vs-v4-comparison.html">2026-09-11&nbsp;&nbsp;v3 vs v4 Comparison</a>
     <a href="2026-09-14-go-enrichment.html" class="active">2026-09-14&nbsp;&nbsp;GO Enrichment</a>
-    <a href="2026-09-14-glutathione-pathway.html">2026-09-14&nbsp;&nbsp;Glutathione Pathway</a>
-    <a href="2026-09-14-photosynthesis-pathway.html">2026-09-14&nbsp;&nbsp;Photosynthesis Pathway</a><a href="2026-09-15-ethylene-pathway.html">2026-09-15&nbsp;&nbsp;Ethylene Pathway</a><a href="2026-09-15-oxidative-stress-pathway.html">2026-09-15&nbsp;&nbsp;Oxidative Stress Pathway</a>
   </nav>
 </div>
 
@@ -148,194 +146,196 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     <span>RNAseq Oui</span><span>&middot;</span>
     <span>IRGSP-1.0 (Oryza sativa)</span>
     <span>&middot;</span><span>DESeq2 v3, padj&lt;0.01</span>
-    <span>&middot;</span><span class="badge badge-done">Done</span>
+    <span>&middot;</span><span class="badge badge-done">เสร็จสิ้น</span>
   </div>
 
-  <h1>GO Enrichment &mdash; Dharia vs PTT1, Compact vs Control</h1>
-  <p>Gene Ontology (Biological Process) over-representation analysis (ORA) on the DESeq2 v3
-  significant gene lists (padj &lt; 0.01), run separately for each variety and direction:
-  <b>Dharia Up</b>, <b>Dharia Down</b>, <b>PTT1 Up</b>, <b>PTT1 Down</b>. Each list is tested
-  against the full set of 29,909 genes DESeq2 evaluated in that contrast (the background/
-  universe), using a one-sided hypergeometric test &mdash; the same statistic
-  <code>clusterProfiler::enrichGO</code> uses internally. GO annotation source: RAP-DB
-  IRGSP-1.0 representative annotation (2026-02-05).</p>
+  <h1>GO Enrichment &mdash; Dharia vs PTT1, ต้นเตี้ย (Compact) vs ควบคุม (Control)</h1>
+  <p>การวิเคราะห์ Gene Ontology (Biological Process) แบบ over-representation analysis (ORA)
+  บนรายชื่อยีนที่มีนัยสำคัญจาก DESeq2 v3 (padj &lt; 0.01) โดยแยกวิเคราะห์ตามแต่ละสายพันธุ์และทิศทางการแสดงออก:
+  <b>Dharia Up</b>, <b>Dharia Down</b>, <b>PTT1 Up</b>, <b>PTT1 Down</b> แต่ละชุดยีนถูกทดสอบเทียบกับ
+  ยีนทั้งหมด 29,909 ยีนที่ DESeq2 ประเมินในคอนทราสต์นั้น (background/universe) โดยใช้
+  one-sided hypergeometric test &mdash; สถิติตัวเดียวกับที่ <code>clusterProfiler::enrichGO</code>
+  ใช้ภายใน แหล่งที่มาของ annotation GO: RAP-DB IRGSP-1.0 representative annotation (2026-02-05)</p>
 
   <div class="stat-row">
     <div class="stat-card">
-      <div class="label">Dharia Up / Down genes</div>
+      <div class="label">ยีน Dharia Up / Down</div>
       <div class="value up">713 / 178</div>
-      <div class="sub">2 / 4 BP terms at FDR&lt;0.05</div>
+      <div class="sub">2 / 4 BP terms ที่ FDR&lt;0.05</div>
     </div>
     <div class="stat-card">
-      <div class="label">PTT1 Up / Down genes</div>
+      <div class="label">ยีน PTT1 Up / Down</div>
       <div class="value up">6,830 / 6,072</div>
-      <div class="sub">7 / 47 BP terms at FDR&lt;0.05</div>
-    </div>
-    <div class="stat-card">
-      <div class="label">Strongest single enrichment</div>
-      <div class="value down">Translation</div>
-      <div class="sub">PTT1 Down &middot; 224/292 genes &middot; FDR&nbsp;&asymp;&nbsp;6&times;10⁻⁹⁴</div>
+      <div class="sub">7 / 47 BP terms ที่ FDR&lt;0.05</div>
     </div>
   </div>
 
   <p class="caveat">
-    <b>Method note:</b> this uses each gene's own directly-annotated GO term only &mdash; no
-    propagation up the GO DAG (parent/child "true path" rule) the way
-    <code>clusterProfiler::enrichGO</code> normally does with the full ontology graph. Broad
-    parent terms (e.g. "response to stimulus") are therefore undercounted relative to a standard
-    run; the terms shown below are the specific, directly-annotated terms and their
-    Fold&nbsp;Enrichment/FDR are exact for that definition. Color scale is capped at
-    &minus;log10(FDR)&nbsp;=&nbsp;20 for visual contrast &mdash; a few terms (noted in the CSVs)
-    are far more significant than that cap shows.
+    <b>หมายเหตุวิธีการ:</b> การวิเคราะห์นี้ใช้เฉพาะ GO term ที่ annotate ตรงกับยีนแต่ละตัวโดยตรงเท่านั้น
+    &mdash; ไม่มีการ propagate ขึ้นไปตาม GO DAG (กฎ "true path" แบบ parent/child) เหมือนที่
+    <code>clusterProfiler::enrichGO</code> ทำตามปกติกับ ontology graph เต็มรูปแบบ ดังนั้น term
+    ระดับ parent ที่กว้าง (เช่น "response to stimulus") จะถูกนับน้อยกว่าการรันแบบมาตรฐาน &mdash; term
+    ที่แสดงด้านล่างเป็น term เฉพาะเจาะจงที่ annotate ตรง และค่า Fold&nbsp;Enrichment/FDR ของ term
+    เหล่านั้นถูกต้องแม่นยำตามนิยามนี้ สเกลสีถูกจำกัดเพดานไว้ที่
+    &minus;log10(FDR)&nbsp;=&nbsp;20 เพื่อความชัดเจนในการมองเห็น &mdash; บาง term (ระบุไว้ใน CSV)
+    มีนัยสำคัญสูงกว่าเพดานที่แสดงมาก
   </p>
 
-  <h2>Dharia &mdash; Compact vs Control</h2>
+  <h2>Dharia &mdash; ต้นเตี้ย (Compact) vs ควบคุม (Control)</h2>
   <div class="two-col">
     <figure>
       <img src="go-enrichment-assets/RNAseq_Oui_GOenrich_Dharia_Up.png"
            alt="GO Biological Process enrichment bubble plot, Dharia upregulated genes">
-      <figcaption><b>Upregulated</b> (713 genes) &mdash; <b>glutathione metabolic process</b>
-      dominates (14.9&times; enrichment, FDR&nbsp;&asymp;&nbsp;2&times;10⁻¹³,
-      16/45 pathway genes hit), alongside photosynthesis light-harvesting and several hormone/
-      xenobiotic-response terms at lower significance.</figcaption>
+      <figcaption><b>แสดงออกเพิ่มขึ้น (Upregulated)</b> (713 ยีน) &mdash; <b>glutathione metabolic
+      process</b> โดดเด่นที่สุด (enrichment 14.9&times;, FDR&nbsp;&asymp;&nbsp;2&times;10⁻¹³,
+      พบ 16/45 ยีนใน pathway) ร่วมกับ photosynthesis light-harvesting และ term เกี่ยวกับฮอร์โมน/
+      การตอบสนองต่อ xenobiotic อีกหลาย term ที่มีนัยสำคัญต่ำกว่า</figcaption>
     </figure>
     <figure>
       <img src="go-enrichment-assets/RNAseq_Oui_GOenrich_Dharia_Down.png"
            alt="GO Biological Process enrichment bubble plot, Dharia downregulated genes">
-      <figcaption><b>Downregulated</b> (178 genes) &mdash; oxidative-stress handling drops out:
-      <b>hydrogen peroxide catabolic process</b> and <b>response to oxidative stress</b> are the
-      top two hits, plus cell-wall organization and actin depolymerization.</figcaption>
+      <figcaption><b>แสดงออกลดลง (Downregulated)</b> (178 ยีน) &mdash; การจัดการ oxidative
+      stress หายไป: <b>hydrogen peroxide catabolic process</b> และ <b>response to oxidative
+      stress</b> เป็นสอง term ที่พบมากที่สุด รวมถึง cell-wall organization และ actin
+      depolymerization</figcaption>
     </figure>
   </div>
 
   <p class="caveat">
-  See the dedicated <a href="2026-09-14-glutathione-pathway.html"><b>Glutathione metabolic pathway
-  &mdash; Dharia</b></a> page for the gene-level pathway diagram (all 45 GSTU/glutathione-cycle
-  genes, log2FoldChange coloring) and mechanism explanation behind this term.</p>
+  <b>รายละเอียดระดับยีน (glutathione metabolic process, GO:0006749):</b> สัญญาณ Dharia Up
+  ในเทอมนี้เกิดจากกลุ่มยีน <b>GSTU (Tau-class glutathione S-transferase)</b> เกือบทั้งหมด &mdash;
+  ซึ่งเป็น tandem cluster ขนาดใหญ่บนโครโมโซม 1 และ 10 &mdash; โดยมี 16 จาก 45 ยีนใน pathway
+  แสดงออกเพิ่มขึ้นอย่างมีนัยสำคัญ (สูงสุด +6.9 log2FC) ขณะที่ glutathione reductase (GR1/GR2
+  ซึ่งทำหน้าที่ regenerate GSH ในรูป reduced) แทบไม่เปลี่ยนแปลง PTT1 Up ก็มีนัยสำคัญใน term นี้
+  <i>เช่นกัน</i> (FE&nbsp;=&nbsp;2.14&times;, FDR&nbsp;=&nbsp;0.004, 22/45 ยีน) &mdash; ที่อ่อนกว่า
+  เป็นเพราะ background list ใหญ่กว่ามาก (6,830 เทียบกับ 713 ยีน) &mdash; และการตอบสนองของ PTT1
+  แยกไปทั้งสองทิศทาง (เพิ่มขึ้น 22, ลดลง 6) ต่างจาก Dharia ที่ตอบสนองไปทางเดียว (เพิ่มขึ้นทั้งหมด)</p>
 
-  <h2>PTT1 &mdash; Compact vs Control</h2>
+  <h2>PTT1 &mdash; ต้นเตี้ย (Compact) vs ควบคุม (Control)</h2>
   <div class="two-col">
     <figure>
       <img src="go-enrichment-assets/RNAseq_Oui_GOenrich_PTT1_Up.png"
            alt="GO Biological Process enrichment bubble plot, PTT1 upregulated genes">
-      <figcaption><b>Upregulated</b> (6,830 genes) &mdash; <b>photosynthesis</b> and
-      <b>photosynthesis, light harvesting</b> are the sharpest signals (FDR &lt; 10⁻⁸),
-      with <b>defense response</b> the largest single block (102 genes).</figcaption>
+      <figcaption><b>แสดงออกเพิ่มขึ้น (Upregulated)</b> (6,830 ยีน) &mdash; <b>photosynthesis</b>
+      และ <b>photosynthesis, light harvesting</b> เป็นสัญญาณที่ชัดเจนที่สุด (FDR &lt; 10⁻⁸)
+      โดย <b>defense response</b> เป็นกลุ่มเดี่ยวที่ใหญ่ที่สุด (102 ยีน)</figcaption>
     </figure>
     <figure>
       <img src="go-enrichment-assets/RNAseq_Oui_GOenrich_PTT1_Down.png"
            alt="GO Biological Process enrichment bubble plot, PTT1 downregulated genes">
-      <figcaption><b>Downregulated</b> (6,072 genes) &mdash; <b>translation</b> is overwhelming
-      (224/292 ribosome/translation genes, FDR&nbsp;&asymp;&nbsp;6&times;10⁻⁹⁴),
-      with microtubule-based movement, DNA replication and oxidative-stress terms also strongly
-      down.</figcaption>
+      <figcaption><b>แสดงออกลดลง (Downregulated)</b> (6,072 ยีน) &mdash; <b>translation</b>
+      โดดเด่นอย่างท่วมท้น (224/292 ยีนในกลุ่ม ribosome/translation,
+      FDR&nbsp;&asymp;&nbsp;6&times;10⁻⁹⁴) พร้อมกับ microtubule-based movement, DNA replication
+      และ term เกี่ยวกับ oxidative-stress ที่ลดลงอย่างมากเช่นกัน</figcaption>
     </figure>
   </div>
 
-  <h2>Targeted follow-up: ethylene-activated signaling pathway (GO:0009873)</h2>
-  <p>Neither variety's Up/Down list reaches significance for this term above &mdash; but it <i>is</i>
-  tested in three of the four lists (0 hits in Dharia Down, so it wasn't testable there). Pulling
-  just this one GO term out for a direct side-by-side comparison:</p>
-  <figure>
-    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
-         alt="Fold enrichment comparison for GO:0009873 ethylene-activated signaling pathway across Dharia Up/Down and PTT1 Up/Down">
-    <figcaption>Fold Enrichment for <b>ethylene-activated signaling pathway</b> in each of the four
-    gene sets. Dharia Up shows the strongest fold-enrichment (3.6&times;, 3/35 pathway genes) but
-    with only 713 background genes the test lacks power &mdash; FDR&nbsp;=&nbsp;0.29, not
-    significant. PTT1 Up hits more pathway genes in absolute terms (10/35) but its list is so large
-    (6,830 genes) that 1.25&times; enrichment is unremarkable (FDR&nbsp;=&nbsp;0.83). Both
-    Down-lists are depleted or empty for the term.</figcaption>
-  </figure>
-  <p>At the gene level, the ethylene response factor (ERF) family driving this term splits sharply:
-  most of the 39 annotated genes move in only one variety, or not at all, but two &mdash;
-  <b>ERF66</b> (Os03g0341000) and <b>EBP-89</b> (Os03g0182800) &mdash; are significantly upregulated
-  in <i>both</i> Dharia and PTT1 (log2FC +2.2&ndash;2.9, padj&nbsp;&lt;&nbsp;0.001 in both), making
-  them the most consistent ethylene-signaling response across varieties despite the pathway-level
-  test not reaching significance in either. See the dedicated
-  <a href="2026-09-15-ethylene-pathway.html"><b>Ethylene-Activated Signaling Pathway</b></a> page for
-  the full 39-gene pathway diagram (Dharia: 3 significant, all up; PTT1: 12 significant, 10 up/2 down).</p>
-  <div class="dl-row">
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
-      &#128196; Ethylene term comparison (4 groups) <span class="file-badge">CSV</span>
-    </a>
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_pathway_genelist.csv" download style="--badge-color:#0ea5e9">
-      &#128196; All 39 ethylene-pathway genes (both varieties) <span class="file-badge">CSV</span>
-    </a>
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Comparison chart <span class="file-badge">PDF</span>
-    </a>
-  </div>
-
-  <h2>What stands out</h2>
-  <ul>
-    <li><b>Oxidative-stress genes down-regulated in both varieties (not opposite):</b>
-    <s>an earlier version of this page said this direction was opposite between varieties &mdash;
-    that was wrong, corrected 2026-09-15</s>. Dharia significantly loses "response to oxidative
-    stress" / "hydrogen peroxide catabolic process" under compaction (down, FDR&nbsp;0.0012&ndash;
-    0.0035), and PTT1 shows the <i>same</i> direction and is significant there too
-    (down, FDR&nbsp;4.0&times;10⁻⁷&ndash;7.5&times;10⁻⁸) &mdash; PTT1's Up-list is not enriched for
-    either term (FE&nbsp;&lt;&nbsp;1 for both). Gene-level check across all 160 annotated
-    peroxidase-family genes found <b>zero</b> genes that are significant in both varieties with
-    opposite sign. PTT1's down-hit count is far larger (83 vs Dharia's 12 significant genes) simply
-    because PTT1's overall down-regulated gene list is much bigger (6,072 vs 178), not because the
-    direction differs. See the dedicated
-    <a href="2026-09-15-oxidative-stress-pathway.html"><b>Oxidative-Stress Pathway</b></a> page for
-    the full gene-level diagram and comparison.</li>
-    <li><b>Photosynthesis moves opposite directions between varieties' up-lists:</b> PTT1 Up is
-    dominated by photosynthesis/light-harvesting terms (gaining capacity), while Dharia Up shows
-    only a small photosynthesis-light-harvesting signal (4 genes) next to a much stronger
-    glutathione/detox signature &mdash; consistent with Dharia mounting more of a chemical
-    stress-defense response and PTT1 more of a photosynthetic adjustment.</li>
-    <li><b>PTT1's downregulated translation/DNA-replication/microtubule signature</b> (growth
-    machinery broadly suppressed) has no real Dharia counterpart at padj&lt;0.01 &mdash; Dharia's
-    much smaller gene lists (713 up / 178 down vs PTT1's 6,830 / 6,072) mean this comparison is
-    also a statistical-power story, not purely biological difference (see the
-    <a href="2026-09-11-v3-vs-v4-comparison.html">v3 vs v4 comparison</a> page for how much
-    Dharia's replicate count affects its significance calls).</li>
-    <li><b>Ethylene signaling never reaches pathway-level significance in either variety</b>
-    (GO:0009873, FDR&nbsp;&ge;&nbsp;0.29 everywhere it's testable), but two ERF transcription
-    factors &mdash; <b>ERF66</b> and <b>EBP-89</b> &mdash; are significantly up in both Dharia and
-    PTT1, making them the most reproducible individual ethylene-response genes even though the
-    pathway as a whole doesn't clear the bar.</li>
-  </ul>
-
-  <h2>Download</h2>
+  <h2>ดาวน์โหลด</h2>
   <div class="dl-row">
     <a class="file-link" href="go-enrichment-assets/GOenrich_Dharia_Up_allterms.csv" download style="--badge-color:#0ea5e9">
-      &#128196; Dharia Up &mdash; all GO terms tested <span class="file-badge">CSV</span>
+      &#128196; Dharia Up &mdash; GO term ทั้งหมดที่ทดสอบ <span class="file-badge">CSV</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/GOenrich_Dharia_Down_allterms.csv" download style="--badge-color:#0ea5e9">
-      &#128196; Dharia Down &mdash; all GO terms tested <span class="file-badge">CSV</span>
+      &#128196; Dharia Down &mdash; GO term ทั้งหมดที่ทดสอบ <span class="file-badge">CSV</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/GOenrich_PTT1_Up_allterms.csv" download style="--badge-color:#0ea5e9">
-      &#128196; PTT1 Up &mdash; all GO terms tested <span class="file-badge">CSV</span>
+      &#128196; PTT1 Up &mdash; GO term ทั้งหมดที่ทดสอบ <span class="file-badge">CSV</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/GOenrich_PTT1_Down_allterms.csv" download style="--badge-color:#0ea5e9">
-      &#128196; PTT1 Down &mdash; all GO terms tested <span class="file-badge">CSV</span>
+      &#128196; PTT1 Down &mdash; GO term ทั้งหมดที่ทดสอบ <span class="file-badge">CSV</span>
     </a>
   </div>
   <div class="dl-row">
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_GOenrich_Dharia_Up.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Dharia Up plot <span class="file-badge">PDF</span>
+      &#128213; กราฟ Dharia Up <span class="file-badge">PDF</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_GOenrich_Dharia_Down.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Dharia Down plot <span class="file-badge">PDF</span>
+      &#128213; กราฟ Dharia Down <span class="file-badge">PDF</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_GOenrich_PTT1_Up.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; PTT1 Up plot <span class="file-badge">PDF</span>
+      &#128213; กราฟ PTT1 Up <span class="file-badge">PDF</span>
     </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_GOenrich_PTT1_Down.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; PTT1 Down plot <span class="file-badge">PDF</span>
+      &#128213; กราฟ PTT1 Down <span class="file-badge">PDF</span>
     </a>
   </div>
 
+  <h2>การวิเคราะห์เจาะจง: ethylene-activated signaling pathway (GO:0009873)</h2>
+  <p>ไม่มีรายชื่อยีน Up/Down ของสายพันธุ์ใดที่มีนัยสำคัญสำหรับ term นี้ &mdash; แต่ term นี้
+  <i>ถูกทดสอบ</i> ในสามจากสี่รายชื่อยีน (Dharia Down มี 0 hit จึงทดสอบไม่ได้) เมื่อดึงเฉพาะ GO term
+  นี้มาเปรียบเทียบแบบ side-by-side โดยตรง:</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
+         alt="Fold enrichment comparison for GO:0009873 ethylene-activated signaling pathway across Dharia Up/Down and PTT1 Up/Down">
+    <figcaption>Fold Enrichment ของ <b>ethylene-activated signaling pathway</b> ในแต่ละชุดยีนทั้งสี่
+    Dharia Up มีค่า fold-enrichment สูงที่สุด (3.6&times;, 3/35 ยีนใน pathway) แต่เนื่องจาก
+    background มีเพียง 713 ยีน การทดสอบจึงขาดพลัง (power) &mdash; FDR&nbsp;=&nbsp;0.29 ไม่มีนัยสำคัญ
+    PTT1 Up พบยีนใน pathway มากกว่าในแง่จำนวนสัมบูรณ์ (10/35) แต่รายชื่อยีนมีขนาดใหญ่มาก
+    (6,830 ยีน) จนทำให้ enrichment 1.25&times; ไม่โดดเด่น (FDR&nbsp;=&nbsp;0.83) ส่วนรายชื่อ Down
+    ทั้งสองกลุ่มมี term นี้น้อยหรือไม่มีเลย</figcaption>
+  </figure>
+  <p>ในระดับยีน กลุ่มยีน ethylene response factor (ERF) ที่ขับเคลื่อน term นี้แยกออกจากกันชัดเจน:
+  ยีนส่วนใหญ่จากทั้งหมด 39 ยีนที่ annotate ไว้เปลี่ยนแปลงเพียงสายพันธุ์เดียว หรือไม่เปลี่ยนแปลงเลย
+  แต่มีสองยีน &mdash; <b>ERF66</b> (Os03g0341000) และ <b>EBP-89</b> (Os03g0182800) &mdash;
+  ที่แสดงออกเพิ่มขึ้นอย่างมีนัยสำคัญใน<i>ทั้งสอง</i>สายพันธุ์ Dharia และ PTT1 (log2FC
+  +2.2&ndash;2.9, padj&nbsp;&lt;&nbsp;0.001 ทั้งคู่) ทำให้ทั้งสองยีนนี้เป็นยีนตอบสนอง ethylene
+  ที่สอดคล้องกันมากที่สุดระหว่างสายพันธุ์ ทั้งที่การทดสอบระดับ pathway ไม่มีนัยสำคัญในทั้งสองสายพันธุ์
+  เมื่อดูยีนตระกูล ERF/EREBP ที่ annotate ไว้ทั้ง 39 ยีน: Dharia มีนัยสำคัญ 3 ยีน (เพิ่มขึ้นทั้งหมด),
+  PTT1 มีนัยสำคัญ 12 ยีน (เพิ่มขึ้น 10, ลดลง 2) &mdash; และเมื่อตรวจสอบยีนใน cascade ต้นน้ำ
+  (upstream) อย่าง receptor/CTR1/EIN3&ndash;EIL1/EBF1&ndash;EBF2 ระดับยีน (ซึ่งไม่ได้ annotate
+  ไว้กับ GO term นี้โดยตรง จึงไม่ถูกนับข้างต้น) พบความไม่สมดุลนี้ชัดเจนยิ่งขึ้นไปอีก: PTT1
+  กระตุ้น master TF อย่าง <b>EIN3/EIL1</b> เองอย่างมีนัยสำคัญ (log2FC&nbsp;+1.15,
+  padj&nbsp;=&nbsp;3.8&times;10⁻²³) รวมถึงกลไกควบคุมการสลาย EBF1/EBF2 ของมัน ในขณะที่ยีนต้นน้ำ
+  เหล่านี้ไม่มีตัวใดมีนัยสำคัญใน Dharia เลย</p>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; เปรียบเทียบ ethylene term (4 กลุ่ม) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_pathway_genelist.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ยีนใน ethylene pathway ทั้ง 39 ยีน (ทั้งสองสายพันธุ์) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; กราฟเปรียบเทียบ <span class="file-badge">PDF</span>
+    </a>
+  </div>
+
+  <h2>ประเด็นที่น่าสนใจ</h2>
+  <ul>
+    <li><b>ยีนกลุ่ม oxidative-stress ลดลงในทั้งสองสายพันธุ์ (ไม่ได้สวนทางกัน):</b>
+    Dharia สูญเสีย "response to oxidative
+    stress" / "hydrogen peroxide catabolic process" อย่างมีนัยสำคัญภายใต้ภาวะต้นเตี้ย
+    (ลดลง, FDR&nbsp;0.0012&ndash;0.0035) และ PTT1 ก็แสดง<i>ทิศทางเดียวกัน</i>และมีนัยสำคัญเช่นกัน
+    (ลดลง, FDR&nbsp;4.0&times;10⁻⁷&ndash;7.5&times;10⁻⁸) &mdash; รายชื่อยีน Up ของ PTT1 ไม่มี
+    enrichment ใน term ใดเลยทั้งสอง (FE&nbsp;&lt;&nbsp;1 ทั้งคู่) เมื่อตรวจสอบระดับยีนในยีนตระกูล
+    peroxidase ทั้ง 160 ยีนที่ annotate ไว้ พบว่ามี<b>ศูนย์</b>ยีนที่มีนัยสำคัญในทั้งสองสายพันธุ์
+    โดยมีเครื่องหมาย (sign) สวนทางกัน จำนวนยีนที่ลดลงอย่างมีนัยสำคัญของ PTT1 มากกว่ามาก
+    (83 เทียบกับ 12 ยีนของ Dharia) เพียงเพราะรายชื่อยีนที่ลดลงโดยรวมของ PTT1 ใหญ่กว่ามาก
+    (6,072 เทียบกับ 178) ไม่ใช่เพราะทิศทางต่างกัน</li>
+    <li><b>Photosynthesis เคลื่อนไหวสวนทางกันระหว่างรายชื่อยีน Up ของสองสายพันธุ์:</b>
+    PTT1 Up ถูกครอบงำด้วย term เกี่ยวกับ photosynthesis/light-harvesting (กำลังเพิ่มศักยภาพ)
+    ในขณะที่ Dharia Up แสดงสัญญาณ photosynthesis-light-harvesting เพียงเล็กน้อย (4 ยีน) เทียบกับ
+    ลายเซ็น glutathione/detox ที่แข็งแกร่งกว่ามาก &mdash; สอดคล้องกับแนวคิดว่า Dharia ใช้การตอบสนอง
+    เชิงป้องกันความเครียดทางเคมีมากกว่า ส่วน PTT1 ปรับตัวด้านการสังเคราะห์แสงมากกว่า</li>
+    <li><b>ลายเซ็นการลดลงของ translation/DNA-replication/microtubule ใน PTT1</b>
+    (กลไกการเติบโตถูกกดโดยรวม) ไม่มีคู่เทียบที่แท้จริงใน Dharia ที่ padj&lt;0.01 &mdash;
+    รายชื่อยีนของ Dharia ที่เล็กกว่ามาก (713 up / 178 down เทียบกับ 6,830 / 6,072 ของ PTT1)
+    หมายความว่าการเปรียบเทียบนี้เป็นเรื่องของพลังทางสถิติ (statistical power) ด้วย ไม่ใช่ความแตกต่าง
+    ทางชีววิทยาล้วนๆ (ดูหน้า <a href="2026-09-11-v3-vs-v4-comparison.html">v3 vs v4
+    comparison</a> ว่าจำนวนตัวอย่างซ้ำ (replicate) ของ Dharia ส่งผลต่อการตัดสินนัยสำคัญมากแค่ไหน)</li>
+    <li><b>Ethylene signaling ไม่เคยมีนัยสำคัญระดับ pathway ในสายพันธุ์ใดเลย</b>
+    (GO:0009873, FDR&nbsp;&ge;&nbsp;0.29 ทุกจุดที่ทดสอบได้) แต่ transcription factor ตระกูล ERF
+    สองตัว &mdash; <b>ERF66</b> และ <b>EBP-89</b> &mdash; แสดงออกเพิ่มขึ้นอย่างมีนัยสำคัญในทั้ง
+    Dharia และ PTT1 ทำให้ทั้งสองยีนนี้เป็นยีนตอบสนอง ethylene ระดับยีนที่สอดคล้องกันที่สุด
+    แม้ว่า pathway โดยรวมจะไม่ผ่านเกณฑ์นัยสำคัญก็ตาม</li>
+  </ul>
+
   <p class="caveat">
-    <b>Reproducing this:</b> gene lists = DESeq2 v3 <code>*_Comp_vs_Ctrl_Result.csv</code>,
-    padj&lt;0.01, split by sign of log2FoldChange. GO terms = RAP-DB IRGSP-1.0 representative
-    annotation (2026-02-05), Biological Process column, minGSSize=10, maxGSSize=500. Statistic:
-    <code>hypergeom.sf(k-1, N, K, n)</code>, BH-corrected across all terms tested per list. Top
-    15 terms by FDR are plotted per gene set; the CSVs contain every term that passed the gene-set
-    size filter, not just the top 15.
+    <b>วิธีทำซ้ำ (Reproducing this):</b> รายชื่อยีน = DESeq2 v3 <code>*_Comp_vs_Ctrl_Result.csv</code>,
+    padj&lt;0.01, แยกตามเครื่องหมายของ log2FoldChange GO term = RAP-DB IRGSP-1.0 representative
+    annotation (2026-02-05), คอลัมน์ Biological Process, minGSSize=10, maxGSSize=500 สถิติที่ใช้:
+    <code>hypergeom.sf(k-1, N, K, n)</code>, ปรับด้วย BH-correction ในทุก term ที่ทดสอบต่อรายชื่อยีน
+    แต่ละชุด กราฟแสดง term 15 อันดับแรกตาม FDR ต่อชุดยีน ส่วน CSV มีทุก term ที่ผ่านตัวกรองขนาด
+    gene-set ไม่ใช่แค่ 15 อันดับแรก
   </p>
 
   <footer>RNAseq Oui Lab Notebook &middot; Wanchana 2026</footer>

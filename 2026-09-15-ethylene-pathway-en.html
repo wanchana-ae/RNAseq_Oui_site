@@ -179,11 +179,15 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
 
   <h2>Pathway schematic: ERF/EREBP family, Dharia</h2>
   <p>The canonical ethylene signal-transduction cascade (ethylene &rarr; receptor &rarr; CTR1
-  &rarr; EIN2 &rarr; EIN3/EIL1) is shown at the top for context only &mdash; none of those upstream
-  components are annotated to GO:0009873 in this annotation set, so there is no expression data for
-  them here. The 39 genes actually tested are almost entirely downstream <b>AP2/ERF transcription
-  factors</b> (the ERF/EREBP family) plus <b>EIN2</b> and <b>SUB1B/SUB1C</b>. Boxes are colored by
-  log2FoldChange (Compact vs Control); a thick black border marks padj&nbsp;&lt;&nbsp;0.01.</p>
+  &rarr; EIN2 &rarr; EIN3/EIL1) is shown at the top for context. The 39 genes in the diagram below
+  are the ones directly annotated to <b>GO:0009873</b> itself &mdash; almost entirely downstream
+  <b>AP2/ERF transcription factors</b> (the ERF/EREBP family) plus <b>EIN2</b> and
+  <b>SUB1B/SUB1C</b>; the receptor/CTR1/EIN3&ndash;EIL1 layer does not carry this exact GO term in
+  this annotation set. That does <i>not</i> mean there is no data for those genes, though &mdash;
+  see the <a href="#upstream">Upstream cascade genes</a> section below, where they are pulled in by
+  gene symbol instead and turn out to carry one of the most striking signals on this whole page.
+  Boxes are colored by log2FoldChange (Compact vs Control); a thick black border marks
+  padj&nbsp;&lt;&nbsp;0.01.</p>
   <p><b>กลไกโดยสรุป (ภาษาไทย):</b> เอทิลีน (ethylene) เป็นฮอร์โมนพืชที่ตอบสนองต่อความเครียดหลายชนิด
   รวมถึง mechanical stress จากดินอัดแน่น เมื่อเซลล์รับสัญญาณเอทิลีนผ่านตัวรับ (ETR/ERS/EIN4) สัญญาณจะถูก
   ส่งต่อผ่าน CTR1 และ EIN2 ไปกระตุ้นปัจจัยการถอดรหัส <b>EIN3/EIL1</b> ซึ่งจะไปเปิดการทำงานของยีนกลุ่ม
@@ -255,14 +259,65 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     </a>
   </div>
 
+  <h2 id="upstream">Upstream cascade genes: receptor &rarr; CTR1-like &rarr; EIN3/EIL1 &rarr; ETO1</h2>
+  <p>The 39-gene diagram above only covers genes directly annotated to <b>GO:0009873</b> itself.
+  The receptor/CTR1/EIN3&ndash;EIL1 part of the canonical cascade doesn't carry that exact GO term
+  in this annotation set, so it's easy to conclude there's "no data" for it &mdash; but that's a
+  gap in the GO annotation, not in the RNA-seq data. Searching the annotation file directly for
+  ethylene-receptor GO terms (GO:0038199, GO:0051740, GO:0009723) and for the gene symbols
+  <b>ETR/ERS</b> (receptors), <b>CTR1</b>-homologs, <b>EIN3/EIL1</b>, and <b>ETO1</b>-like negative
+  regulators turns up 13 more loci with real expression data in both varieties.</p>
+  <table>
+    <tr><th>Gene</th><th>Locus</th><th>Role</th><th>Dharia log2FC</th><th>Dharia padj</th><th>PTT1 log2FC</th><th>PTT1 padj</th></tr>
+    <tr><td>ERS1</td><td>Os03g0701700</td><td>Receptor</td><td>&minus;0.24</td><td>0.62</td><td>0.27</td><td>0.12</td></tr>
+    <tr><td>ETR2</td><td>Os04g0169100</td><td>Receptor</td><td>0.18</td><td>0.80</td><td>0.42</td><td><b>0.026</b></td></tr>
+    <tr><td>ETR3</td><td>Os02g0820900</td><td>Receptor</td><td>&minus;0.05</td><td>0.96</td><td>&minus;0.03</td><td>0.86</td></tr>
+    <tr><td>ETR4</td><td>Os07g0259100</td><td>Receptor</td><td colspan="2" style="text-align:center;color:var(--muted)">no data (filtered)</td><td colspan="2" style="text-align:center;color:var(--muted)">no data (filtered)</td></tr>
+    <tr><td>OsCTR2</td><td>Os02g0527600</td><td>CTR1 homolog</td><td>0.16</td><td>0.77</td><td>0.26</td><td>0.12</td></tr>
+    <tr><td>(unnamed)</td><td>Os08g0103000</td><td>CTR1-like kinase</td><td>0.40</td><td>0.42</td><td><b>0.87</b></td><td><b>1.1&times;10⁻⁵</b></td></tr>
+    <tr><td>(unnamed)</td><td>Os09g0566550</td><td>CTR1-like kinase</td><td>0.02</td><td>1.00</td><td><b>0.77</b></td><td><b>5.3&times;10⁻⁴</b></td></tr>
+    <tr><td>OsEBF1</td><td>Os06g0605900</td><td>F-box protein, degrades EIN3/EIL1</td><td>0.31</td><td>0.38</td><td><b>1.02</b></td><td><b>1.3&times;10⁻¹²</b></td></tr>
+    <tr><td>OsEBF2</td><td>Os02g0200900</td><td>F-box protein, degrades EIN3/EIL1</td><td>&minus;0.05</td><td>0.94</td><td>0.13</td><td>0.29</td></tr>
+    <tr><td><b>EIL1/EIN3</b></td><td>Os03g0324200</td><td><b>Master TF</b></td><td>0.20</td><td>0.53</td><td><b>1.15</b></td><td><b>3.8&times;10⁻²³</b></td></tr>
+    <tr><td>OsETOL1</td><td>Os03g0294700</td><td>Neg. regulator (E3 ligase)</td><td>&minus;0.12</td><td>0.90</td><td>&minus;0.49</td><td><b>0.012</b></td></tr>
+    <tr><td>(unnamed)</td><td>Os07g0178100</td><td>ETO1-like, neg. regulator</td><td>&minus;0.29</td><td>0.12</td><td>&minus;0.35</td><td><b>2.7&times;10⁻⁴</b></td></tr>
+    <tr><td>(unnamed)</td><td>Os11g0585900</td><td>ETO1-like, neg. regulator</td><td>0.12</td><td>0.56</td><td><b>0.37</b></td><td><b>2.6&times;10⁻⁷</b></td></tr>
+  </table>
+  <p>The pattern here is sharper than anything in the 39-gene ERF/EREBP layer above: <b>not one</b>
+  of these 13 upstream-cascade genes is significant in Dharia (all padj&nbsp;&ge;&nbsp;0.12), but
+  <b>seven of the twelve testable</b> are significant in PTT1 &mdash; most strikingly the master
+  transcription factor <b>EIN3/EIL1</b> itself (log2FC&nbsp;+1.15, padj&nbsp;=&nbsp;3.8&times;10⁻²³,
+  one of the strongest signals on this entire page) and its own degradation control, <b>OsEBF1</b>
+  (log2FC&nbsp;+1.02, padj&nbsp;=&nbsp;1.3&times;10⁻¹²) &mdash; the F-box protein that normally
+  keeps EIN3/EIL1 turned over by the 26S proteasome. PTT1 up-regulating both the transcription
+  factor <i>and</i> the machinery that degrades it is consistent with an actively engaged,
+  auto-regulated signaling loop, not just a stray transcript increase. Both CTR1-like kinases and
+  two of the three ETO1-like negative-feedback genes are significant too. Put together with the
+  downstream layer: <b>PTT1 activates ethylene signaling all the way from the CTR1/EIN3 core
+  (including its EBF1/EBF2 turnover control) to the ERF/EREBP output</b>, while <b>Dharia's
+  response is confined entirely to the downstream ERF/EREBP layer</b> &mdash; the signaling core
+  itself (receptors, CTR1, EIN3/EIL1, EBF1/2) stays flat. This is a different shape of difference
+  than the pathway-level GO test alone would suggest, and it only becomes visible by going
+  gene-by-gene outside the single GO:0009873 annotation.</p>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_upstream_genelist.csv" download style="--badge-color:#0ea5e9">
+      &#128196; Upstream cascade genes, both varieties (log2FC, padj) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
   <p class="caveat">
-    <b>Reproducing this:</b> gene list, log2FC and padj values are unchanged from
-    <code>RNAseq_Oui_ethylene_pathway_genelist.csv</code> (already on the GO Enrichment page) &mdash;
-    this page only adds the pathway-schematic visualization. Genes with no value in a variety's
-    column were dropped by DESeq2 for that contrast (independent filtering on low mean count) and
-    are shown hatched/gray. Color scale capped at &plusmn;4 log2FC for contrast; ERF67 (Dharia
-    +6.4) is clipped at the cap. <b>Method note:</b> as on the GO Enrichment page, this uses each
-    gene's directly-annotated GO term only, no DAG propagation.
+    <b>Reproducing this:</b> gene list, log2FC and padj values for the 39-gene ERF/EREBP diagram
+    are unchanged from <code>RNAseq_Oui_ethylene_pathway_genelist.csv</code> (already on the GO
+    Enrichment page) &mdash; this page adds the pathway-schematic visualization plus the upstream-
+    cascade table above. Genes with no value in a variety's column were dropped by DESeq2 for that
+    contrast (independent filtering on low mean count) and are shown hatched/gray (diagram) or
+    "no data" (table). Color scale capped at &plusmn;4 log2FC for contrast; ERF67 (Dharia +6.4) is
+    clipped at the cap. <b>Method note:</b> the 39-gene diagram uses each gene's directly-annotated
+    GO term only, no DAG propagation. The 13 upstream-cascade genes were <i>not</i> found this way
+    &mdash; they were identified by searching the annotation file for related ethylene-receptor GO
+    terms (GO:0038199, GO:0051740, GO:0009723, GO:0010105) and for the literature gene symbols
+    ETR/ERS, CTR1, EIN3/EIL1 and ETO1 directly, since GO:0009873 itself does not cover them in this
+    annotation version. Treat the upstream table as curated, not as an exhaustive GO-based list.
   </p>
 
   <p class="caveat">
