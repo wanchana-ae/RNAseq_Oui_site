@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ethylene Signaling Gene Detail (2026-09-15) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:1080px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+
+figure{margin:20px 0 28px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+figure img{width:100%;height:auto;border-radius:6px;display:block}
+figcaption{font-size:.82em;color:var(--muted);margin-top:10px;line-height:1.6}
+figcaption b{color:var(--text)}
+
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 24px}
+.stat-card{flex:1;min-width:190px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.stat-card .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin-bottom:6px}
+.stat-card .value{font-size:1.5rem;font-weight:800;font-family:'Cascadia Code','Fira Code',monospace}
+.stat-card .value.up{color:#059669}
+.stat-card .value.down{color:#dc2626}
+.stat-card .sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+.dl-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 8px}
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:6px 12px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.caveat{font-size:.85em;color:var(--muted);line-height:1.7;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;margin:20px 0}
+.caveat b{color:#92400e}
+
+.step-list{background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:18px 22px;margin:16px 0 24px}
+.step-list ol{counter-reset:step;list-style:none;padding-left:0}
+.step-list li{position:relative;padding-left:34px;margin-bottom:14px;line-height:1.7}
+.step-list li:last-child{margin-bottom:0}
+.step-list li::before{counter-increment:step;content:counter(step);
+  position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;
+  background:var(--accent2);color:#fff;font-size:.78em;font-weight:700;
+  display:flex;align-items:center;justify-content:center}
+.step-list .feedback{margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);
+  padding-left:0;font-size:.95em;line-height:1.7}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.two-col{grid-template-columns:1fr}}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav>
+    <div class="section-label">Project</div>
+    <a href="index.html">Project Overview</a>
+    <div class="section-label">Daily Logs</div>
+    <a href="2026-04-30-setup.html">2026-04-30&nbsp;&nbsp;Setup</a>
+    <a href="2026-05-01-qc.html">2026-05-01&nbsp;&nbsp;FastQC QC</a>
+    <a href="2026-05-01-hisat2.html">2026-05-01&nbsp;&nbsp;HISAT2 Mapping</a>
+    <a href="2026-05-01-prepde.html">2026-05-01&nbsp;&nbsp;prepDE</a>
+    <a href="2026-05-01-deseq2.html">2026-05-01&nbsp;&nbsp;DESeq2 v1</a>
+    <a href="2026-05-01-deseq2-v2.html">2026-05-01&nbsp;&nbsp;DESeq2 v2 (11 samples)</a>
+    <a href="2026-05-08-fastp.html">2026-05-08&nbsp;&nbsp;fastp Trimming</a>
+    <a href="2026-05-08-hisat2-v2.html">2026-05-08&nbsp;&nbsp;HISAT2 v2 (trimmed)</a>
+    <a href="2026-05-08-deseq2-v3.html">2026-05-08&nbsp;&nbsp;DESeq2 v3 (11 samples)</a>
+    <a href="2026-05-08-os03g0297600-heatmap.html">2026-05-08&nbsp;&nbsp;Os03g0297600 Heatmap</a>
+    <a href="2026-05-11-multigene-heatmap.html">2026-05-11&nbsp;&nbsp;Multi-Gene Heatmap</a>
+    <a href="2026-09-09-deseq2-v4.html">2026-09-09&nbsp;&nbsp;DESeq2 v4 (13 samples)</a>
+    <a href="2026-09-10-coexpression-explorer.html">2026-09-10&nbsp;&nbsp;Co-expression Explorer</a>
+    <a href="2026-09-10-coexpression-heatmap.html">2026-09-10&nbsp;&nbsp;Correlation Heatmap</a>
+    <a href="2026-09-11-v3-vs-v4-comparison.html">2026-09-11&nbsp;&nbsp;v3 vs v4 Comparison</a>
+    <a href="2026-09-14-go-enrichment.html">2026-09-14&nbsp;&nbsp;GO Enrichment</a>
+    <a href="2026-09-15-oxidative-stress-detail.html">2026-09-15&nbsp;&nbsp;Oxidative-Stress Detail</a>
+    <a href="2026-09-15-ethylene-signaling-detail.html" class="active">2026-09-15&nbsp;&nbsp;Ethylene Signaling Detail</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>&middot;</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>&middot;</span><span>DESeq2 v3, padj&lt;0.01</span>
+    <span>&middot;</span><span class="badge badge-done">เสร็จสิ้น</span>
+  </div>
+
+  <h1>Ethylene-Activated Signaling Pathway &mdash; รายละเอียดระดับยีน</h1>
+  <p>ขยายความจากหัวข้อ ethylene-activated signaling pathway ในหน้า
+  <a href="2026-09-14-go-enrichment.html">GO Enrichment</a> &mdash; pathway นี้ (GO:0009873)
+  ไม่เคยมีนัยสำคัญระดับ term ในสายพันธุ์ใดเลย (FDR&nbsp;&ge;&nbsp;0.29 ทุกจุดที่ทดสอบได้) แต่ยีนตระกูล
+  transcription factor ปลายทาง ERF/EREBP สองตัว &mdash; <b>ERF66</b> และ <b>EBP-89</b> &mdash; แสดงออกเพิ่มขึ้น
+  อย่างมีนัยสำคัญในทั้ง Dharia และ PTT1 หน้านี้เจาะลึกด้วย 3 มุมมอง: คาสเคดการส่งสัญญาณทั้งสาย (2 รูปแบบ),
+  Fold Enrichment ที่ normalize แล้ว, และระดับยีนเดี่ยว (scatter)</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="label">ยีนที่มีนัยสำคัญ — Dharia</div>
+      <div class="value up">3 / 39</div>
+      <div class="sub">ยีนตระกูล ERF/EREBP ทั้งหมด</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">ยีนที่มีนัยสำคัญ — PTT1</div>
+      <div class="value down">12 / 39</div>
+      <div class="sub">มากกว่า Dharia ในแง่จำนวนดิบ</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">ยีนที่มีนัยสำคัญทั้งสองสายพันธุ์</div>
+      <div class="value">2 / 39</div>
+      <div class="sub">ERF66 และ EBP-89 &mdash; ทิศทางเดียวกันทั้งคู่</div>
+    </div>
+  </div>
+
+  <h2>1. คาสเคดการส่งสัญญาณ: จากตัวรับ ethylene ถึงยีนปลายทาง</h2>
+  <p>&ldquo;คาสเคด&rdquo; (cascade) คือลำดับขั้นตอนการส่งสัญญาณต่อกันเป็นทอดๆ ตั้งแต่ฮอร์โมนจับตัวรับ
+  จนถึงยีนที่ถูกกระตุ้นจริง มีลำดับดังนี้:</p>
+  <div class="step-list">
+    <ol>
+      <li><b>Ethylene (C2H4)</b> จับกับตัวรับที่เยื่อหุ้มเซลล์ &mdash; กลุ่มโปรตีน ETR/ERS
+      (ERS1, ETR2, ETR3, ETR4)</li>
+      <li>เมื่อไม่มี ethylene ตัวรับจะกระตุ้น <b>CTR1-like kinase</b> ให้ทำงานเป็น &ldquo;เบรก&rdquo;
+      ยับยั้งสัญญาณไว้ตลอด &mdash; พอ ethylene มาจับตัวรับ จะไปปิดการทำงานของ CTR1 (ปลดเบรก)</li>
+      <li>เมื่อเบรกถูกปลด สัญญาณส่งต่อผ่าน <b>EIN2</b> ซึ่งเป็นตัวกลางส่งสัญญาณเข้านิวเคลียส</li>
+      <li>EIN2 กระตุ้น <b>EIN3/EIL1</b> ซึ่งเป็น master transcription factor &mdash; ตัวควบคุมหลักที่เปิด
+      การทำงานของยีนปลายทาง</li>
+      <li>EIN3/EIL1 กระตุ้นยีนตระกูล <b>ERF/EREBP</b> (39 ยีนในการวิเคราะห์นี้ เช่น ERF66, EBP-89)
+      ให้แสดงออกเพิ่มขึ้น &mdash; ยีนกลุ่มนี้เป็นตัวขับเคลื่อนการตอบสนองทางสรีรวิทยาต่อ ethylene จริงๆ</li>
+    </ol>
+    <p class="feedback"><b>Negative feedback:</b> โปรตีน EBF1/2 และ ETO1-like คอยย่อยสลาย/ยับยั้ง
+    EIN3/EIL1 กลับไป เป็นการควบคุมไม่ให้สัญญาณแรงเกินไป</p>
+  </div>
+
+  <div class="two-col">
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_vertical.png"
+           alt="Vertical KEGG-style cascade diagram สำหรับ ethylene signaling pathway">
+      <figcaption><b>แบบที่ 1 &mdash; Vertical cascade:</b> ไล่จากบนลงล่างทีละขั้น ตั้งแต่ ethylene receptor
+      จนถึงยีนตระกูล ERF/EREBP ทั้ง 39 ยีน แต่ละการ์ด ครึ่งซ้าย = Dharia, ครึ่งขวา = PTT1
+      (log2FC, padj&lt;0.01)</figcaption>
+    </figure>
+    <figure>
+      <img src="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_horizontal.png"
+           alt="Horizontal KEGG-style pathway map พร้อม negative feedback loop สำหรับ ethylene signaling pathway">
+      <figcaption><b>แบบที่ 2 &mdash; Horizontal map พร้อม feedback loop:</b> ไหลซ้าย&rarr;ขวา กระชับกว่า
+      และแสดงลูป negative feedback (EBF1/2 + ETO1-like ยับยั้ง EIN3/EIL1) ที่แบบแรกไม่ได้แสดง
+      มีเพียง ERF66 และ EBP-89 ที่มีนัยสำคัญในทั้งสองสายพันธุ์ (ไฮไลต์สีแดงเข้ม)</figcaption>
+    </figure>
+  </div>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_vertical.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Vertical cascade <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_horizontal.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Horizontal map <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_pathway_genelist.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ยีนตระกูล ERF/EREBP ทั้ง 39 ยีน (log2FC, padj) <span class="file-badge">CSV</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_upstream_genelist.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ยีนต้นน้ำ (receptor &rarr; EIN3/EIL1 &rarr; feedback) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <h2>2. Fold Enrichment: pathway ไม่ผ่านเกณฑ์นัยสำคัญในสายพันธุ์ใดเลย</h2>
+  <p>แม้ Dharia Up จะมี Fold Enrichment สูงถึง 3.6&times; (3/35 ยีน) แต่ FDR ยังสูงถึง 0.29 &mdash;
+  ไม่ผ่านเกณฑ์นัยสำคัญ (FDR&lt;0.05) ส่วน PTT1 Up มี FE เพียง 1.25&times; (FDR=0.83) และอีกสองกลุ่ม
+  (Dharia Down, PTT1 Down) ไม่มี enrichment เลย ยืนยันว่า ethylene-activated signaling pathway
+  ไม่เคยมีนัยสำคัญระดับ pathway ในสายพันธุ์ใดเลย ทั้งที่มียีนปลายทางบางตัว (ERF66, EBP-89)
+  ที่แสดงออกเปลี่ยนแปลงชัดเจนมาก</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.png"
+         alt="Fold Enrichment bar chart สำหรับ GO term ethylene-activated signaling pathway ทั้ง 4 กลุ่มยีน">
+    <figcaption>Fold Enrichment ของ GO:0009873 (ethylene-activated signaling pathway) ในแต่ละรายชื่อยีน
+    &mdash; ไม่มีกลุ่มใด FDR&lt;0.05 เลย</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Fold Enrichment chart <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_GOterm_comparison.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ตาราง Fold Enrichment (4 กลุ่ม) <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <h2>3. ระดับยีนเดี่ยว: ERF66 และ EBP-89 คือยีนตอบสนองที่สอดคล้องกันที่สุด</h2>
+  <p>Scatter plot ด้านล่างแสดง log2FC ของยีนตระกูล ERF/EREBP ทั้ง 39 ยีน โดยแกน x = Dharia, แกน y = PTT1
+  จุดสีแดงคือ ERF66 และ EBP-89 &mdash; สองยีนเดียวที่มีนัยสำคัญในทั้งสองสายพันธุ์ ทั้งคู่อยู่ใน quadrant
+  &ldquo;เพิ่มขึ้นทั้งคู่&rdquo; (บนขวา) และอยู่ใกล้เส้นทแยงมุม (ทิศทาง/ขนาดใกล้เคียงกันระหว่างสองสายพันธุ์)
+  ต่างจากยีนอื่นๆ ในตระกูลที่ส่วนใหญ่ไม่มีนัยสำคัญเลยทั้งคู่ หรือมีนัยสำคัญเฉพาะ PTT1</p>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.png"
+         alt="Scatter plot log2FC Dharia vs PTT1 สำหรับยีนตระกูล ERF/EREBP 39 ยีน">
+    <figcaption>ยีนตระกูล ERF/EREBP ทั้ง 39 ยีน &mdash; ไฮไลต์ ERF66 และ EBP-89 ซึ่งเป็นยีนตอบสนอง ethylene
+    ระดับยีนที่สอดคล้องกันที่สุด แม้ pathway โดยรวมจะไม่ผ่านเกณฑ์นัยสำคัญ</figcaption>
+  </figure>
+  <div class="dl-row">
+    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_scatter.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Scatter plot <span class="file-badge">PDF</span>
+    </a>
+  </div>
+
+  <p class="caveat">
+    <b>วิธีทำซ้ำ (Reproducing this):</b> รายชื่อยีนตระกูล ERF/EREBP (39 ยีน) และยีนต้นน้ำ
+    (receptor, CTR1-like, EIN2, EIN3/EIL1, EBF1/2, ETO1-like) มาจากการสแกนแอนโนเทชันที่เกี่ยวข้องกับ
+    GO:0009873 แล้ว join กับตาราง DESeq2 v3 เต็มรูปแบบ (ไม่ใช่แค่ยีนที่มีนัยสำคัญ) ของทั้งสองสายพันธุ์
+    จำนวนยีนมีนัยสำคัญตรวจสอบไขว้กับค่า <code>k</code> ในไฟล์ <code>GOenrich_*_allterms.csv</code>
+    ต้นฉบับแล้วตรงกันทุกตัวเลข ยีนที่ไม่มีค่า log2FC ในสายพันธุ์ใด (ถูกกรองโดย DESeq2 independent
+    filtering) จะแสดงเป็นสีขาว/ไม่มีข้อมูลในแผนภาพ
+  </p>
+
+  <p class="caveat">
+  &larr; กลับไปที่ <a href="2026-09-14-go-enrichment.html">GO Enrichment overview</a> สำหรับภาพรวม
+  Dharia/PTT1 Up/Down ทั้งหมดที่เป็นที่มาของหน้านี้</p>
+
+  <footer>RNAseq Oui Lab Notebook &middot; Wanchana 2026</footer>
+</div>
+</body>
+</html>
