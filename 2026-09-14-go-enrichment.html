@@ -139,7 +139,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     <a href="2026-09-11-v3-vs-v4-comparison.html">2026-09-11&nbsp;&nbsp;v3 vs v4 Comparison</a>
     <a href="2026-09-14-go-enrichment.html" class="active">2026-09-14&nbsp;&nbsp;GO Enrichment</a>
     <a href="2026-09-14-glutathione-pathway.html">2026-09-14&nbsp;&nbsp;Glutathione Pathway</a>
-    <a href="2026-09-14-photosynthesis-pathway.html">2026-09-14&nbsp;&nbsp;Photosynthesis Pathway</a><a href="2026-09-15-ethylene-pathway.html">2026-09-15&nbsp;&nbsp;Ethylene Pathway</a>
+    <a href="2026-09-14-photosynthesis-pathway.html">2026-09-14&nbsp;&nbsp;Photosynthesis Pathway</a><a href="2026-09-15-ethylene-pathway.html">2026-09-15&nbsp;&nbsp;Ethylene Pathway</a><a href="2026-09-15-oxidative-stress-pathway.html">2026-09-15&nbsp;&nbsp;Oxidative Stress Pathway</a>
   </nav>
 </div>
 
@@ -268,11 +268,19 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
 
   <h2>What stands out</h2>
   <ul>
-    <li><b>Opposite oxidative-stress direction by variety:</b> Dharia loses "response to
-    oxidative stress" / "hydrogen peroxide catabolic process" under compaction (down), while
-    PTT1 loses the same terms too but from a much larger, translation-dominated shutdown &mdash;
-    both varieties down-regulate stress-response machinery, but PTT1's response is buried inside
-    a genome-wide translational slowdown that Dharia does not show at this gene-list size.</li>
+    <li><b>Oxidative-stress genes down-regulated in both varieties (not opposite):</b>
+    <s>an earlier version of this page said this direction was opposite between varieties &mdash;
+    that was wrong, corrected 2026-09-15</s>. Dharia significantly loses "response to oxidative
+    stress" / "hydrogen peroxide catabolic process" under compaction (down, FDR&nbsp;0.0012&ndash;
+    0.0035), and PTT1 shows the <i>same</i> direction and is significant there too
+    (down, FDR&nbsp;4.0&times;10⁻⁷&ndash;7.5&times;10⁻⁸) &mdash; PTT1's Up-list is not enriched for
+    either term (FE&nbsp;&lt;&nbsp;1 for both). Gene-level check across all 160 annotated
+    peroxidase-family genes found <b>zero</b> genes that are significant in both varieties with
+    opposite sign. PTT1's down-hit count is far larger (83 vs Dharia's 12 significant genes) simply
+    because PTT1's overall down-regulated gene list is much bigger (6,072 vs 178), not because the
+    direction differs. See the dedicated
+    <a href="2026-09-15-oxidative-stress-pathway.html"><b>Oxidative-Stress Pathway</b></a> page for
+    the full gene-level diagram and comparison.</li>
     <li><b>Photosynthesis moves opposite directions between varieties' up-lists:</b> PTT1 Up is
     dominated by photosynthesis/light-harvesting terms (gaining capacity), while Dharia Up shows
     only a small photosynthesis-light-harvesting signal (4 genes) next to a much stronger
