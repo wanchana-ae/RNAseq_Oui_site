@@ -158,7 +158,7 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
   ไม่เคยมีนัยสำคัญระดับ term ในสายพันธุ์ใดเลย (FDR&nbsp;&ge;&nbsp;0.29 ทุกจุดที่ทดสอบได้) แต่ยีนตระกูล
   transcription factor ปลายทาง ERF/EREBP สองตัว &mdash; <b>ERF66</b> และ <b>EBP-89</b> &mdash; แสดงออกเพิ่มขึ้น
   อย่างมีนัยสำคัญในทั้ง Dharia และ PTT1 หน้านี้เจาะลึกด้วย 3 มุมมอง: ระดับยีนเดี่ยว (scatter),
-  Fold Enrichment ที่ normalize แล้ว, และลำดับขั้นตอนการส่งสัญญาณทั้งสาย (2 รูปแบบ)</p>
+  Fold Enrichment ที่ normalize แล้ว, และลำดับขั้นตอนการส่งสัญญาณทั้งสาย</p>
 
   <div class="stat-row">
     <div class="stat-card">
@@ -235,26 +235,15 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
     EIN3/EIL1 กลับไป เป็นการควบคุมไม่ให้สัญญาณแรงเกินไป</p>
   </div>
 
-  <div class="two-col">
-    <figure>
-      <img src="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_vertical.png"
-           alt="Vertical KEGG-style cascade diagram สำหรับ ethylene signaling pathway">
-      <figcaption><b>แบบที่ 1 &mdash; Vertical cascade:</b> ไล่จากบนลงล่างทีละขั้น ตั้งแต่ ethylene receptor
-      จนถึงยีนตระกูล ERF/EREBP ทั้ง 39 ยีน แต่ละการ์ด ครึ่งซ้าย = Dharia, ครึ่งขวา = PTT1
-      (log2FC, padj&lt;0.01)</figcaption>
-    </figure>
-    <figure>
-      <img src="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_horizontal.png"
-           alt="Horizontal KEGG-style pathway map พร้อม negative feedback loop สำหรับ ethylene signaling pathway">
-      <figcaption><b>แบบที่ 2 &mdash; Horizontal map พร้อม feedback loop:</b> ไหลซ้าย&rarr;ขวา กระชับกว่า
-      และแสดงลูป negative feedback (EBF1/2 + ETO1-like ยับยั้ง EIN3/EIL1) ที่แบบแรกไม่ได้แสดง
-      มีเพียง ERF66 และ EBP-89 ที่มีนัยสำคัญในทั้งสองสายพันธุ์ (ไฮไลต์สีแดงเข้ม)</figcaption>
-    </figure>
-  </div>
+  <figure>
+    <img src="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_horizontal.png"
+         alt="Horizontal KEGG-style pathway map พร้อม negative feedback loop สำหรับ ethylene signaling pathway">
+    <figcaption>Horizontal map พร้อม feedback loop: ไหลซ้าย&rarr;ขวา ตั้งแต่ ethylene receptor
+    จนถึงยีนตระกูล ERF/EREBP ทั้ง 39 ยีน พร้อมลูป negative feedback (EBF1/2 + ETO1-like ยับยั้ง EIN3/EIL1)
+    แต่ละการ์ด ครึ่งซ้าย = Dharia, ครึ่งขวา = PTT1 (log2FC, padj&lt;0.01) &mdash; มีเพียง ERF66 และ EBP-89
+    ที่มีนัยสำคัญในทั้งสองสายพันธุ์ (ไฮไลต์สีแดงเข้ม)</figcaption>
+  </figure>
   <div class="dl-row">
-    <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_vertical.pdf" target="_blank" style="--badge-color:#ef4444">
-      &#128213; Vertical cascade <span class="file-badge">PDF</span>
-    </a>
     <a class="file-link" href="go-enrichment-assets/RNAseq_Oui_ethylene_kegg_horizontal.pdf" target="_blank" style="--badge-color:#ef4444">
       &#128213; Horizontal map <span class="file-badge">PDF</span>
     </a>
