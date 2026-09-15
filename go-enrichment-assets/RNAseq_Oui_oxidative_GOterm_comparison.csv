@@ -1,0 +1,9 @@
+term,group,k,n,K,N,FE,FDR
+hydrogen peroxide catabolic process (GO:0042744),Dharia Up,3,713,106,29909,1.187,0.67
+hydrogen peroxide catabolic process (GO:0042744),Dharia Down,6,178,106,29909,9.511,0.00123
+hydrogen peroxide catabolic process (GO:0042744),PTT1 Up,11,6830,106,29909,0.454,0.9997
+hydrogen peroxide catabolic process (GO:0042744),PTT1 Down,49,6072,106,29909,2.277,7.55e-08
+response to oxidative stress (GO:0006979),Dharia Up,6,713,145,29909,1.736,0.486
+response to oxidative stress (GO:0006979),Dharia Down,6,178,145,29909,6.953,0.00348
+response to oxidative stress (GO:0006979),PTT1 Up,24,6830,145,29909,0.725,0.975
+response to oxidative stress (GO:0006979),PTT1 Down,59,6072,145,29909,2.004,4.03e-07
