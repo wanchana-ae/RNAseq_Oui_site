@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gene Category Heatmap Detail (2026-09-15) | RNAseq Oui</title>
+<style>
+:root {
+  --bg:#f8f9fa; --sidebar-bg:#1e293b; --sidebar-text:#cbd5e1;
+  --sidebar-active:#38bdf8; --sidebar-hover:#334155;
+  --accent:#0ea5e9; --accent2:#6366f1; --text:#1e293b;
+  --muted:#64748b; --border:#e2e8f0; --code-bg:#f1f5f9; --card:#ffffff;
+  --badge-color:#0ea5e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);
+  color:var(--text);display:flex;min-height:100vh;font-size:15px}
+
+#sidebar{width:260px;min-height:100vh;background:var(--sidebar-bg);
+  color:var(--sidebar-text);position:sticky;top:0;height:100vh;
+  overflow-y:auto;flex-shrink:0}
+#sidebar .brand{padding:20px 18px 16px;border-bottom:1px solid #334155;
+  font-size:13px;font-weight:700;color:var(--sidebar-active);
+  letter-spacing:.05em;text-transform:uppercase}
+#sidebar .brand span{display:block;font-size:11px;color:var(--muted);
+  font-weight:400;text-transform:none;margin-top:2px}
+#sidebar nav{padding:10px 0}
+#sidebar nav .section-label{padding:14px 18px 4px;font-size:10px;
+  font-weight:700;text-transform:uppercase;color:#475569;letter-spacing:.08em}
+#sidebar nav a{display:block;padding:8px 18px;color:var(--sidebar-text);
+  text-decoration:none;font-size:13px;border-left:3px solid transparent;
+  transition:all .15s}
+#sidebar nav a:hover{background:var(--sidebar-hover);color:#fff}
+#sidebar nav a.active{background:var(--sidebar-hover);color:var(--sidebar-active);
+  border-left-color:var(--sidebar-active);font-weight:600}
+
+#main{flex:1;padding:36px 48px;max-width:1080px}
+#main h1{font-size:2em;font-weight:800;margin-bottom:6px;line-height:1.2}
+#main h2{font-size:1.35em;font-weight:700;margin:32px 0 12px;
+  padding-bottom:6px;border-bottom:2px solid var(--border)}
+#main h3{font-size:1.1em;font-weight:700;margin:24px 0 10px;color:var(--accent2)}
+#main p{line-height:1.75;margin-bottom:12px;color:#334155}
+#main a{color:var(--accent);text-decoration:none}
+#main a:hover{text-decoration:underline}
+#main ul,#main ol{padding-left:22px;margin-bottom:12px}
+#main li{line-height:1.75;margin-bottom:3px}
+#main strong{color:var(--text);font-weight:700}
+#main hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+
+.meta-bar{display:flex;align-items:center;gap:12px;
+  padding:10px 16px;background:var(--card);border:1px solid var(--border);
+  border-radius:8px;margin-bottom:28px;font-size:.85em;color:var(--muted)}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;
+  font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.badge-done{background:#dcfce7;color:#166534}
+
+figure{margin:20px 0 28px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+figure img{width:100%;height:auto;border-radius:6px;display:block}
+figcaption{font-size:.82em;color:var(--muted);margin-top:10px;line-height:1.6}
+figcaption b{color:var(--text)}
+
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0 24px}
+.stat-card{flex:1;min-width:190px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.stat-card .label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--muted);margin-bottom:6px}
+.stat-card .value{font-size:1.5rem;font-weight:800;font-family:'Cascadia Code','Fira Code',monospace}
+.stat-card .value.up{color:#059669}
+.stat-card .value.down{color:#dc2626}
+.stat-card .sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+
+.dl-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 8px}
+a.file-link{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f0f9ff;border:1px solid #bae6fd;
+  padding:6px 12px;border-radius:6px;font-size:.85em;
+  color:#0369a1;text-decoration:none;transition:all .15s;
+  white-space:nowrap;
+}
+a.file-link:hover{background:#e0f2fe;border-color:#38bdf8;
+  color:#0284c7;text-decoration:none}
+.file-badge{background:var(--badge-color);color:#fff;font-size:.7em;
+  font-weight:700;padding:1px 6px;border-radius:4px;
+  letter-spacing:.05em;text-transform:uppercase}
+
+.caveat{font-size:.85em;color:var(--muted);line-height:1.7;
+  background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;margin:20px 0}
+.caveat b{color:#92400e}
+
+.legend-row{display:flex;flex-wrap:wrap;gap:18px;margin:10px 0 20px;
+  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.85em;color:#334155}
+.legend-swatch{width:16px;height:16px;border-radius:3px;border:1px solid #94a3b8;flex-shrink:0}
+
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);
+  font-size:.8em;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  body{flex-direction:column}
+  #sidebar{width:100%;min-height:auto;height:auto;position:static}
+  #main{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="brand">RNAseq Oui Lab Notebook
+    <span>Wanchana 2026</span>
+  </div>
+  <nav>
+    <div class="section-label">Project</div>
+    <a href="index.html">Project Overview</a>
+    <div class="section-label">Daily Logs</div>
+    <a href="2026-04-30-setup.html">2026-04-30&nbsp;&nbsp;Setup</a>
+    <a href="2026-05-01-qc.html">2026-05-01&nbsp;&nbsp;FastQC QC</a>
+    <a href="2026-05-01-hisat2.html">2026-05-01&nbsp;&nbsp;HISAT2 Mapping</a>
+    <a href="2026-05-01-prepde.html">2026-05-01&nbsp;&nbsp;prepDE</a>
+    <a href="2026-05-01-deseq2.html">2026-05-01&nbsp;&nbsp;DESeq2 v1</a>
+    <a href="2026-05-01-deseq2-v2.html">2026-05-01&nbsp;&nbsp;DESeq2 v2 (11 samples)</a>
+    <a href="2026-05-08-fastp.html">2026-05-08&nbsp;&nbsp;fastp Trimming</a>
+    <a href="2026-05-08-hisat2-v2.html">2026-05-08&nbsp;&nbsp;HISAT2 v2 (trimmed)</a>
+    <a href="2026-05-08-deseq2-v3.html">2026-05-08&nbsp;&nbsp;DESeq2 v3 (11 samples)</a>
+    <a href="2026-05-08-os03g0297600-heatmap.html">2026-05-08&nbsp;&nbsp;Os03g0297600 Heatmap</a>
+    <a href="2026-05-11-multigene-heatmap.html">2026-05-11&nbsp;&nbsp;Multi-Gene Heatmap</a>
+    <a href="2026-09-09-deseq2-v4.html">2026-09-09&nbsp;&nbsp;DESeq2 v4 (13 samples)</a>
+    <a href="2026-09-10-coexpression-explorer.html">2026-09-10&nbsp;&nbsp;Co-expression Explorer</a>
+    <a href="2026-09-10-coexpression-heatmap.html">2026-09-10&nbsp;&nbsp;Correlation Heatmap</a>
+    <a href="2026-09-11-v3-vs-v4-comparison.html">2026-09-11&nbsp;&nbsp;v3 vs v4 Comparison</a>
+    <a href="2026-09-14-go-enrichment.html">2026-09-14&nbsp;&nbsp;GO Enrichment</a>
+    <a href="2026-09-15-oxidative-stress-detail.html">2026-09-15&nbsp;&nbsp;Oxidative-Stress Detail</a>
+    <a href="2026-09-15-ethylene-signaling-detail.html">2026-09-15&nbsp;&nbsp;Ethylene Signaling Detail</a>
+    <a href="2026-09-15-category-panels-detail.html" class="active">2026-09-15&nbsp;&nbsp;Gene Category Heatmap</a>
+  </nav>
+</div>
+
+<div id="main">
+  <div class="meta-bar">
+    <span>RNAseq Oui</span><span>&middot;</span>
+    <span>IRGSP-1.0 (Oryza sativa)</span>
+    <span>&middot;</span><span>DESeq2 v3, padj&lt;0.01</span>
+    <span>&middot;</span><span class="badge badge-done">เสร็จสิ้น</span>
+  </div>
+
+  <h1>157 ยีนฮอร์โมน/Mechano-sensing แยกตามหมวด &mdash; Heatmap เปรียบเทียบ 4 กลุ่มตัวอย่าง</h1>
+  <p>ภาพนี้แสดงระดับการแสดงออกของยีนกลุ่มฮอร์โมนและ mechano-sensing ทั้ง 157 ยีน (6 หมวด: Auxin, Jasmonate,
+  ABA, Ethylene signalling, Cell wall responsive, Mechano sensing &mdash; รายชื่อจาก
+  <i>Gene list_Oat.xlsx</i> ที่ใช้ร่วมกับหน้า <a href="2026-09-10-coexpression-heatmap.html">Correlation
+  Heatmap</a> และหน้า <a href="2026-09-11-v3-vs-v4-comparison.html">v3 vs v4 Comparison</a>) เปรียบเทียบ
+  ระหว่าง 4 กลุ่มตัวอย่าง &mdash; Dharia Control, Dharia Compact, PTT1 Control, PTT1 Compact
+  (v3: 11 samples, ตัด DC3/DN3 ออก) โดยผ่านการ normalize แบบ median-of-ratios (สไตล์ DESeq2) จาก
+  raw counts ทั้งจีโนมก่อน แล้วจึง log2-transform และคำนวณ Z-score รายยีนเพื่อดูรูปแบบขึ้น/ลงโดยไม่ถูกยีน
+  ที่แสดงออกสูงมากบดบัง ภายในแต่ละหมวดยีนถูกเรียงลำดับตามค่า Dharia log2FC (Compact vs Control) จากมากไปน้อย</p>
+
+  <p>คอลัมน์ <b>D</b> และ <b>P</b> ทางขวาของแต่ละแถวคือเครื่องหมายนัยสำคัญทางสถิติ (padj&nbsp;&lt;&nbsp;0.01
+  หลังปรับด้วย Benjamini-Hochberg FDR) จากการทดสอบ Compact vs Control <b>ภายในสายพันธุ์เดียวกัน</b> &mdash;
+  D&nbsp;=&nbsp;ผลทดสอบของ Dharia, P&nbsp;=&nbsp;ผลทดสอบของ PTT1 (ไม่ใช่การเทียบข้ามสายพันธุ์)
+  สีดำ&nbsp;=&nbsp;มีนัยสำคัญ, สีขาว&nbsp;=&nbsp;ไม่มีนัยสำคัญ, สีเทา&nbsp;=&nbsp;ไม่มีข้อมูล (ยีนถูกกรองออก
+  โดย DESeq2 เช่น count ต่ำเกินไป)</p>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="label">ยีนทั้งหมด</div>
+      <div class="value">157</div>
+      <div class="sub">6 หมวด จาก Gene list_Oat.xlsx</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">กลุ่มตัวอย่าง</div>
+      <div class="value">4</div>
+      <div class="sub">Dharia/PTT1 &times; Control/Compact</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Normalization</div>
+      <div class="value" style="font-size:1.1rem">Median-of-ratios</div>
+      <div class="sub">log2(x+1), จากนั้น Z-score รายยีน</div>
+    </div>
+  </div>
+
+  <h2>Heatmap แยกตามหมวดยีน เรียงตาม log2FC</h2>
+  <figure>
+    <img src="category-panels-assets/RNAseq_Oui_category_panels.png"
+         alt="Heatmap แสดง Z-score การแสดงออกของยีน 157 ยีน 6 หมวด เปรียบเทียบ 4 กลุ่มตัวอย่าง พร้อมคอลัมน์เครื่องหมายนัยสำคัญ D และ P">
+    <figcaption>Group-mean expression (log2 normalized, row Z-score) ของยีนฮอร์โมน/mechano-sensing
+    157 ยีน แบ่งตาม 6 หมวด เรียงในแต่ละหมวดตาม Dharia log2FC คอลัมน์ D/P&nbsp;=&nbsp;ผลทดสอบนัยสำคัญ
+    (padj&lt;0.01, Compact vs Control) ภายในแต่ละสายพันธุ์แยกกัน &mdash; ดำ=มีนัยสำคัญ, ขาว=ไม่มีนัยสำคัญ,
+    เทา=ไม่มีข้อมูล</figcaption>
+  </figure>
+
+  <div class="legend-row">
+    <div class="legend-item"><span class="legend-swatch" style="background:#000"></span> D/P มีนัยสำคัญ (padj&lt;0.01)</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:#f8fafc"></span> ไม่มีนัยสำคัญ</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:#cbd5e1"></span> ไม่มีข้อมูล (กรองโดย DESeq2)</div>
+  </div>
+
+  <div class="dl-row">
+    <a class="file-link" href="category-panels-assets/RNAseq_Oui_category_panels.pdf" target="_blank" style="--badge-color:#ef4444">
+      &#128213; Heatmap เต็ม <span class="file-badge">PDF</span>
+    </a>
+    <a class="file-link" href="category-panels-assets/RNAseq_Oui_category_panel_zscores.csv" download style="--badge-color:#0ea5e9">
+      &#128196; ตาราง Z-score + D/P significance ทั้ง 157 ยีน <span class="file-badge">CSV</span>
+    </a>
+  </div>
+
+  <p class="caveat">
+    <b>ข้อจำกัดของ normalization:</b> heatmap ต้นฉบับ (หน้า
+    <a href="2026-05-11-multigene-heatmap.html">Multi-Gene Heatmap</a>) ใช้ค่า <code>vst()</code> จาก
+    DESeq2 ใน R แต่สคริปต์เดิมไม่ได้ export matrix ที่ผ่าน VST ออกมาเป็นไฟล์ (มีแต่ตาราง DE summary
+    กับ raw counts) ภาพนี้จึงคำนวณ normalization ใหม่ตั้งแต่ raw counts ด้วยวิธี median-of-ratios
+    (สูตรเดียวกับที่ DESeq2 ใช้ภายในสำหรับ size factor) แล้ว log2-transform แทน &mdash; เป็นวิธีที่ใกล้เคียง
+    กับ VST มากที่สุดที่ทำซ้ำได้จากข้อมูลที่มีอยู่ แต่ค่า Z-score ที่ได้อาจต่างจาก heatmap ต้นฉบับเล็กน้อย
+    โดยเฉพาะยีนที่มี count ต่ำ (VST หด variance ของยีน low-count มากกว่า log2 ธรรมดา)
+  </p>
+
+  <p class="caveat">
+  &larr; ดูข้อมูลที่มาของรายชื่อ 157 ยีนและหมวดหมู่เพิ่มเติมได้ที่หน้า
+  <a href="2026-09-10-coexpression-heatmap.html">Correlation Heatmap</a> และจำนวนยีนมีนัยสำคัญต่อหมวด
+  (v3 vs v4) ที่หน้า <a href="2026-09-11-v3-vs-v4-comparison.html">v3 vs v4 Comparison</a></p>
+
+  <footer>RNAseq Oui Lab Notebook &middot; Wanchana 2026</footer>
+</div>
+</body>
+</html>
